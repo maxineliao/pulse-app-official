@@ -4,20 +4,121 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 		<title>PULSE 無損音質感受音樂的脈動</title>
 		<link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
 	</head>
 	<body>
 		<%- include('./layout/header-visitor'); -%>
-		<section class="hero-header">
-			<picture>
-				<source media="(min-width: 576px)" srcset="/assets/images/hero-banner.jpg">
-				<img class="img-banner img-fluid" src="/assets/images/hero-banner.jpg" alt="girl with headset">
-			</picture>
-		</section>
+		<main class="index">
+			<!-- Hero -->
+			<section class="hero-header position-relative" style="background-image: url(../assets/images/linear.png);">
+				<picture>
+					<source media="(min-width: 576px)" srcset="/assets/images/hero-banner.jpg">
+					<img class="img-banner img-fluid h-100" src="/assets/images/hero-banner-sm.jpg" alt="girl with headset">
+				</picture>
+				<div class="hero-content d-flex flex-wrap flex-column justify-content-center align-items-center position-absolute top-50 start-50 translate-middle mt-6 mt-sm-5 mt-lg-6">
+					<p class="sub-title mb-4 mb-lg-11">🎧 無損音質感受音樂的脈動</p>
+					<picture>
+						<source media="(min-width: 992px)" srcset="/assets/images/hero-title-lg.png">
+						<img class="img-title img-fluid mb-lg-5 mb-4" src="/assets/images/hero-title-sm.png" alt="girl with headset">
+					</picture>
+					<div class="btn-container d-flex justify-content-center flex-wrap flex-lg-nowrap">
+						<a class="btn-customize-padding btn btn-lg rounded-pill text-white d-flex align-items-center order-lg-2" href="#">查看方案<span class="btn-arrow btn-arrow-bg-light rounded-pill px-3 px-lg-5 py-1 py-lg-2 ms-5 d-lg-flex align-items-center justify-content-center d-none"><i data-lucide="arrow-up-right"></i></span></a>
+						<a class="btn-customize-padding bg-white-opacity btn btn-lg btn-outline-third rounded-pill text-white d-flex align-items-center me-lg-5 order-lg-1" href="#">Listen now<span class="btn-arrow rounded-pill bg-white px-3 px-lg-5 py-1 py-lg-2 ms-5 d-flex align-items-center justify-content-center"><i data-lucide="arrow-up-right" class="text-dark"></i></span></a>
+					</div>
+				</div>
+			</section>
+			<!-- 超乎想像的音樂盛宴 -->
+			<section class="py-9 py-lg-10">
+				<p class="display-1 text-center text-uppercase mb-3 mb-lg-4">Melodies<br>
+					That<br>
+					Defy<br>
+					Imagination
+				</p>
+				<p class="h1 text-center mb-6 mb-lg-8">超乎想像的音樂盛宴</p>
+				<!-- Slider main container -->
+				<div class="swiper overflow-">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper flex-column flex-md-row">
+						<!-- Slides -->
+						<div class="swiper-slide">
+							<div class="container">
+								<div class="row justify-content-center">
+									<div class="col-md-4 card card-lg bg-white-opacity me-md-5">
+										<img src="/assets/images/card-pic-1_1.png" class="card-img-top mb-5" alt="speaker">
+										<div class="card-body">
+											<h4 class="card-title mb-2">無損音質</h4>
+											<p class="card-text">無可挑剔的細膩，超越CD的聆聽體驗</p>
+										</div>
+									</div>
+									<div class="col-md-4 card card-lg bg-white-opacity">
+										<img src="/assets/images/card-pic-1_2.png" class="card-img-top mb-5" alt="speaker">
+										<div class="card-body">
+											<h4 class="card-title mb-2">個人化推薦歌單</h4>
+											<p class="card-text">系統自動推薦最適合你的歌單，讓你不斷發掘新的好聲音</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide">
+							<div class="container">
+								<div class="row justify-content-center">
+									<div class="col-md-4 card card-lg bg-white-opacity me-md-5">
+										<img src="/assets/images/card-pic-1_1.png" class="card-img-top mb-5" alt="speaker">
+										<div class="card-body">
+											<h4 class="card-title mb-2">無損音質222</h4>
+											<p class="card-text">無可挑剔的細膩，超越CD的聆聽體驗</p>
+										</div>
+									</div>
+									<div class="col-md-4 card card-lg bg-white-opacity">
+										<img src="/assets/images/card-pic-1_2.png" class="card-img-top mb-5" alt="speaker">
+										<div class="card-body">
+											<h4 class="card-title mb-2">個人化推薦歌單</h4>
+											<p class="card-text">系統自動推薦最適合你的歌單，讓你不斷發掘新的好聲音</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- If we need navigation buttons -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</section>
+		</main>
 
 		<%- include('./layout/footer'); -%>
 
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script>
+			const swiper = new Swiper('.swiper', {
+				// Optional parameters
+				direction: 'horizontal',
+				loop: true,
+				// Navigation arrows
+				navigation: {
+					nextEl: '.swiper-button-next',
+					prevEl: '.swiper-button-prev',
+				},
+			});
+			let width = window.innerWidth;
+			if (window.innerWidth < 768) {
+				swiper.disable();
+			} else {
+				swiper.enable();
+			}
+			window.addEventListener('resize', function() {
+				let winResize = this;
+				if (winResize.innerWidth < 768) {
+					swiper.disable();
+				} else {
+					swiper.enable();
+				}
+			});
+		</script>
 		<script type="module" src="../main.js"></script>
 	</body>
 </html>

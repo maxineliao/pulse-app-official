@@ -1,2 +1,60 @@
-
-	// mix-blend-mode: multiply;
+.index {
+	.hero-header {
+		height: 812px;
+		background-position: 70% 85%;
+		.img-banner {
+			mix-blend-mode: multiply;
+			object-fit: cover;
+		}
+		.btn-lg {
+			font-size: 1.25rem;
+			padding: 1.25rem 1.5rem;
+		}
+	}
+	.hero-content {
+		width: 80%;
+		.sub-title {
+			font-size: 1.25rem;
+		}
+	}
+	.btn-customize-padding {
+		padding-right: 32px;
+	}
+	.btn-arrow-bg-light {
+		background-color: $third;
+	}
+	.bg-white-opacity {
+		background-color: $white-bg;
+	}
+	.btn.bg-white-opacity:hover {
+		background-color: rgba(255,255,255,0.2);
+	}
+	.card-lg {
+		padding: 32px;
+		border-radius: 1.5rem;
+		border: 1px solid $third;
+		.card-body {
+			padding: 0;
+		}
+	}
+}
+@media screen and (min-width: 992px) {
+	.index {
+		.hero-header {
+			height: auto;
+			.btn-lg {
+				font-size: 2rem;
+				padding: 1.5rem 3rem;
+			}
+		}
+		.hero-content {
+			width: 70%;
+			.sub-title {
+				font-size: 2rem;
+			}
+		}
+		.card-lg {
+			padding: 64px;
+		}
+	}
+}
