@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subscription Plans</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+
+<body>
+    <%- include('./layout/header-visitor'); -%>
+        <section class="subscription-banner d-flex align-items-center justify-content-center">
+            <div class="banner-title container d-flex flex-column align-items-center">
+                <h2 class="mb-0 fw-light">🔥立即升級</h2>
+                <h2 class="mb-0 blur-font pc-item sub-title1 mt40">PULSEPREMIUM</h2>
+                <h2 class="mb-0 pc-item fw-light mt40">無論一人獨享或親友同樂，隨時隨地感受無損音質的震撼。</h2>
+                <h2 class="mb-0 mobile-item sub-title1 pt-4">PULSE</h2>
+                <h2 class="mb-0 mobile-item sub-title1">PREMIUM</h2>
+                <h2 class="mb-0 mobile-item fw-light pt-4">無論一人獨享或親友同樂，</h2>
+                <h2 class="mb-0 mobile-item fw-light">隨時隨地感受無損音質的震撼。</h2>
+                <h2 class="mb-0 fw-light">方案可隨時取消。</h2>
+                <div class="explore-tab mt40 py-3 px-sm-5 px-3 d-flex align-items-center">
+                    <h2 class="mb-0 ps-sm-3 ps-2 pe-sm-5 pe-3">探索方案</h2>
+                    <div id="archorButton" class="bg-primary rounded-5 px-sm-5 py-sm-2 px-3 py-1">
+                        <i class="text-black" data-lucide="arrow-down"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="content container">
+            <section class="feature py-9 py-sm-10">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h1 class="sub-title2 pc-item">KEY FEATURES</h1>
+                        <h1 class="sub-title2 mobile-item">KEY</h1>
+                        <h1 class="sub-title2 mobile-item">FEATURES</h1>
+                        <h1 class="pt-4">Premium 特色功能</h1>
+                    </div>
+                </div>
+                <div class="row pt-sm-8 pt-0">
+                    <div class="col-sm-3">
+                        <div class="feature-card d-flex flex-column align-items-center">
+                            <div class="feature-card-img d-flex justify-content-center align-items-center">
+                                <i data-lucide="music"
+                                style="height: 78px;
+                                width: 86px;
+                                color: rgba(19, 235, 214, 1);
+                                filter: drop-shadow(0 0 10px rgba(55, 124, 163, 1));"></i>
+                            </div>
+                            <div class="pt-0 pt-sm-5 feature-text d-flex flex-column align-items-center">
+                                <h5 class="pt-sm-2 pt-0">無損音質</h5>
+                                <p class="mb-0">無可挑剔的細膩，</p>
+                                <p class="mb-0">超越CD的聆聽體驗。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature-card d-flex flex-column align-items-center">
+                            <div class="feature-card-img d-flex justify-content-center align-items-center">
+                                <i data-lucide="heart-pulse" 
+                                style="height: 78px;
+                                width: 86px;
+                                color: #FF9900;
+                                filter: drop-shadow(0 0 10px #A37737);"></i>
+                            </div>
+                            <div class="pt-0 pt-sm-5 feature-text d-flex flex-column align-items-center">
+                                <h5 class="pt-sm-2 pt-0">共享脈動帳號</h5>
+                                <p class="mb-0">無需同住一個屋簷下，</p>
+                                <p class="mb-0">PULSE讓你與好友零距離。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature-card d-flex flex-column align-items-center">
+                            <div class="feature-card-img d-flex justify-content-center align-items-center">
+                                <i data-lucide="monitor-smartphone"
+                                style="height: 78px;
+                                width: 86px;
+                                color: rgba(153, 235, 19, 1);
+                                filter: drop-shadow(0 0 10px rgba(163, 107, 55, 1));"></i>
+                            </div>
+                            <div class="pt-0 pt-sm-5 feature-text d-flex flex-column align-items-center">
+                                <h5 class="pt-sm-2 pt-0">多平台通用</h5>
+                                <p class="mb-0">上班偷聽用網頁播放器，</p>
+                                <p class="mb-0">健身通勤用PULSE App！</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="feature-card d-flex flex-column align-items-center">
+                            <div class="feature-card-img d-flex justify-content-center align-items-center">
+                                <i data-lucide="mic-vocal"
+                                style="height: 78px;
+                                width: 86px;
+                                color: rgba(0, 255, 102, 1);
+                                filter: drop-shadow(0 0 10px rgba(19, 235, 214, 1));"></i>
+                            </div>
+                            <div class="pt-0 pt-sm-5 feature-text d-flex flex-column align-items-center">
+                                <h5 class="pt-sm-2 pt-0">開台一起聽</h5>
+                                <p class="mb-0">想分享您最愛的歌單？</p>
+                                <p class="mb-0">立即創建專屬你的直播電台</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="plan-block py-9 py-sm-10">
+                <div class="row">
+                    <div id="student-plan" class="col-sm-6 plan-banner position-relative d-flex justify-content-center mb-sm-2">
+                        <img class="pc-item" src="/assets/images/Subscription_Student.png" alt="">
+                        <img class="mobile-item" src="/assets/images/Subscription_sm_Student.png" alt="">
+                        <div class="plan-discription position-absolute">
+                            <h2 class="sub-title2">STUDENT</h2>
+                            <h2 class="sub-title2">PLAN</h2>
+                            <h1>學生方案</h1>
+                            <h5 class="fs-sm-5 fs-6">*須符合資格方可享學生優惠</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PARTY FOR ONE</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">1人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$59/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PARTY FOR FRIENDS</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">4人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$168/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PARTY FOR ALL</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">10人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$388/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="plan-block py-9 py-sm-10">
+                <div class="row">
+                    <div class="col-sm-6 premium plan-banner position-relative d-flex justify-content-center mb-sm-2">
+                        <img class="pc-item" src="/assets/images/Subscription_Premium.png" alt="">
+                        <img class="mobile-item" src="/assets/images/Subscription_sm_Premium.png" alt="">
+                        <div class="plan-discription position-absolute">
+                            <h2 class="sub-title2">PREMIUM</h2>
+                            <h2 class="sub-title2">PLAN</h2>
+                            <h1>Premium方案</h1>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PARTY FOR ONE</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">1人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$149/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PULSE FOR FRIENDS & FAMILY</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">4人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$399/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                        <div class="plan-card rounded-4 d-flex justify-content-between align-items-center px-6 py-5 mb-5">
+                            <div class="discription">
+                                <div class="plan-card-header d-flex py-3">
+                                    <img class="me-2" src="/assets/images/Subscription_sm_icon.png" alt="">
+                                    <h6 class="mb-0">PARTY FOR EVERYONE</h6>
+                                </div>
+                                <h1 class="fw-bold blur-font">10人方案</h1>
+                            </div>
+                            <div class="price d-flex align-items-center">
+                                <h3 class="fw-bold mt-5">NT$888/月</h3>
+                                <i data-lucide="arrow-right" class="pc-arrow ms-3 mt-2"></i>
+                            </div>
+                            <i data-lucide="arrow-right" class="mobile-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="faq py-9 py-sm-10">
+                <div class="row">
+                    <div class="col-12 pb-sm-8 pb-6 text-center">
+                        <h1 class="sub-title2">FAQ</h1>
+                        <h1>常見問題</h1>
+                    </div>
+                </div>
+                <div class="more-info mb-6 py-3 px-3 justify-content-center align-items-center"
+                    style="width: 65%;">
+                    <h5 class="pe-3 mb-0">更多訂閱方案</h5>
+                    <div class="bg-primary px-3 py-1 rounded-5">
+                        <i class="text-black" data-lucide="arrow-up-right"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="QA-group">
+                        <div class="question d-flex justify-content-between align-items-center py-3" data-bs-toggle="collapse" href="#Q1" role="button"
+                            aria-expanded="false" aria-controls="Q1">
+                            <div class="d-flex align-items-center">
+                                <h2 class="sub-title2">Q</h2>
+                                <h4 class="ps-6">PULSE Premium包含哪些進階功能？</h4>
+                            </div>
+                            <img src="/assets/images/Subscription_Plus.png" alt="">
+                        </div>
+                        <div class="collapse" id="Q1">
+                            <div class="d-flex flex-row align-items-center">
+                                <h2 class="sub-title2 mb-sm-0 mb-8">A</h2>
+                                <p class="ps-6 mb-0">
+                                    除了享受 24bit / 192kHz Hi-Res 無損音質，你也能隨時隨地使用 PULSE App，自訂歌單、AI智能推薦、
+                                    <br>
+                                    個人電台等功能應有盡有。我們也提供網頁版免費試用，快來體驗看看吧
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="QA-group">
+                        <div class="question d-flex justify-content-between align-items-center py-3" data-bs-toggle="collapse" href="#Q2" role="button"
+                            aria-expanded="false" aria-controls="Q2">
+                            <div class="d-flex align-items-center">
+                                <h2 class="sub-title2">Q</h2>
+                                <h4 class="ps-6">多人方案有任何限制嗎？</h4>
+                            </div>
+                            <img src="/assets/images/Subscription_Plus.png" alt="">
+                        </div>
+                        <div class="collapse" id="Q2">
+                            <div class="d-flex flex-row align-items-center">
+                                <h2 class="sub-title2 mb-sm-0 mb-5">A</h2>
+                                <p class="ps-6 mb-0">
+                                    沒有。無論是相距千里的家人或朋友，PULSE 都歡迎你們一起享受音樂，無需受距離及 IP 的限制！
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="QA-group">
+                        <div class="question d-flex justify-content-between align-items-center py-3" data-bs-toggle="collapse" href="#Q3" role="button"
+                            aria-expanded="false" aria-controls="Q3">
+                            <div class="d-flex align-items-center">
+                                <h2 class="sub-title2">Q</h2>
+                                <h4 class="ps-6">PULSE 接受哪些付款方式？</h4>
+                            </div>
+                            <img src="/assets/images/Subscription_Plus.png" alt="">
+                        </div>
+                        <div class="collapse" id="Q3">
+                            <div class="d-flex flex-row align-items-center">
+                                <h2 class="sub-title2">A</h2>
+                                <p class="ps-6 mb-0">
+                                    PULSE 目前僅接受信用卡付款，更多付款方式已經在規畫中，敬請期待。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    <%- include('./layout/footer'); -%>
+        <script type="module" src="../main.js"></script>
+        <script type="text/javascript">
+            //FAQ圖片切換
+            let questionButtons = document.getElementsByClassName("question");
+            for (i = 0; i < questionButtons.length; i++) {
+                questionButtons[i].addEventListener("click", function () {
+                    let targetImg = this.getElementsByTagName('img')[0]
+                    if (this.classList.contains('collapsed')) {
+                        targetImg.setAttribute("src", "/assets/images/Subscription_Plus.png");
+                    }
+                    else {
+                        targetImg.setAttribute("src", "/assets/images/Subscription_Minus.png");
+                    }
+                });
+            }
+
+            //錨點按鈕
+            let archorButton = document.getElementById("archorButton");
+            archorButton.addEventListener("click", function () {
+                document.getElementById("student-plan").scrollIntoView(true);
+            });
+        </script>
+</body>
+
+</html>
