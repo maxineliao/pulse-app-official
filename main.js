@@ -1,3 +1,4 @@
+import './assets/js/player-swiper.js';
 
 import './assets/scss/all.scss';
 
