@@ -1,5 +1,5 @@
+//	hero
 .index {
-	//	hero
 	.hero-header {
 		height: 812px;
 		background-position: 70% 85%;
@@ -14,13 +14,40 @@
 			font-size: 1.25rem;
 		}
 	}
-	// All
+}
+@media screen and (min-width: 992px) {
+	.index {
+		.hero-header {
+			height: auto;
+		}
+		.hero-content {
+			width: 70%;
+			.sub-title {
+				font-size: 2rem;
+			}
+		}
+	}
+}
+
+// All
+.index {
 	.btn-customize-padding {
 		padding-right: 32px;
 	}
 	.btn-lg {
 		font-size: 1.25rem;
 		padding: 1.25rem 1.5rem;
+		span {
+			overflow: clip;
+		}
+		.btn-icon {
+			position: relative;
+		}
+		&:hover .btn-icon {
+			animation-name: btn-arrow-top-right;
+			animation-duration: 500ms;
+			animation-timing-function: ease;
+		}
 	}
 	.btn-arrow-bg-light {
 		background-color: $third;
@@ -37,7 +64,26 @@
 		box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
 		background-color: $white-bg;
 	}
-	//超乎想像的音樂盛宴 Card Large
+}
+@media screen and (min-width: 992px) {
+	.index {
+		.btn-lg {
+			font-size: 2rem;
+			padding: 1.5rem 3rem;
+		}
+		.card-lg {
+			padding: 64px;
+		}
+		.card-detailed {
+			.card-body {
+				gap: 48px;
+			}
+		}
+	}
+}
+
+//超乎想像的音樂盛宴 Card Large
+.index{
 	.card-lg {
 		padding: 32px;
 		border-radius: 1.5rem;
@@ -45,7 +91,6 @@
 			padding: 0;
 		}
 	}
-	// 探索你愛的音樂類型 Section
 	.swiper-button-next::after, .swiper-button-prev::after {
 		content: "";
 	}
@@ -59,43 +104,82 @@
 		width: 1.5rem;
 		height: 1.5rem;
 	}
+}	
+
+// 探索你愛的音樂類型 Section
+.index{
+	.section-marquee {
+		.sub-title {
+			margin-top: 400px;
+		}
+	}
+	.marquee-svg {
+		width: 2000px;
+		top: calc(96px + 37%);
+	}
 	.card-carousel {
-		position: absolute;
-		left: calc(50% - 153px);
-		top: 21rem;
-		transform-origin: 153px 2500px;
-		will-change: transform;
 		.card {
 			position: absolute;
-			height: fit-content;
-			transform-origin: 153px 2800px;
-			@for $i from 0 through 7 {
-				&:nth-child(#{$i}) {
-					transform: rotate(#{$i * 8}deg) translateX(#{$i * -60}px);
-				}
-			}
-			&:active {
-				cursor: grabbing;
-			}
-			// div {
-			// 	width: 300px;
-			// 	height: 400px;
-			// 	border-radius: 5px;
-			// 	background: currentColor;
-			// }
-		}
-		.card {
 			width: 306px;
+			top: 0;
 			padding: 24px;
 			backdrop-filter: blur(25px);
 			border-radius: 1.5rem;
+			transition: scale ease 200ms;
+			&:hover {
+				scale: 1.02 !important;
+			}
 		}
 		.card-body {
 			background-color: rgba(18, 18, 18, 0.8);
 			border-radius: 0 0 1rem 1rem;
 		}
 	}
-	// 趨勢排行週榜 Card Horizontal
+}
+@media screen and (min-width: 576px) {
+	.index{
+		.marquee-svg {
+			top: calc(96px + 39%);
+		}
+	}
+}
+@media screen and (min-width: 768px) {
+	.index{
+		.marquee-svg {
+			top: calc(96px + 35%);
+		}
+		.section-marquee {
+			.sub-title {
+				margin-top: 440px;
+			}
+		}
+	}
+}
+@media screen and (min-width: 992px) {
+	.index{
+		.marquee-svg {
+			top: calc(160px + 32.5%);
+		}
+	}
+}
+@media screen and (min-width: 1400px) {
+	.index{
+		.marquee-svg {
+			top: calc(160px + 26%);
+		}
+	}
+}
+@media screen and (min-width: 1800px) {
+	.index{
+		.marquee-svg {
+			width: 150%;
+			top: calc(160px + 17vw);
+		}
+	}
+}
+
+// 趨勢排行週榜 Card Horizontal
+.index{
 	.card-horizontal {
 		.card-header .icon {
 			width: 1.5rem;
@@ -126,7 +210,10 @@
 			opacity: 1;
 		}
 	}
-	// 訂閱方案 Card Detailed
+}
+
+// 訂閱方案 Card Detailed
+.index{
 	.card-detailed {
 		padding: 1.5rem;
 		border-radius: 1rem;
@@ -139,6 +226,7 @@
 		.card-btn-icon {
 			visibility: hidden;
 			width: 1px;
+			transform: translateX(-10px);
 			transition: all ease 200ms;
 		}
 		.card-btn {
@@ -147,31 +235,23 @@
 		.card-btn:hover .card-btn-icon{
 			visibility: visible;
 			width: 24px;
+			transform: translateX(0);
 		}
 	}
 }
-@media screen and (min-width: 992px) {
-	.index {
-		.hero-header {
-			height: auto;
-		}
-		.hero-content {
-			width: 70%;
-			.sub-title {
-				font-size: 2rem;
-			}
-		}
-		.btn-lg {
-			font-size: 2rem;
-			padding: 1.5rem 3rem;
-		}
-		.card-lg {
-			padding: 64px;
-		}
-		.card-detailed {
-			.card-body {
-				gap: 48px;
-			}
-		}
+
+
+@keyframes btn-arrow-top-right {
+	0%{
+		transform: translate(0px, 0px);
+	}
+	50% {
+		transform: translate(50px, -50px);
+	}
+	51% {
+		transform: translate(-50px, 50px);
+	}
+	100% {
+		transform: translate(0px, 0px);
 	}
 }
