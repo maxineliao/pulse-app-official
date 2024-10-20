@@ -27,32 +27,43 @@
               </a>
             </div>
             <h1 class="font-shadow">註冊</h1>
-            <label for="account" class="form-label mb-2 mt-6"
-              >您的電子信箱</label
-            >
-            <input
-              type="text"
-              class="form-control mb-5 py-4 px-5 input-border-third"
-              id="account"
-              placeholder="請輸入電子信箱"
-            />
-            <label for="password" class="form-label mb-2">密碼</label>
-            <input
-              type="password"
-              class="form-control py-4 px-5 mb-3 input-border-third"
-              id="password"
-              placeholder="請輸入密碼"
-            />
-            <label for="password" class="form-label mb-2">確認密碼</label>
-            <input
-              type="password"
-              class="form-control py-4 px-5 mb-6 input-border-third"
-              id="password"
-              placeholder="請再次輸入密碼"
-            />
-            <button class="btn btn-primary w-100 p-3" type="submit">
-              註冊
-            </button>
+            <form id="registerForm">
+              <label for="email" class="form-label mb-2 mt-6">
+                您的電子信箱 *
+              </label>
+              <input
+                type="email"
+                class="form-control mb-5 py-4 px-5 input-border-third"
+                id="email"
+                placeholder="請輸入電子信箱"
+                required
+              />
+              <label for="password" class="form-label mb-2"> 密碼 * </label>
+              <input
+                type="password"
+                class="form-control py-4 px-5 mb-3 input-border-third"
+                id="password"
+                placeholder="請輸入密碼"
+                required
+              />
+              <label for="chkPassword" class="form-label mb-2">
+                確認密碼 *
+              </label>
+              <input
+                type="password"
+                class="form-control py-4 px-5 mb-6 input-border-third"
+                id="chkPassword"
+                placeholder="請再次輸入密碼"
+                required
+              />
+              <button
+                class="btn btn-primary w-100 p-3"
+                type="button"
+                id="registerButton"
+              >
+                註冊
+              </button>
+            </form>
             <h6 class="d-flex justify-content-center my-4">OR</h6>
             <button class="btn w-100 p-3 btn-google" type="button">
               <img
@@ -68,7 +79,55 @@
       </div>
     </div>
     <%- include('./layout/footer'); -%>
+    <script>
+      // 檢查表單是否有效
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginButton = document.getElementById("registerButton");
+        const loginForm = document.getElementById("registerForm");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const chkPassword = document.getElementById("chkPassword");
 
+        loginButton.addEventListener("click", function () {
+          if (!email.validity.valid) {
+            email.setCustomValidity("請輸入有效的電子信箱地址");
+          } else {
+            email.setCustomValidity("");
+          }
+
+          if (!password.validity.valid) {
+            password.setCustomValidity("請輸入密碼");
+          } else {
+            password.setCustomValidity("");
+          }
+
+          if (!chkPassword.validity.valid) {
+            chkPassword.setCustomValidity("請再次輸入密碼");
+          } else if (chkPassword.value !== password.value) {
+            chkPassword.setCustomValidity("密碼不一致");
+          } else {
+            chkPassword.setCustomValidity("");
+          }
+
+          loginForm.reportValidity();
+
+          if (loginForm.checkValidity()) {
+            window.location.href = "login.html";
+          }
+        });
+
+        // 清除自訂義錯誤訊息
+        email.addEventListener("input", function () {
+          email.setCustomValidity("");
+        });
+        password.addEventListener("input", function () {
+          password.setCustomValidity("");
+        });
+        chkPassword.addEventListener("input", function () {
+          chkPassword.setCustomValidity("");
+        });
+      });
+    </script>
     <script type="module" src="../main.js"></script>
   </body>
 </html>
