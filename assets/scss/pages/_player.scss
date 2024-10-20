@@ -183,12 +183,21 @@ input[type="search"] {
   padding: 12px 24px;
   &:hover {
     border: 1px solid white;
+    & .btn-player-arrow-right {
+      transition: transform 0.3s ease;
+      transform: translateX(10px);
+    }
   }
+
   &-heart {
     border: 1px solid $third;
     padding: 14px;
     &:hover {
       border: 1px solid white;
+    }
+    & svg.fill-red {
+      fill: red;
+      color: red;
     }
   }
 }
@@ -300,4 +309,17 @@ input[type="range"] {
 /* 當 offcanvas 顯示時隱藏 footer */
 body:has(.offcanvas.show) footer {
   display: none;
+}
+
+@keyframes rotate90 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+.rotate90:hover {
+  animation: rotate90 0.5s linear;
 }

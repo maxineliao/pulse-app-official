@@ -120,7 +120,7 @@
               <i class="me-5" data-lucide="music"></i>
               <h3>我的音樂庫</h3>
               <button type="button" class="btn ms-auto player-icon-btn">
-                <i data-lucide="plus"></i>
+                <i class="rotate90" data-lucide="plus"></i>
               </button>
             </li>
             <li class="list-group-item border-0 p-5 player-bg">
@@ -318,7 +318,10 @@
                       class="btn d-flex align-items-center btn-player-listen me-3"
                     >
                       <h4 class="me-2 mb-0">Listen Now</h4>
-                      <i data-lucide="chevron-right"></i>
+                      <i
+                        class="btn-player-arrow-right"
+                        data-lucide="chevron-right"
+                      ></i>
                     </button>
                     <button
                       type="button"
@@ -344,7 +347,10 @@
                       class="btn d-flex align-items-center btn-player-listen me-3"
                     >
                       <h4 class="me-2 mb-0">Listen Now</h4>
-                      <i data-lucide="chevron-right"></i>
+                      <i
+                        class="btn-player-arrow-right"
+                        data-lucide="chevron-right"
+                      ></i>
                     </button>
                     <button
                       type="button"
@@ -369,7 +375,10 @@
                       class="btn d-flex align-items-center btn-player-listen me-3"
                     >
                       <h4 class="me-2 mb-0">Listen Now</h4>
-                      <i data-lucide="chevron-right"></i>
+                      <i
+                        class="btn-player-arrow-right"
+                        data-lucide="chevron-right"
+                      ></i>
                     </button>
                     <button
                       type="button"
@@ -562,15 +571,19 @@
     <footer class="player-footer fixed-bottom">
       <div class="d-flex justify-content-between p-5">
         <div class="d-flex align-items-center">
-          <img
-            src="../assets/images/music-1.jpg"
-            alt="music"
-            width="80"
-            height="80"
-          />
+          <a href="#">
+            <img
+              src="../assets/images/music-1.jpg"
+              alt="music"
+              width="80"
+              height="80"
+            />
+          </a>
           <div class="mx-5">
-            <h4>Monster</h4>
-            <h6 class="text-secondary">Don Diablo</h6>
+            <a href="#" class="text-decoration-none"><h4>Monster</h4></a>
+            <a href="#" class="text-decoration-none"
+              ><h6 class="text-secondary">Don Diablo</h6></a
+            >
           </div>
           <button type="button" class="btn player-icon-btn d-lg-block d-none">
             <i data-lucide="square-plus"></i>
@@ -615,6 +628,41 @@
         </div>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script>
+      //愛心變紅色
+      document.addEventListener("DOMContentLoaded", function () {
+        const heartButtons = document.querySelectorAll(
+          ".btn-player-listen-heart"
+        );
+        heartButtons.forEach(function (button) {
+          button.addEventListener("click", function () {
+            const svgElement = button.querySelector("svg");
+            svgElement.classList.toggle("fill-red");
+          });
+        });
+      });
+
+      // 切換播放和暫停圖示
+      document.addEventListener("DOMContentLoaded", function () {
+        const playButton = document.querySelector(".player-footer-btn-circle");
+        playButton.addEventListener("click", function () {
+          const iconElement = playButton.querySelector("svg");
+          if (iconElement.getAttribute("data-lucide") === "play") {
+            iconElement.setAttribute("data-lucide", "pause");
+          } else {
+            iconElement.setAttribute("data-lucide", "play");
+          }
+          // 重新渲染 Lucide 圖示
+          lucide.createIcons();
+        });
+      });
+
+      // 初始化 Lucide 圖示
+      document.addEventListener("DOMContentLoaded", function () {
+        lucide.createIcons();
+      });
+    </script>
     <script type="module" src="../main.js"></script>
   </body>
 </html>
