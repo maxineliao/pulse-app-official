@@ -24,7 +24,7 @@
     cursor: pointer;
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 992px) {
     .member-header {
         flex-direction: column-reverse !important;
     }
