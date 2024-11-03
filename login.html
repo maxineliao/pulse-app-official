@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <title>PULSE 無損音質感受音樂的脈動</title>
+    <link rel="icon" type="image/x-icon" href="/pulse-app-official/assets/favicon-e3a41d11.ico" />
+    <script type="module" crossorigin src="/pulse-app-official/assets/main-8d43a239.js"></script>
+    <link rel="stylesheet" href="/pulse-app-official/assets/main-34ff2e7f.css">
+  </head>
+  <body>
+    <nav class="header-visitor container fixed-top">
+  <div
+    class="navbar navbar-dark navbar-expand-lg rounded-4 justify-content-between"
+  >
+    <a class="navbar-brand py-0 me-auto" href="index.html">
+      <img src="/pulse-app-official/assets/Logo_w-b128e57b.png" alt="Pulse" width="40" height="40" />
+    </a>
+    <button
+      class="nav-btn btn btn-outline-primary rounded-3 me-2 pe-lg-2 order-lg-3"
+    >
+      免費試用
+    </button>
+    <button
+      class="navbar-toggler order-lg-2 border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse justify-content-lg-end"
+      id="navbarSupportedContent"
+    >
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link me-2" href="player.html">PULSE Web Player</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link me-2" href="SubscriptionPlans.html">訂閱方案</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link me-2" href="register.html">註冊</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link me-2" href="login.html">登入</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    <div
+      class="login-bg"
+      style="background-image: url(/pulse-app-official/assets/linear-4f62ae0a.png)"
+    >
+      <div class="container py-10">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6">
+            <div class="d-flex justify-content-between mb-3">
+              <h5>歡迎來到PULSE</h5>
+              <a href="register.html" class="text-decoration-none">
+                <h6>沒有帳戶？立即註冊</h6>
+              </a>
+            </div>
+            <h1 class="font-shadow">登入</h1>
+            <form id="loginForm">
+              <label for="email" class="form-label mb-2 mt-6"> 帳號 * </label>
+              <input
+                type="email"
+                class="form-control mb-5 py-4 px-5 input-border-third"
+                id="email"
+                placeholder="請輸入電子信箱"
+                required
+              />
+              <label for="password" class="form-label mb-2"> 密碼 * </label>
+              <input
+                type="password"
+                class="form-control py-4 px-5 mb-3 input-border-third"
+                id="password"
+                placeholder="請輸入密碼"
+                required
+              />
+              <a href="#" class="text-decoration-none">
+                <h6 class="d-flex justify-content-end mb-6">忘記密碼</h6>
+              </a>
+              <button
+                class="btn btn-primary w-100 p-3"
+                type="button"
+                id="loginButton"
+              >
+                登入
+              </button>
+            </form>
+            <h6 class="d-flex justify-content-center my-4">OR</h6>
+            <button class="btn w-100 p-3 btn-google" type="button">
+              <img
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAARdSURBVHgB7ZnPbxtFFMe/s94kOOWHC+JHw4HtpVKE0rQICaEKsuGCEK1w4MgBR71wIu6BShxQ7QMHyqGOkBASEsofgIiDcm43FAlucZo7WakIV22lumndX/Hu9M3WSVPv7O7sehO3qj/SyKvx7Ox7b96beTMD9OnzdMOQEtyECQeH6HGCivjNtYugQV+ywakwrECDxSxYSIGuFCChc3AxQ4IV8VBYVWwqFjIokzI2EpJIgbbgp9qCp8FcUkViK8Df9yxeQnyLR2FTKbPzpEwMYilAwp9J0epyGErsT5TVmyvguYyDeXo0sRtkMEXuVFVpqqk0wl7qbreE514sKAkviFTAc5urfBy7gRD+Ly++lAlVgL+HQkyfbwghqEySG+yngGSi0PNer45hFgiYaRIILwiMAfJ7g/z+HD0aiEYsUtMkgKXQ9oFhQNPwZt8JhRcEK/CxNod19wtESkNW1WnmsMj6MWhPDBWxOicVXiBVgJ97xoDG13C2BZx1gt/uwnJpIY8BzS15vx/owGe6mIX8bcjyvRZeEBDEbGLr8XAGOD4ACsntDWzhNngM8ClA7mOiM3BzJPzxQRqRzGZNOa7P7xS6v8o1A2NbuNSBjM0+vzeHxwS/Aho7FPrGCFtADPadvMCRDjZnsC59f3B6e6UsBt5AKI7yMp8yBuP+dEaiADcQyrM19A5fCi9RgIXm+Wyy0cvgVVHgyULmQqEW9lbp3uGTTeZCES7SMtAzmN1ZI3OhFYSimegRnPtHwL8OuJQSa/hE1sFlN4sfm2MzwPkSFKmfPqi876Y1Yw1h6TtzlzqrZC4knSZXWy/im/V3UNt4KXdsPl9Ayrz29YUCovYermt1VsnT6aXBa9un0z/uGvilOfrwf1oVm5TmWVPVVKbUXHEtlx28sYxwBWwazf2dlfJp1NXE1g9NPoDvbr71iPAC0tp4DrRXTons4HoFEdYXaYSsPmAduFP513keX10/gn/uvSrvECgcnc+fQpeMnFylPlj0zo850rOiwAArLHxYuepmZxDVL1C5Qel1XHfKz+dzq6tfnrl1c6QQ1ZasP9eZxG0SuBI33GwJiM75aSSKe4DlOIF97Ld8foPeGR37ufDKvr9D2zLvZNsph/wfzLeLR4rLGy8r+7oIbsoYF2izXtV11KrtUSFrG60W+bjuHb37TrL//28S9YuTQb2eqJ8eryCJAoKjv+cr1CrSlbrlcv1dXLQ/erSSs9n6D2Oh51KRydzip9XiC5m7FnYY4Uqj4z9haGjLa1du72mVot5TykabztDU63pzx/cBw8OXcODNX6EP3LJuDztmo3Q4MgZjHa/vijvRcY0YddXmsfYDomPSeJoj+ZVQCI23B66ciCO8INEVk5hVHLqlofk5egFSgayu08VGNUFq0tUl36YiLsMEUzsE3o4QdpbS4Uq1i5wqtWtWSitMSsVNOkofJ4saeKDQ1jUruV2DMdQop1+ij9YWp6oW+vTp0zX3AUlCZA2g5KQhAAAAAElFTkSuQmCC"
+                width="24"
+                height="24"
+                alt="ic_google"
+              />
+              以 Google 帳號登入
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer bg-white">
+    <div class="container d-flex justify-content-between align-items-end flex-wrap">
+        <img src="/pulse-app-official/assets/Logo_b-ecb48fb4.png" alt="" class="img img-fluid">
+        <button id="scrollTop" class="scroll-top btn btn-dark rounded-3 order-sm-3"><i data-lucide="move-up"></i></button>
+        <p class="content text-black m-0 order-sm-2 mt-5 mt-sm-0">Copyright © 2024 PULSE</p>
+    </div>
+</footer>
+
+<script>
+    const scrollTop = document.getElementById('scrollTop');
+    scrollTop.addEventListener("click", function(){
+        window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+        });
+    });
+</script>
+    <script>
+      // 檢查表單是否有效
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginButton = document.getElementById("loginButton");
+        const loginForm = document.getElementById("loginForm");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+
+        loginButton.addEventListener("click", function () {
+          if (!email.validity.valid) {
+            email.setCustomValidity("請輸入有效的電子信箱地址");
+          } else {
+            email.setCustomValidity("");
+          }
+
+          if (!password.validity.valid) {
+            password.setCustomValidity("請輸入密碼");
+          } else {
+            password.setCustomValidity("");
+          }
+
+          loginForm.reportValidity();
+
+          if (loginForm.checkValidity()) {
+            window.location.href = "MemberCenter.html";
+          }
+        });
+
+        // 清除自訂義錯誤訊息
+        email.addEventListener("input", function () {
+          email.setCustomValidity("");
+        });
+        password.addEventListener("input", function () {
+          password.setCustomValidity("");
+        });
+      });
+    </script>
+
+    
+  </body>
+</html>
