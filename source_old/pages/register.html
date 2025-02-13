@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <title>PULSE 無損音質感受音樂的脈動</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+  </head>
+  <body>
+    <%- include('./layout/header-visitor'); -%>
+    <div
+      class="login-bg"
+      style="background-image: url(../assets/images/linear.png)"
+    >
+      <div class="container py-10">
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-6">
+            <div class="d-flex justify-content-between mb-3">
+              <h5>歡迎來到PULSE</h5>
+              <a href="login.html" class="text-decoration-none">
+                <h6>已經是會員？立即登入</h6>
+              </a>
+            </div>
+            <h1 class="font-shadow">註冊</h1>
+            <form id="registerForm">
+              <label for="email" class="form-label mb-2 mt-6">
+                您的電子信箱 *
+              </label>
+              <input
+                type="email"
+                class="form-control mb-5 py-4 px-5 input-border-third"
+                id="email"
+                placeholder="請輸入電子信箱"
+                required
+              />
+              <label for="password" class="form-label mb-2"> 密碼 * </label>
+              <input
+                type="password"
+                class="form-control py-4 px-5 mb-3 input-border-third"
+                id="password"
+                placeholder="請輸入密碼"
+                required
+              />
+              <label for="chkPassword" class="form-label mb-2">
+                確認密碼 *
+              </label>
+              <input
+                type="password"
+                class="form-control py-4 px-5 mb-6 input-border-third"
+                id="chkPassword"
+                placeholder="請再次輸入密碼"
+                required
+              />
+              <button
+                class="btn btn-primary w-100 p-3"
+                type="button"
+                id="registerButton"
+              >
+                註冊
+              </button>
+            </form>
+            <h6 class="d-flex justify-content-center my-4">OR</h6>
+            <button class="btn w-100 p-3 btn-google" type="button">
+              <img
+                src="../assets/images/ic_google.png"
+                width="24"
+                height="24"
+                alt="ic_google"
+              />
+              以 Google 帳號註冊
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('./layout/footer'); -%>
+    <script>
+      // 檢查表單是否有效
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginButton = document.getElementById("registerButton");
+        const loginForm = document.getElementById("registerForm");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const chkPassword = document.getElementById("chkPassword");
+
+        loginButton.addEventListener("click", function () {
+          if (!email.validity.valid) {
+            email.setCustomValidity("請輸入有效的電子信箱地址");
+          } else {
+            email.setCustomValidity("");
+          }
+
+          if (!password.validity.valid) {
+            password.setCustomValidity("請輸入密碼");
+          } else {
+            password.setCustomValidity("");
+          }
+
+          if (!chkPassword.validity.valid) {
+            chkPassword.setCustomValidity("請再次輸入密碼");
+          } else if (chkPassword.value !== password.value) {
+            chkPassword.setCustomValidity("密碼不一致");
+          } else {
+            chkPassword.setCustomValidity("");
+          }
+
+          loginForm.reportValidity();
+
+          if (loginForm.checkValidity()) {
+            window.location.href = "login.html";
+          }
+        });
+
+        // 清除自訂義錯誤訊息
+        email.addEventListener("input", function () {
+          email.setCustomValidity("");
+        });
+        password.addEventListener("input", function () {
+          password.setCustomValidity("");
+        });
+        chkPassword.addEventListener("input", function () {
+          chkPassword.setCustomValidity("");
+        });
+      });
+    </script>
+    <script type="module" src="../main.js"></script>
+  </body>
+</html>
