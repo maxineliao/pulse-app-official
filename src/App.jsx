@@ -4,12 +4,11 @@ import "./assets/scss/all.scss";
 import Footer from "./components/Footer";
 
 function App() {
-
-	return (
-		<>
-			<Footer></Footer>
-		</>
-	);
+  return (
+    <>
+      <Footer></Footer>
+    </>
+  );
 }
 
 export default App;
