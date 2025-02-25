@@ -29,8 +29,7 @@ const swiperPlayer2 = new Swiper(".mySwiper-player-2", {
     navigation: {
         nextEl: ".swiper-button-next-player-2",
         prevEl: ".swiper-button-prev-player-2",
-    },
-    breakpoints: {
+    },breakpoints: {
         475: {
             slidesPerView: 2,
         },
@@ -38,4 +37,5 @@ const swiperPlayer2 = new Swiper(".mySwiper-player-2", {
             slidesPerView: 3,
         },
     },
+    
 });
