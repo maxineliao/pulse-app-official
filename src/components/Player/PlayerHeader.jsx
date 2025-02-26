@@ -1,18 +1,19 @@
 import { List, Search, User } from "lucide-react";
+import { NavLink } from "react-router";
 import PlayerImages from "../../Images";
 
 export default function PlayerHeader() {
 	return (
 		<header className="container-fluid fixed-top">
 			<div className="navbar navbar-player navbar-dark navbar-expand-lg rounded-4 justify-content-between pe-3">
-				<a className="navbar-brand py-0" href="index.html">
+				<NavLink className="navbar-brand py-0" to="/player">
 					<img
 						src={PlayerImages.Logo_w}
 						alt="Pulse"
 						width="40"
 						height="40"
 					/>
-				</a>
+				</NavLink>
 				<div className="d-lg-flex d-none">
 					<form className="d-flex player-search" role="search">
 						<input

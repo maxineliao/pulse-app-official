@@ -11,18 +11,19 @@ import {
 	Pin,
 } from "lucide-react";
 import PlayerImages from "../../Images";
+import { NavLink } from "react-router";
 export default function PlayerSideMenu() {
 	return (
 		<>
 			<ul className="side-menu list-group mb-3 border-transparent rounded-4 player-bg">
 				<li className="list-group-item border-0 pb-0">
-					<a
-						href="#"
+					<NavLink
+						to=""
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
 					>
 						<Telescope className="icon me-3" />
 						<h6 className="mb-0">發現</h6>
-					</a>
+					</NavLink>
 				</li>
 				<li className="list-group-item border-0 py-0">
 					<a

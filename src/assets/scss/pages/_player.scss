@@ -180,7 +180,7 @@ input[type="search"] {
   border-radius: 100px;
   padding: 12px 24px;
   &:hover {
-    // border: 1px solid white;
+    border: 1px solid white;
     & .btn-player-arrow-right {
       transition: transform 0.3s ease;
       transform: translateX(10px);
