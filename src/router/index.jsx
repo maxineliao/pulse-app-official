@@ -6,6 +6,7 @@ import SearchResult from "../pages/Player/SearchResult";
 import { element } from "prop-types";
 import Web from "../pages/Web";
 import WebIndex from "../pages/Web/WebIndex";
+import SubscriptionPage from "../pages/Web/SubscriptionPage";
 // import AdminHeader from "../layouts/AdminHeader";
 // import AdminInformation from "../pages/admin/AdminInformation";
 
@@ -50,6 +51,10 @@ const router = createHashRouter([
       {
         path: "",
         element: <WebIndex />
+      },
+      {
+        path: "/subscription_plans",
+        element: <SubscriptionPage />
       }
     ]
   }

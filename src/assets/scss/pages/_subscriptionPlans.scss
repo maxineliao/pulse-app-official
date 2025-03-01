@@ -10,7 +10,6 @@
     2px 2px 20px rgba(255, 255, 255, 0.45);
 }
 .subscription-banner {
-    background-image: url(/assets/images/Subscription_Serenity_Musical_Escape.png);
     background-size: cover;
     background-repeat: no-repeat;
     height: 1080px;
@@ -154,4 +153,22 @@
     .question img {
         width: 16px;
     }
+}
+
+[aria-expanded="false"] {
+    .minus {
+        display: none;
+    } 
+    .plus {
+        display: block;
+    }   
+}
+
+[aria-expanded="true"] {
+    .minus {
+        display: block;
+    } 
+    .plus {
+        display: none;
+    }   
 }

@@ -38,12 +38,12 @@ export default function HeaderVisitor() {
 							</NavLink>
 						</li>
 						<li className="nav-item">
-							<a
+							<NavLink
 								className="nav-link me-2"
-								href="SubscriptionPlans.html"
+                                to="/subscription_plans"
 							>
 								訂閱方案
-							</a>
+							</NavLink>
 						</li>
 						<li className="nav-item">
 							<a className="nav-link me-2" href="register.html">
