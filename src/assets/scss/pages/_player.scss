@@ -34,7 +34,7 @@ input[type="search"] {
 }
 
 .player-scrollbar {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 80px);
   overflow-y: auto;
   padding-top: 120px;
   @include media-breakpoint-down(lg) {
@@ -68,7 +68,8 @@ input[type="search"] {
 }
 
 .player-bg {
-  background: $white-bg;
+  background: $white-bg !important;
+  --bs-list-group-bg: $white-bg;
 }
 
 .player-list-border {
@@ -88,92 +89,89 @@ input[type="search"] {
 }
 
 .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background: $third;
+  width: 12px !important;
+  height: 12px !important;
+  background: $third !important;
 }
 
 .swiper-pagination-bullet-active {
-  background: white;
+  background: white !important;
 }
 
 .carousel-img-1 {
-  background-image: url("/assets/images/carousel-1.jpg");
+  // background-image: url("/assets/images/carousel-1.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 400px;
+  height: 320px;
   border-radius: 16px;
   border: 1px solid $third;
 }
 
 .carousel-img-2 {
-  background-image: url("/assets/images/carousel-2.jpg");
+  // background-image: url("/assets/images/carousel-2.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 400px;
+  height: 320px;
   border-radius: 16px;
   border: 1px solid $third;
 }
 
 .carousel-img-3 {
-  background-image: url("/assets/images/carousel-3.jpg");
+  // background-image: url("/assets/images/carousel-3.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: 400px;
+  height: 320px;
   border-radius: 16px;
   border: 1px solid $third;
 }
 
-.swiper-pagination-player-1 {
+.mySwiper-player-1 .swiper-pagination {
   top: 0 !important;
   bottom: 100% !important;
   display: flex;
   justify-content: end;
   position: absolute;
   padding-top: 48px;
-  padding-right: 48px;
+  padding-right: 24px;
+  right: 0;
   z-index: 1;
-  @include media-breakpoint-down(lg) {
-    position: relative;
-    justify-content: center;
-    width: auto !important;
-  }
+  // @include media-breakpoint-down(lg) {
+  //   position: relative;
+  //   justify-content: center;
+  //   width: auto !important;
+  // }
 }
-.swiper-button {
+.mySwiper-player-1 .swiper-button {
   &-prev-player-1 {
     position: absolute;
     bottom: 0 !important;
     right: 0 !important;
     z-index: 1;
-    margin-right: 48px;
+    margin-right: 56px;
     margin-bottom: 48px;
-    @include media-breakpoint-down(lg) {
-      position: relative;
-      padding-top: 38px;
-      margin-bottom: 0px;
-    }
+    cursor: pointer;
+    // @include media-breakpoint-down(lg) {
+    //   position: relative;
+    //   padding-top: 38px;
+    //   margin-bottom: 0px;
+    // }
   }
   &-next-player-1 {
     position: absolute;
     bottom: 0 !important;
     right: 0 !important;
     z-index: 1;
-    margin-right: 20px;
+    margin-right: 24px;
     margin-bottom: 48px;
-    @include media-breakpoint-down(lg) {
-      position: relative;
-      padding-top: 38px;
-      margin-bottom: 0px;
-    }
-  }
-  &-player {
-    @include media-breakpoint-down(lg) {
-      display: flex;
-      justify-content: center;
-    }
+    cursor: pointer;
+    // @include media-breakpoint-down(lg) {
+    //   position: relative;
+    //   padding-top: 38px;
+    //   margin-bottom: 0px;
+    // }
   }
 }
 
@@ -209,15 +207,15 @@ input[type="search"] {
 }
 
 .card-playlist {
-  background: $white-bg;
   border: 1px solid $third;
   box-shadow: 0px 4px 20px 0px #00000026;
   backdrop-filter: blur(25px);
-  height: 400px;
+  height: 100%;
   width: 100%;
   cursor: pointer;
+  --bs-card-bg: $white-bg;
   &:hover {
-    border: 1px solid white;
+    background: $white-bg;
   }
 }
 
@@ -225,13 +223,13 @@ input[type="search"] {
   background: none;
   cursor: pointer;
   &:hover {
-    border: 1px solid white;
+    background: $white-bg;
   }
 }
 
 .player-img {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 100%;
+  // max-height: 200px;
   aspect-ratio: 1 / 1;
 }
 
@@ -244,7 +242,7 @@ input[type="search"] {
   }
 }
 
-.player-footer {
+.player-comp {
   border: 1px solid $third;
   background: black;
   &-btn-circle {
@@ -307,7 +305,7 @@ input[type="range"] {
 }
 
 /* 當 offcanvas 顯示時隱藏 footer */
-body:has(.offcanvas.show) footer {
+body:has(.offcanvas.show) .player-comp {
   display: none;
 }
 
@@ -322,4 +320,50 @@ body:has(.offcanvas.show) footer {
 
 .rotate90:hover {
   animation: rotate90 0.5s linear;
+}
+
+.border-transparent {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mySwiper-player-1, .mySwiper-player-2{
+  .swiper-slide {
+    height: auto;
+  }
+}
+
+
+//搜尋結果新增
+.card-song {
+  cursor: pointer;
+  .img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+  }
+  &:hover {
+    background: $white-bg;
+  }
+}
+.card-album {
+  &:hover {
+    background: $white-bg;
+  }
+}
+.card-genre {
+  &:hover {
+    background: $white-bg;
+  }
+}
+
+.side-menu {
+  .list-group-item a{
+    &:hover {
+      .icon {
+        stroke: $primary-yellow;
+      }
+      background: $white-bg;
+      color: $white;
+    }
+  }
 }

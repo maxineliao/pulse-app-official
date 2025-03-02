@@ -6,6 +6,7 @@
 		.img-banner {
 			mix-blend-mode: multiply;
 			object-fit: cover;
+			width: 100vw;
 		}
 	}
 	.hero-content {
@@ -103,6 +104,14 @@
 	.swiper-button-next svg, .swiper-button-prev svg {
 		width: 1.5rem;
 		height: 1.5rem;
+	}
+	.swiper {
+		.swiper-wrapper {
+			flex-direction: column;
+			@media screen and (min-width: 768px) {
+				flex-direction: row;
+			}
+		}
 	}
 }	
 
