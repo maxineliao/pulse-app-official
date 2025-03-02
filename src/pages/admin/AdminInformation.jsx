@@ -181,46 +181,22 @@ export default function AdminInformation() {
               <table className="mt-5 col-12">
                 <thead>
                   <tr>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       使用者名稱
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       Email
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       ID
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       身份
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       地區
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       動作
                     </th>
                   </tr>
@@ -228,13 +204,24 @@ export default function AdminInformation() {
                 <tbody>
                   {currentPageData.map((user, index) => (
                     <tr key={index}>
-                      <th scope="row" className="text-secondary p-3">
+                      <th
+                        scope="row"
+                        className="text-secondary p-3 text-nowrap"
+                      >
                         {user.name}
                       </th>
-                      <td className="text-secondary p-3">{user.email}</td>
-                      <td className="text-secondary p-3">{user.id}</td>
-                      <td className="text-secondary p-3">{user.plan}</td>
-                      <td className="text-secondary p-3">{user.area}</td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.email}
+                      </td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.id}
+                      </td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.plan}
+                      </td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.area}
+                      </td>
                       <td className="p-3">
                         <button
                           type="button"

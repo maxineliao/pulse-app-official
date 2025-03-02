@@ -197,39 +197,19 @@ export default function AdvertisementInformation() {
               <table className="mt-5 col-12">
                 <thead>
                   <tr>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       廣告標題
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       發佈時間
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       展示位置
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       狀態
                     </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
+                    <th className="p-3 text-nowrap" scope="col">
                       動作
                     </th>
                   </tr>
@@ -237,13 +217,22 @@ export default function AdvertisementInformation() {
                 <tbody>
                   {currentPageData.map((user, index) => (
                     <tr key={index}>
-                      <th scope="row" className="text-secondary p-3">
+                      <th
+                        scope="row"
+                        className="text-secondary p-3 text-nowrap"
+                      >
                         {user.name}
                       </th>
-                      <td className="text-secondary p-3">{user.time}</td>
-                      <td className="text-secondary p-3">{user.placement}</td>
-                      <td className="text-secondary p-3">{user.status}</td>
-                      <td className="p-3">
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.time}
+                      </td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.placement}
+                      </td>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.status}
+                      </td>
+                      <td className="p-3 text-nowrap">
                         <button
                           type="button"
                           className="btn icon p-0"
