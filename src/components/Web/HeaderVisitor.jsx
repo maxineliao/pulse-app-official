@@ -30,9 +30,6 @@ export default function HeaderVisitor() {
 				<div
 					className="collapse navbar-collapse justify-content-lg-end"
 					id="navbarSupportedContent"
-					style={{
-						"backgroundImage": `url(${Images["linear-sm"]})`
-					}}
 				>
 					<ul className="navbar-nav mb-2 mb-lg-0">
 						<li className="nav-item">
