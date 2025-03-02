@@ -29,10 +29,15 @@ export default function AdminHeader() {
                     aria-current="page"
                     to="AdminInformation"
                   >
-                    <h6 className="py-3 mb-5 mx-5">
-                      <IdCard className="me-3" style={{ color: "#FFCF31" }} />
-                      會員資訊管理
-                    </h6>
+                    {({ isActive }) => (
+                      <h6 className="py-3 mb-5 mx-5">
+                        <IdCard
+                          className="me-3"
+                          style={{ color: isActive ? "#FFCF31" : "inherit" }}
+                        />
+                        會員資訊管理
+                      </h6>
+                    )}
                   </NavLink>
                 </li>
                 <li className="list-unstyled list-item-hover">
@@ -41,10 +46,15 @@ export default function AdminHeader() {
                     aria-current="page"
                     to="AdvertisementInformation"
                   >
-                    <h6 className="py-3 mx-5">
-                      <Megaphone className="me-3" />
-                      廣告資訊管理
-                    </h6>
+                    {({ isActive }) => (
+                      <h6 className="py-3 mx-5">
+                        <Megaphone
+                          className="me-3"
+                          style={{ color: isActive ? "#FFCF31" : "inherit" }}
+                        />
+                        廣告資訊管理
+                      </h6>
+                    )}
                   </NavLink>
                 </li>
               </ul>
@@ -78,18 +88,32 @@ export default function AdminHeader() {
                     aria-current="page"
                     to="AdminInformation"
                   >
-                    <IdCard
-                      style={{ color: "#FFCF31", width: 40, height: 40 }}
-                    />
+                    {({ isActive }) => (
+                      <IdCard
+                        style={{
+                          color: isActive ? "#FFCF31" : "inherit",
+                          width: 40,
+                          height: 40,
+                        }}
+                      />
+                    )}
                   </NavLink>
                 </li>
                 <li className="list-unstyled list-item-hover">
                   <NavLink
-                    className="nav-link d-flex justify-content-center "
+                    className="nav-link d-flex justify-content-center"
                     aria-current="page"
                     to="AdvertisementInformation"
                   >
-                    <Megaphone style={{ width: 40, height: 40 }} />
+                    {({ isActive }) => (
+                      <Megaphone
+                        style={{
+                          color: isActive ? "#FFCF31" : "inherit",
+                          width: 40,
+                          height: 40,
+                        }}
+                      />
+                    )}
                   </NavLink>
                 </li>
               </ul>
