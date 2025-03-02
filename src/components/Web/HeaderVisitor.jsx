@@ -46,14 +46,14 @@ export default function HeaderVisitor() {
 							</NavLink>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link me-2" href="register.html">
+							<NavLink className="nav-link me-2" to="/register">
 								註冊
-							</a>
+							</NavLink>
 						</li>
 						<li className="nav-item">
-							<a className="nav-link me-2" href="login.html">
+							<NavLink className="nav-link me-2" to="/login">
 								登入
-							</a>
+							</NavLink>
 						</li>
 					</ul>
 				</div>

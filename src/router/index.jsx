@@ -6,7 +6,10 @@ import SearchResult from "../pages/Player/SearchResult";
 import { element } from "prop-types";
 import Web from "../pages/Web";
 import WebIndex from "../pages/Web/WebIndex";
-import SubscriptionPage from "../pages/Web/SubscriptionPage";
+import SubscriptionPlans from "../pages/Web/SubscriptionPlans";
+import MemberCenter from "../pages/Web/MemberCenter";
+import Login from "../pages/Login";
+import Register from "../pages/Register";
 // import AdminHeader from "../layouts/AdminHeader";
 // import AdminInformation from "../pages/admin/AdminInformation";
 
@@ -54,9 +57,18 @@ const router = createHashRouter([
       },
       {
         path: "/subscription_plans",
-        element: <SubscriptionPage />
+        element: <SubscriptionPlans />
+      },{
+        path: "/member_center",
+        element: <MemberCenter/>
       }
     ]
+  },{
+    path: "login",
+    element: <Login />
+  },{
+    path: "register",
+    element: <Register />
   }
 ]);
 

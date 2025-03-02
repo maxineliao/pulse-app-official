@@ -6,7 +6,7 @@ import {
 	ChevronRight,
 	CirclePlay,
 } from "lucide-react";
-
+import axios from "axios";
 import { Link } from "react-router";
 
 import Images from "../../Images";
@@ -40,13 +40,12 @@ const SwiperButtonPrev = ({ children }) => {
 };
 
 function WebIndex() {
-    const marqueeRef = useRef(null);
+	//GSAP START
+	const marqueeRef = useRef(null);
     const getStaggerEach = () => {
         const width = window.innerWidth;
         return width > 1600 ? 2 : 3;
     }
-
-	//GSAP START
 	const marqueeInit = () => {
 
 
@@ -638,15 +637,15 @@ function WebIndex() {
 						</div>
 					</div>
 					<div className="d-flex justify-content-center mt-6 mt-md-8">
-						<a
+						<Link
 							className="btn-customize-padding bg-white-opacity btn btn-lg btn-outline-third rounded-pill w-auto text-white d-flex align-items-center me-lg-5 order-lg-1"
-							href="SubscriptionPlans.html"
+							to="/subscription_plans"
 						>
 							更多訂閱方案
 							<span className="btn-arrow rounded-pill bg-white px-3 px-lg-5 py-1 py-lg-2 ms-5 d-flex align-items-center justify-content-center">
 								<ArrowUpRight className="text-dark btn-icon"></ArrowUpRight>
 							</span>
-						</a>
+						</Link>
 					</div>
 				</div>
 			</section>

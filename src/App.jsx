@@ -5,7 +5,7 @@ import SearchResult from "./pages/SearchResult";
 // import Footer from "./components/Footer";
 
 function App() {
-
+	
 	return (
 		<>
 			<SearchResult />
