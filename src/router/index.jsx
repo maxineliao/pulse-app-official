@@ -3,6 +3,7 @@ import "../assets/scss/all.scss";
 import { createHashRouter } from "react-router-dom";
 import AdminHeader from "../layouts/AdminHeader";
 import AdminInformation from "../pages/admin/AdminInformation";
+import AdvertisementInformation from "../pages/admin/AdvertisementInformation";
 
 const router = createHashRouter([
   //   {
@@ -22,6 +23,10 @@ const router = createHashRouter([
       {
         path: "AdminInformation",
         element: <AdminInformation />,
+      },
+      {
+        path: "AdvertisementInformation",
+        element: <AdvertisementInformation />,
       },
     ],
   },

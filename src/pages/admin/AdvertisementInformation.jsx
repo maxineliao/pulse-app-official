@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { Search, X, Pen } from "lucide-react";
+import { Search, X, Pen, Plus } from "lucide-react";
 import Swal from "sweetalert2";
 
-export default function AdminInformation() {
+export default function AdvertisementInformation() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    id: "",
-    plan: "",
-    area: "",
+    placement: "",
+    status: "",
   });
 
   const [activeUserId, setActiveUserId] = useState(null);
@@ -35,6 +33,15 @@ export default function AdminInformation() {
   };
 
   const handleCloseModal = () => {
+    setActiveUserId(null);
+  };
+
+  const handleInsertClick = () => {
+    setFormData({
+      name: "",
+      placement: "",
+      status: "",
+    });
     setActiveUserId(null);
   };
 
@@ -67,81 +74,64 @@ export default function AdminInformation() {
 
   const users = [
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
     {
-      name: "Zaina Goldsmith",
-      email: "zaina.goldsmith@mail.com",
-      id: "44444",
-      plan: "Student",
-      area: "台中",
+      name: "PULSE推薦金曲100首",
+      time: "2024/12/31 15:00",
+      placement: "Web Player首頁",
+      status: "啟用",
     },
     {
-      name: "Mahima Lopez",
-      email: "mahima.lopez@mail.com",
-      id: "95248",
-      plan: "Free",
-      area: "台中",
+      name: "PULSE推薦金曲100首",
+      time: "2024/12/31 15:00",
+      placement: "Web Player首頁",
+      status: "啟用",
     },
     {
-      name: "Pharrell Murray",
-      email: "pharrell.murray@mail.com",
-      id: "995556",
-      plan: "Premium",
-      area: "台中",
+      name: "PULSE推薦金曲100首",
+      time: "2024/12/31 15:00",
+      placement: "Web Player首頁",
+      status: "啟用",
     },
     {
-      name: "Annika Mcbride",
-      email: "annika.mcbride@mail.com",
-      id: "2526262",
-      plan: "Premium",
-      area: "台中",
+      name: "PULSE推薦金曲100首",
+      time: "2024/12/31 15:00",
+      placement: "Web Player首頁",
+      status: "啟用",
     },
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
     {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
+      name: "免費試用期好評延長",
+      time: "2025/01/06 09:31",
+      placement: "官網首頁",
+      status: "啟用",
     },
   ];
 
@@ -159,7 +149,33 @@ export default function AdminInformation() {
       <div className="col-9 col-md-10">
         <div className="navbar-information my-5 me-5 full-height d-flex flex-column">
           <div className="m-5">
-            <h1 className="pb-5 admin-name-bottom">會員資訊管理</h1>
+            <div className="d-flex justify-content-between admin-name-bottom">
+              <div>
+                <h1 className="pb-5 ">廣告資訊管理</h1>
+              </div>
+              <div className="d-flex align-items-start">
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEdit"
+                  className="btn btn-warning px-5 py-2 d-none d-sm-block"
+                  onClick={() => handleInsertClick()}
+                >
+                  新增
+                </button>
+                <button
+                  type="button"
+                  data-bs-dismiss="modal"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalEdit"
+                  className="btn btn-warning px-3 py-2 d-block d-sm-none"
+                  onClick={() => handleInsertClick()}
+                >
+                  <Plus />
+                </button>
+              </div>
+            </div>
             <form
               className="d-flex information-search align-items-center mt-4"
               role="search"
@@ -186,35 +202,28 @@ export default function AdminInformation() {
                       scope="col"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      使用者名稱
+                      廣告標題
                     </th>
                     <th
                       className="p-3"
                       scope="col"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      Email
+                      發佈時間
                     </th>
                     <th
                       className="p-3"
                       scope="col"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      ID
+                      展示位置
                     </th>
                     <th
                       className="p-3"
                       scope="col"
                       style={{ whiteSpace: "nowrap" }}
                     >
-                      身份
-                    </th>
-                    <th
-                      className="p-3"
-                      scope="col"
-                      style={{ whiteSpace: "nowrap" }}
-                    >
-                      地區
+                      狀態
                     </th>
                     <th
                       className="p-3"
@@ -231,10 +240,9 @@ export default function AdminInformation() {
                       <th scope="row" className="text-secondary p-3">
                         {user.name}
                       </th>
-                      <td className="text-secondary p-3">{user.email}</td>
-                      <td className="text-secondary p-3">{user.id}</td>
-                      <td className="text-secondary p-3">{user.plan}</td>
-                      <td className="text-secondary p-3">{user.area}</td>
+                      <td className="text-secondary p-3">{user.time}</td>
+                      <td className="text-secondary p-3">{user.placement}</td>
+                      <td className="text-secondary p-3">{user.status}</td>
                       <td className="p-3">
                         <button
                           type="button"
@@ -246,7 +254,7 @@ export default function AdminInformation() {
                           <Pen
                             style={{
                               color:
-                                activeUserId === user.id ? "yellow" : "white",
+                                activeUserId === user.name ? "yellow" : "white",
                             }}
                           />
                         </button>
@@ -260,7 +268,9 @@ export default function AdminInformation() {
               <nav>
                 <ul className="pagination">
                   <li
-                    className={`page-item ${!pageInfo.has_pre && "disabled"}`}
+                    className={`page-item ${
+                      pageInfo.current_page === 1 && "disabled"
+                    }`}
                   >
                     <a
                       onClick={(e) => handleClick(e, pageInfo.current_page - 1)}
@@ -287,7 +297,9 @@ export default function AdminInformation() {
                     </li>
                   ))}
                   <li
-                    className={`page-item ${!pageInfo.has_next && "disabled"}`}
+                    className={`page-item ${
+                      pageInfo.current_page === totalPages && "disabled"
+                    }`}
                   >
                     <a
                       onClick={(e) => handleClick(e, pageInfo.current_page + 1)}
@@ -315,7 +327,7 @@ export default function AdminInformation() {
           <div className="modal-content navbar-information">
             <div className="modal-header d-flex justify-content-between border-0">
               <h3 className="modal-title" id="modalEditLabel">
-                編輯使用者資料
+                新增 / 編輯廣告
               </h3>
               <button
                 type="button"
@@ -327,72 +339,95 @@ export default function AdminInformation() {
                 <X />
               </button>
             </div>
-            <div className="modal-body admin-modal-scrollbar">
-              <div className="my-3">
-                <label htmlFor="name" className="form-label">
-                  使用者名稱
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+            <div className="modal-body d-flex flex-column flex-md-row admin-modal-scrollbar">
+              <div>
+                <div className="my-3">
+                  <label htmlFor="name" className="form-label">
+                    廣告標題
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="linK" className="form-label">
+                    廣告連結
+                  </label>
+                  <input
+                    className="form-control"
+                    id="linK"
+                    type="text"
+                    value={formData.linK}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="detail" className="form-label">
+                    文字內容
+                  </label>
+                  <input
+                    className="form-control"
+                    id="detail"
+                    type="text"
+                    value={formData.detail}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="placement" className="form-label">
+                    展示位置
+                  </label>
+                  <input
+                    className="form-control"
+                    id="placement"
+                    type="text"
+                    value={formData.placement}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="pic" className="form-label">
+                    封面圖片
+                  </label>
+                  <input
+                    className="form-control"
+                    id="pic"
+                    type="text"
+                    value={formData.pic}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="pb-3">
+                  <label htmlFor="status" className="form-label">
+                    狀態
+                  </label>
+                  <select
+                    className="form-control"
+                    id="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                  >
+                    <option value="" disabled hidden>
+                      請選擇狀態
+                    </option>
+                    <option value="Y">啟用</option>
+                    <option value="N">停用</option>
+                  </select>
+                </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="form-label">
-                  Email
-                </label>
-                <input
-                  className="form-control"
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="id" className="form-label">
-                  ID
-                </label>
-                <input
-                  className="form-control"
-                  id="id"
-                  type="text"
-                  value={formData.id}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="plan" className="form-label">
-                  身份
-                </label>
-                <select
-                  className="form-control"
-                  id="plan"
-                  value={formData.plan}
-                  onChange={handleChange}
-                >
-                  <option value="" disabled hidden>
-                    請選擇身份
-                  </option>
-                  <option value="Premium">Premium</option>
-                  <option value="Free">Free</option>
-                  <option value="Student">Student</option>
-                </select>
-              </div>
-              <div className="mb-3">
-                <label htmlFor="area" className="form-label">
-                  地區
-                </label>
-                <input
-                  className="form-control"
-                  id="area"
-                  type="text"
-                  value={formData.area}
-                  onChange={handleChange}
-                />
+              <div className="ms-5">
+                <div className="my-3">
+                  <label className="form-label">預覽</label>
+                  <img
+                    src={formData.imageUrl}
+                    alt={formData.title}
+                    className="img-fluid"
+                  />
+                </div>
               </div>
             </div>
             <div className="modal-footer border-0">
