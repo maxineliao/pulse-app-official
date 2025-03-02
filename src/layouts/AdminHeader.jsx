@@ -6,7 +6,7 @@ export default function AdminHeader() {
     <>
       <div className="d-flex">
         <div className="col-lg-2 d-none d-lg-block">
-          <aside className="navbar-adminheader m-5 full-height d-flex flex-column">
+          <aside className="navbar-adminheader m-5 d-flex flex-column">
             <div className="w-100 d-flex flex-column flex-grow-1">
               <a
                 className="py-5 d-flex justify-content-center"
@@ -58,7 +58,7 @@ export default function AdminHeader() {
           </aside>
         </div>
         <div className="d-lg-none col-3 col-md-2">
-          <aside className="navbar-adminheader m-5 full-height d-flex flex-column">
+          <aside className="navbar-adminheader m-5 d-flex flex-column">
             <div className="w-100 d-flex flex-column flex-grow-1">
               <a
                 className="py-5 d-flex justify-content-center mb-5"

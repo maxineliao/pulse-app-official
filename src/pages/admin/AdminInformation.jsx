@@ -157,7 +157,7 @@ export default function AdminInformation() {
   return (
     <>
       <div className="col-9 col-md-10">
-        <div className="navbar-information my-5 me-5 full-height d-flex flex-column">
+        <div className="navbar-information my-5 me-5 d-flex flex-column">
           <div className="m-5">
             <h1 className="pb-5 admin-name-bottom">會員資訊管理</h1>
             <form

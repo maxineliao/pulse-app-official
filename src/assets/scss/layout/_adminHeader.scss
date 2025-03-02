@@ -6,10 +6,6 @@
   height: 100%;
 }
 
-// .full-height {
-//   height: calc(100vh - 48px);
-// }
-
 .list-item-hover {
   &:hover {
     background-color: lighten($third, 40%);
@@ -20,6 +16,6 @@
   overflow-x: hidden;
 }
 
-.admin .active {
+.list-unstyled .active {
   background-color: lighten($third, 40%);
 }
