@@ -1,10 +1,16 @@
 import Images from "../Images";
 import { useForm, useWatch } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { ChevronLeft } from "lucide-react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { login } from "../slice/authSlice";
 
 function Register() {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [passwordComfirmed, setPasswordComfirmed] = useState(true);
 	const {
 		register,
@@ -13,17 +19,62 @@ function Register() {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
+			username:"",
 			email: "",
 			password: "",
 			chkpassword: "",
 		},
 	});
 	const onSubmit = (data) => {
-		// console.log(data);
+		const { email, password, username } = data;
+		if (watchForm.password === watchForm.chkpassword) {
+			signUp(email, password, username);
+		} else {
+			return;
+		}
 	};
 	const watchForm = useWatch({
 		control,
 	});
+	const customSwal = (icon, title) => {
+		Swal.fire({
+			icon: icon,
+			title: title,
+			toast: true,
+			position: "bottom-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			customClass: {
+				popup: "swal-popup",
+				title: "swal-title",
+			},
+		});
+	};
+	const signUp = async (email, password, username) => {
+		try {
+			const url = "https://pulse-web-player.onrender.com/signup";
+			const res = await axios.post(url, {
+				username: username,
+				email: email,
+				password: password,
+				role: ["user"],
+				plan: "free",
+			});
+			localStorage.setItem("pulseToken", res.data.accessToken); // 儲存
+			dispatch(login());
+			customSwal("success", "註冊成功！");
+			setTimeout(() => {
+				navigate(`/`);
+			}, 2000);
+		} catch (error) {
+			if (error.response.data === "Email already exists") {
+				customSwal("error", "帳號已存在");
+			} else {
+				customSwal("error", `發生錯誤：${error.response.data}`);
+			}
+		}
+	};
 	useEffect(() => {
 		if (watchForm.password && watchForm.chkpassword) {
 			if (watchForm.password === watchForm.chkpassword) {
@@ -35,6 +86,7 @@ function Register() {
 			setPasswordComfirmed(true);
 		}
 	}, [watchForm]);
+
 	return (
 		<div
 			className="login-bg"
@@ -42,7 +94,7 @@ function Register() {
 				backgroundImage: `url(${Images.linear})`,
 			}}
 		>
-			<div className="container py-8" style={{minHeight: "100dvh"}}>
+			<div className="container py-8" style={{ minHeight: "100dvh" }}>
 				<div className="row d-flex justify-content-center">
 					<div className="col-lg-6">
 						<Link
@@ -64,8 +116,30 @@ function Register() {
 							onSubmit={handleSubmit(onSubmit)}
 						>
 							<label
-								htmlFor="email"
+								htmlFor="username"
 								className="form-label mb-2 mt-6"
+							>
+								使用者名稱 *
+							</label>
+							<input
+								type="text"
+								className="form-control mb-1 py-4 px-5 input-border-third"
+								id="username"
+								placeholder="請輸入使用者名稱"
+								{...register("username", {
+									required: "名稱為必填",
+									pattern: {
+										value: /^.{1,20}$/,
+										message: "名稱須在20個字元內",
+									},
+								})}
+							/>
+							<span className="mb-5 d-block">
+								{errors.username ? errors.username.message : ""}
+							</span>
+							<label
+								htmlFor="email"
+								className="form-label mb-2"
 							>
 								您的電子信箱 *
 							</label>
@@ -99,9 +173,9 @@ function Register() {
 								{...register("password", {
 									required: "密碼為必填",
 									pattern: {
-										value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
+										value: /^(?=.*[a-zA-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
 										message:
-											"密碼需超過8個字元，含大小寫英文字母及數字",
+											"密碼需大於等於8個字元，含英文字母及數字",
 									},
 								})}
 							/>

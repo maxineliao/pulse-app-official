@@ -1,10 +1,14 @@
+import { useEffect } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router";
-import HeaderVisitor from "../components/Web/HeaderVisitor";
+import WebHeader from "../components/Web/WebHeader";
+import { useSelector } from 'react-redux';
 
 function Web() {
+    const isAuth = useSelector((state) => state.auth.isAuth);
     return (
         <>
-            <HeaderVisitor />
+            <WebHeader />
             <Outlet />
         </>
     )

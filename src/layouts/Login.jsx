@@ -1,18 +1,60 @@
 import Images from "../Images";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ChevronLeft } from "lucide-react";
+import { useDispatch } from "react-redux";
+import Swal from 'sweetalert2';
+import axios from "axios";
+import { login } from "../slice/authSlice";
 
 function Login() {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors }
 	} = useForm();
 	const onSubmit = (data) => {
-		// console.log(data);
+		const {email, password} = data;
+		signIn(email, password)
 	};
-	
+	const signIn = async(email, password) => {
+		try {
+			const url = "https://pulse-web-player.onrender.com/signin"
+			const res = await axios.post(url,{
+				"email": email,
+  				"password": password
+			})
+			localStorage.setItem("pulseToken", res.data.accessToken);  // 儲存
+			dispatch(login());
+			customSwal("success","登入成功");
+			setTimeout(() => {
+				navigate(`/`)
+			},2000)
+		} catch (error) {
+			if (error.response.data === "Email already exists") {
+				customSwal('error','帳號已存在')
+			} else {
+				customSwal('error',`發生錯誤：${error.response.data}`)
+			}
+		}
+	}
+	const customSwal = (icon, title) => {
+		Swal.fire({
+			icon: icon,
+			title: title,
+			toast: true,
+			position: "bottom-end",
+			showConfirmButton: false,
+			timer: 3000,
+			timerProgressBar: true,
+			customClass: {
+			  popup: "swal-popup",
+			  title: "swal-title",
+			},
+		});
+	}
 	return (
 		<div
 			className="login-bg"
