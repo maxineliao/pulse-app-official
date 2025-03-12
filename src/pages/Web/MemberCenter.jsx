@@ -1,12 +1,45 @@
-import { CalendarDays, ChevronRight, CircleDollarSign, List, LockKeyhole, LogOut, Pencil, Wallet } from "lucide-react";
+import {
+	CalendarDays,
+	ChevronRight,
+	CircleDollarSign,
+	List,
+	LockKeyhole,
+	LogOut,
+	Pencil,
+	Wallet,
+} from "lucide-react";
 import Images from "../../Images";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../slice/authSlice";
+import { useEffect } from "react";
+import { useSpotifyAuth } from "../../hooks/useSpotifyAuth";
+import SpotifyAuthButton from "../../components/Web/SpotifyAuthButton";
+
 function MemberCenter() {
+	const isAuth = useSelector((state) => state.auth.isAuth);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const signOut = () => {
+		dispatch(logout());
+	};
+	const { exchangeCodeForToken } = useSpotifyAuth();
+	useEffect(() => {
+		if (!isAuth) {
+			navigate(`/`);
+		}
+	}, [isAuth]);
+	useEffect(() => {		
+		exchangeCodeForToken();
+	},[])
+	
+
 	return (
 		<div className="container membercenter-content-p">
-			<section className="member-header mb-5 row">
+			<section className="member-header mb-5 row align-items-stretch">
 				<div className="col-lg-8 mb-lg-0 mb-3">
-					<div className="plan rounded-4 membercenter-tab-style py-5 px-lg-5 px-3">
+					<div className="plan rounded-4 membercenter-tab-style py-5 px-lg-5 px-3 h-100">
 						<h3 className="membercenter-title-color mb-lg-5 mb-3">
 							你的方案
 						</h3>
@@ -15,9 +48,7 @@ function MemberCenter() {
 							一人方案
 						</h5>
 						<div className="py-2">
-							<CalendarDays
-                                width={16}
-							></CalendarDays>
+							<CalendarDays width={16}></CalendarDays>
 							<span className="ms-3">
 								下次收費日期：2024年10月20日
 							</span>
@@ -29,18 +60,15 @@ function MemberCenter() {
 							</span>
 						</div>
 						<div className="d-flex plan-edit mt-lg-5 mt-3">
-							<div className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style">
+							<a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
 								<span>管理訂閱方案</span>
-								<ChevronRight
-									width={16}
-								></ChevronRight>
-							</div>
-							<div className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style">
+								<ChevronRight width={16}></ChevronRight>
+							</a>
+							<a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
 								<span>更新付款資訊</span>
-								<ChevronRight
-									width={16}
-								></ChevronRight>
-							</div>
+								<ChevronRight width={16}></ChevronRight>
+							</a>
+							<SpotifyAuthButton />
 						</div>
 					</div>
 				</div>
@@ -57,10 +85,15 @@ function MemberCenter() {
 							alt="headshot"
 						/>
 						<h3 className="mb-lg-5 mb-0 me-lg-0 me-6">Benson</h3>
-						<div className="py-2 px-3 rounded-5 membercenter-button-style">
+						<a
+							className="py-2 px-3 rounded-5 membercenter-button-style text-decoration-none"
+							onClick={() => {
+								signOut();
+							}}
+						>
 							<span className="me-2">登出</span>
 							<LogOut width={16}></LogOut>
-						</div>
+						</a>
 					</div>
 				</div>
 			</section>
@@ -79,9 +112,7 @@ function MemberCenter() {
 					</div>
 					<div className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between">
 						<div className="d-flex">
-							<LockKeyhole
-								width={20}
-							></LockKeyhole>
+							<LockKeyhole width={20}></LockKeyhole>
 							<h5 className="ps-5 mb-0">變更密碼</h5>
 						</div>
 						<ChevronRight
@@ -97,18 +128,21 @@ function MemberCenter() {
 					<div className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between">
 						<div className="d-flex">
 							<img
-								style={{width: "20px", height: "20px"}}
+								style={{ width: "20px", height: "20px" }}
 								src={Images.Logo_w}
 								alt=""
 							/>
-							<h5 className="ps-5 mb-0">編輯個人資訊</h5>
+							<h5 className="ps-5 mb-0">管理訂閱方案</h5>
 						</div>
 						<ChevronRight
 							className="me-2 me-lg-0"
 							width={24}
 						></ChevronRight>
 					</div>
-					<Link to="/subscription_plans" className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between text-decoration-none">
+					<Link
+						to="/subscription_plans"
+						className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between text-decoration-none"
+					>
 						<div className="d-flex">
 							<List width={20}></List>
 							<h5 className="ps-5 mb-0">瀏覽訂閱方案</h5>
@@ -135,9 +169,7 @@ function MemberCenter() {
 					</div>
 					<div className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between">
 						<div className="d-flex">
-							<CircleDollarSign
-								width={20}
-							></CircleDollarSign>
+							<CircleDollarSign width={20}></CircleDollarSign>
 							<h5 className="ps-5 mb-0">訂單紀錄</h5>
 						</div>
 						<ChevronRight

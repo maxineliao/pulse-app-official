@@ -1,7 +1,23 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
+import { useState } from "react";
 import Images from "../../Images";
 
-export default function HeaderVisitor() {
+export default function HeaderAuth() {
+	const navigate = useNavigate();
+	const signOut = () => {
+		localStorage.removeItem("pulseToken");  // 刪除
+		checkAuth();
+		navigate(`/`);
+	}
+	const [isAuth, setIsAuth] = useState(false);
+    const checkAuth = () => {
+        const token = localStorage.getItem("pulseToken"); 
+        if(token) {
+            setIsAuth(true);
+        }else {
+            setIsAuth(false);
+        }
+    }
 	return (
 		<nav className="header-visitor container fixed-top">
 			<div className="navbar navbar-dark navbar-expand-lg rounded-4 justify-content-between">
@@ -13,9 +29,9 @@ export default function HeaderVisitor() {
 						height="40"
 					/>
 				</NavLink>
-				<button className="nav-btn btn btn-outline-primary rounded-3 me-2 pe-lg-2 order-lg-3">
-					免費試用
-				</button>
+				<NavLink to="/member_center" className="nav-btn btn btn-outline-primary rounded-3 me-2 pe-lg-2 order-lg-3">
+					Benson
+				</NavLink>
 				<button
 					className="navbar-toggler order-lg-2 border-0"
 					type="button"
@@ -46,14 +62,9 @@ export default function HeaderVisitor() {
 							</NavLink>
 						</li>
 						<li className="nav-item">
-							<NavLink className="nav-link me-2" to="/register">
-								註冊
-							</NavLink>
-						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link me-2" to="/login">
-								登入
-							</NavLink>
+							<button className="nav-link me-2" onClick={()=>{signOut()}}>
+								登出
+							</button>
 						</li>
 					</ul>
 				</div>

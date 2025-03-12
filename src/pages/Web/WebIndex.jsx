@@ -6,7 +6,7 @@ import {
 	ChevronRight,
 	CirclePlay,
 } from "lucide-react";
-import axios from "axios";
+import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
 import Images from "../../Images";
@@ -41,6 +41,7 @@ const SwiperButtonPrev = ({ children }) => {
 
 function WebIndex() {
 	//GSAP START
+	const navigate = useNavigate();
 	const marqueeRef = useRef(null);
     const getStaggerEach = () => {
         const width = window.innerWidth;
@@ -97,9 +98,14 @@ function WebIndex() {
 		};
 	}
 	useEffect(() => {
+		const currentUrl = new URL(window.location.href);
+		const params = new URLSearchParams(currentUrl.search);
+		if (params.has("code")) {
+			navigate('/member_center')
+		}
 		marqueeInit();
 	}, []);
-
+	
 	window.addEventListener("resize", debounce(marqueeInit));
 	// GSAP END
 	return (
