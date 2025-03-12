@@ -13,6 +13,7 @@ import AdminHeader from "../layouts/AdminHeader";
 import AdminInformation from "../pages/admin/AdminInformation";
 import AdvertisementInformation from "../pages/admin/AdvertisementInformation";
 import '../assets/scss/all.scss';
+import UsersSavedAlbums from "../pages/Player/UsersSavedAlbums";
 
 const router = createHashRouter([
   {
@@ -40,6 +41,10 @@ const router = createHashRouter([
       {
         path: "result",
         element: <SearchResult />
+      },
+      {
+        path: "saved_albums",
+        element: <UsersSavedAlbums />
       }
     ]
   },{

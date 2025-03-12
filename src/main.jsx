@@ -7,9 +7,9 @@ import router from "../src/router/index.jsx";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 createRoot(document.getElementById("root")).render(
-	<StrictMode>
+	// <StrictMode>
 		<Provider store={store}>
 			<RouterProvider router={router} />
 		</Provider>
-	</StrictMode>
+	// </StrictMode>
 );

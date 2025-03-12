@@ -65,13 +65,13 @@ export default function PlayerSideMenu() {
 					</a>
 				</li>
 				<li className="list-group-item border-0 py-0">
-					<a
-						href="#"
+					<NavLink
+						to="/player/saved_albums"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
 					>
 						<DiscAlbum className="icon me-3" />
 						<h6 className="mb-0">收藏專輯</h6>
-					</a>
+					</NavLink>
 				</li>
 				<li className="list-group-item border-0 py-0">
 					<a

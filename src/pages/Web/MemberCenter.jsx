@@ -14,6 +14,9 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../slice/authSlice";
 import { useEffect } from "react";
+import { useSpotifyAuth } from "../../hooks/useSpotifyAuth";
+import SpotifyAuthButton from "../../components/Web/SpotifyAuthButton";
+
 function MemberCenter() {
 	const isAuth = useSelector((state) => state.auth.isAuth);
 	const dispatch = useDispatch();
@@ -21,11 +24,17 @@ function MemberCenter() {
 	const signOut = () => {
 		dispatch(logout());
 	};
+	const { exchangeCodeForToken } = useSpotifyAuth();
 	useEffect(() => {
-		if(!isAuth) {
-			navigate(`/`)
+		if (!isAuth) {
+			navigate(`/`);
 		}
-	},[isAuth])
+	}, [isAuth]);
+	useEffect(() => {		
+		exchangeCodeForToken();
+	},[])
+	
+
 	return (
 		<div className="container membercenter-content-p">
 			<section className="member-header mb-5 row align-items-stretch">
@@ -51,18 +60,15 @@ function MemberCenter() {
 							</span>
 						</div>
 						<div className="d-flex plan-edit mt-lg-5 mt-3">
-							<div className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style">
+							<a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
 								<span>管理訂閱方案</span>
 								<ChevronRight width={16}></ChevronRight>
-							</div>
-							<div className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style">
+							</a>
+							<a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
 								<span>更新付款資訊</span>
 								<ChevronRight width={16}></ChevronRight>
-							</div>
-							<div className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style">
-								<span>連結Spotify帳戶</span>
-								<ChevronRight width={16}></ChevronRight>
-							</div>
+							</a>
+							<SpotifyAuthButton />
 						</div>
 					</div>
 				</div>
