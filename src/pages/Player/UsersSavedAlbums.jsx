@@ -2,10 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 export default function UsersSavedAlbums() {
-    const spotifyAccessToken = useSelector((state) => state.spotifyAuth.spotifyAccessToken);
+    const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
     const [albumsData, setAlbumsData] = useState({items:[]});
     const getUsersAlbums = async() => {
         try {

@@ -29,4 +29,6 @@ const spotifyAuthSlice = createSlice({
 });
 
 export const { setSpotifyTokens, logoutSpotify } = spotifyAuthSlice.actions;
+export const selectSpotifyAccessToken = (state) => state.spotifyAuth.spotifyAccessToken; 
+export const selectSpotifyRefreshToken = (state) => state.spotifyAuth.spotifyRefreshToken; 
 export default spotifyAuthSlice.reducer;
