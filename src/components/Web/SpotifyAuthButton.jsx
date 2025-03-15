@@ -27,7 +27,7 @@ export default function SpotifyAuthButton() {
 			onClick={handleSpotifyAuth}
 		>
 			<span
-				style={spotifyIsAuth && {color: "#1DB954"}}
+				style={spotifyIsAuth ? {color: "#1DB954"} : {color: "#fff"}}
 			>
 				{spotifyIsAuth
 					? "已連結Spotify"

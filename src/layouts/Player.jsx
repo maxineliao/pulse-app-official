@@ -1,5 +1,8 @@
 import { Outlet } from "react-router";
-
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { useSpotifyAuth } from '../hooks/useSpotifyAuth';
+import { logoutSpotify } from "../slice/spotifyAuthSlice";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,6 +15,20 @@ import PlayerComp from "../components/Player/PlayerComp";
 
 
 function Player() {
+	const dispatch = useDispatch();
+    const { refreshAccessToken } = useSpotifyAuth();
+    const isAuth = useSelector((state) => state.auth.isAuth);
+    const spotifyAccessToken = useSelector((state) => state.spotifyAuth.spotifyAccessToken);
+    const spotifyRefreshToken = useSelector((state) => state.spotifyAuth.spotifyRefreshToken);
+    useEffect(() => {
+        if (isAuth) {
+            if(spotifyAccessToken && spotifyRefreshToken) {
+                refreshAccessToken();
+            } else {
+                dispatch(logoutSpotify());
+            }
+        }
+    },[])
 	//愛心變紅色
 	document.addEventListener("DOMContentLoaded", function () {
 		const heartButtons = document.querySelectorAll(
@@ -22,19 +39,6 @@ function Player() {
 				const svgElement = button.querySelector("svg");
 				svgElement.classList.toggle("fill-red");
 			});
-		});
-	});
-
-	// 切換播放和暫停圖示
-	document.addEventListener("DOMContentLoaded", function () {
-		const playButton = document.querySelector(".player-footer-btn-circle");
-		playButton.addEventListener("click", function () {
-			const iconElement = playButton.querySelector("svg");
-			if (iconElement.getAttribute("data-lucide") === "play") {
-				iconElement.setAttribute("data-lucide", "pause");
-			} else {
-				iconElement.setAttribute("data-lucide", "play");
-			}
 		});
 	});
 
