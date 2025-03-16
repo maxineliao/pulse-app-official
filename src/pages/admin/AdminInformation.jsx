@@ -247,7 +247,9 @@ export default function AdminInformation() {
               <nav>
                 <ul className="pagination">
                   <li
-                    className={`page-item ${!pageInfo.has_pre && "disabled"}`}
+                    className={`page-item ${
+                      pageInfo.current_page === 1 && "disabled"
+                    }`}
                   >
                     <a
                       onClick={(e) => handleClick(e, pageInfo.current_page - 1)}
@@ -274,7 +276,9 @@ export default function AdminInformation() {
                     </li>
                   ))}
                   <li
-                    className={`page-item ${!pageInfo.has_next && "disabled"}`}
+                    className={`page-item ${
+                      pageInfo.current_page === totalPages ? "disabled" : ""
+                    }`}
                   >
                     <a
                       onClick={(e) => handleClick(e, pageInfo.current_page + 1)}

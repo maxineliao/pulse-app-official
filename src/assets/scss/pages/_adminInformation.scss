@@ -99,9 +99,10 @@ thead {
 }
 
 .pagination {
-  --bs-pagination-active-bg: $third;
+  --bs-pagination-active-bg: #ffcf31;
   --bs-pagination-disabled-bg: $third;
   --bs-pagination-focus-bg: $third;
+  --bs-pagination-active-color: black;
 }
 
 // 滾動條樣式

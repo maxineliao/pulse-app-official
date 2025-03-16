@@ -287,7 +287,7 @@ export default function AdvertisementInformation() {
                   ))}
                   <li
                     className={`page-item ${
-                      pageInfo.current_page === totalPages && "disabled"
+                      pageInfo.current_page === totalPages ? "disabled" : ""
                     }`}
                   >
                     <a
