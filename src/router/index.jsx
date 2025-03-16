@@ -14,6 +14,9 @@ import AdminInformation from "../pages/admin/AdminInformation";
 import AdvertisementInformation from "../pages/admin/AdvertisementInformation";
 import '../assets/scss/all.scss';
 import UsersSavedAlbums from "../pages/Player/UsersSavedAlbums";
+import UsersFollowedArtists from "../pages/Player/UsersFollowedArtists";
+import UsersRecentlyPlayed from "../pages/Player/UsersRecentlyPlayed";
+import UsersSinglePlaylist from "../pages/Player/UsersSinglePlaylist";
 
 const router = createHashRouter([
   {
@@ -35,7 +38,7 @@ const router = createHashRouter([
     element: <Player />,
     children: [
       {
-        path: "",
+        path: "index",
         element: <PlayerIndex />
       },
       {
@@ -45,7 +48,19 @@ const router = createHashRouter([
       {
         path: "saved_albums",
         element: <UsersSavedAlbums />
-      }
+      },
+      {
+        path: "followed_artists",
+        element: <UsersFollowedArtists />
+      },
+      {
+        path: "recently_played",
+        element: <UsersRecentlyPlayed />
+      },
+      {
+        path: "my_playlist/:id",
+        element: <UsersSinglePlaylist />
+      },
     ]
   },{
     path: "",

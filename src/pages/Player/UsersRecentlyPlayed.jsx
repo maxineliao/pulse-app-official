@@ -3,27 +3,28 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
+import PlayerCardSong from "../../components/Player/PlayerCardSong";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
-export default function UsersSavedAlbums() {
+export default function UsersRecentlyPlayed() {
     const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
-    const [albumsData, setAlbumsData] = useState({items:[]});
-    const getUsersAlbums = async() => {
+    const [trackData, setTrackData] = useState({items:[]});
+    const getUsersRecentlyPlayed = async() => {
         try {
-            const url = `${VITE_SPOTIFY_API_PATH}me/albums?limit=12&offset=0`
+            const url = `${VITE_SPOTIFY_API_PATH}me/player/recently-played?limit=10`
             const response = await axios.get(url,{
                 headers: {
                     'Authorization': `Bearer ${spotifyAccessToken}`,
                 }
             })
-            setAlbumsData(response.data);
+            // setTrackData(response.data);
+            console.log(trackData);
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
         if(spotifyAccessToken) {
-            getUsersAlbums();
+            getUsersRecentlyPlayed();
         }
     },[spotifyAccessToken])
     
@@ -36,7 +37,7 @@ export default function UsersSavedAlbums() {
 							<div className="d-flex justify-content-between align-items-center mb-5">
 								<h4 className="h4 mb-0">收藏專輯</h4>
 							</div>
-							<div className="row">
+							{/* <div className="row">
                                 {albumsData?.items?.length > 0 ? albumsData.items.map((item) => {
                                     return (
                                         <div className="col-6 col-lg-3" key={item.album.id}>
@@ -50,7 +51,7 @@ export default function UsersSavedAlbums() {
                                 })
                                 : 
                                 "尚未收藏專輯"}
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
