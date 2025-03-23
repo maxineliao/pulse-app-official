@@ -207,13 +207,8 @@ input[type="search"] {
 }
 
 .card-playlist {
-  border: 1px solid $third;
-  box-shadow: 0px 4px 20px 0px #00000026;
-  backdrop-filter: blur(25px);
-  height: 100%;
-  width: 100%;
+  background: none;
   cursor: pointer;
-  --bs-card-bg: $white-bg;
   &:hover {
     background: $white-bg;
   }
@@ -326,12 +321,12 @@ body:has(.offcanvas.show) .player-comp {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-.mySwiper-player-1, .mySwiper-player-2{
+.mySwiper-player-1,
+.mySwiper-player-2 {
   .swiper-slide {
     height: auto;
   }
 }
-
 
 //搜尋結果新增
 .card-song {
@@ -357,7 +352,7 @@ body:has(.offcanvas.show) .player-comp {
 }
 
 .side-menu {
-  .list-group-item a{
+  .list-group-item a {
     &:hover {
       .icon {
         stroke: $primary-yellow;

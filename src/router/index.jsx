@@ -12,8 +12,14 @@ import Register from "../layouts/Register";
 import AdminHeader from "../layouts/AdminHeader";
 import AdminInformation from "../pages/admin/AdminInformation";
 import AdvertisementInformation from "../pages/admin/AdvertisementInformation";
-import '../assets/scss/all.scss';
+import "../assets/scss/all.scss";
 import UsersSavedAlbums from "../pages/Player/UsersSavedAlbums";
+import SearchSong from "../pages/Player/SearchSong";
+import SearchArtist from "../pages/Player/SearchArtist";
+import SearchAlbum from "../pages/Player/SearchAlbum";
+import SearchPlaylist from "../pages/Player/SearchPlaylist";
+import AlbumSongDetail from "../pages/Player/AlbumSongDetail";
+import ArtistDetail from "../pages/Player/ArtistDetail";
 
 const router = createHashRouter([
   {
@@ -36,40 +42,68 @@ const router = createHashRouter([
     children: [
       {
         path: "",
-        element: <PlayerIndex />
+        element: <PlayerIndex />,
       },
       {
         path: "result",
-        element: <SearchResult />
+        element: <SearchResult />,
       },
       {
         path: "saved_albums",
-        element: <UsersSavedAlbums />
-      }
-    ]
-  },{
+        element: <UsersSavedAlbums />,
+      },
+      {
+        path: "search_songs",
+        element: <SearchSong />,
+      },
+      {
+        path: "search_artists",
+        element: <SearchArtist />,
+      },
+      {
+        path: "search_albums",
+        element: <SearchAlbum />,
+      },
+      {
+        path: "search_playlists",
+        element: <SearchPlaylist />,
+      },
+      {
+        path: "albumSong_detail",
+        element: <AlbumSongDetail />,
+      },
+      {
+        path: "artist_detail",
+        element: <ArtistDetail />,
+      },
+    ],
+  },
+  {
     path: "",
     element: <Web />,
     children: [
       {
         path: "",
-        element: <WebIndex />
+        element: <WebIndex />,
       },
       {
         path: "/subscription_plans",
-        element: <SubscriptionPlans />
-      },{
+        element: <SubscriptionPlans />,
+      },
+      {
         path: "/member_center",
-        element: <MemberCenter/>
-      }
-    ]
-  },{
+        element: <MemberCenter />,
+      },
+    ],
+  },
+  {
     path: "login",
-    element: <Login />
-  },{
+    element: <Login />,
+  },
+  {
     path: "register",
-    element: <Register />
-  }
+    element: <Register />,
+  },
 ]);
 
 export default router;
