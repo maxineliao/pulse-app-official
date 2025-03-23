@@ -352,8 +352,8 @@ body:has(.offcanvas.show) .player-comp {
 }
 
 .side-menu {
-  .list-group-item a {
-    &:hover {
+  .list-group-item a{
+    &:hover,&.active {
       .icon {
         stroke: $primary-yellow;
       }

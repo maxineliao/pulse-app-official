@@ -48,7 +48,7 @@ export default function PlayerHeader() {
             <List />
           </button>
         </div>
-        <a href="MemberCenter.html" className="text-decoration-none">
+        <NavLink to="/member_center" className="text-decoration-none">
           <button className="nav-btn btn btn-outline-primary rounded-3 me-2 pe-lg-2 order-lg-3 d-none d-lg-block">
             <img
               className="rounded-circle object-fit-cover me-1"
@@ -59,7 +59,7 @@ export default function PlayerHeader() {
             />
             Benson
           </button>
-        </a>
+        </NavLink>
 
         <div className="d-lg-none">
           <div className="container-fluid">
@@ -76,11 +76,11 @@ export default function PlayerHeader() {
             <button className="btn rounded-2 player-icon-btn" type="button">
               <List />
             </button>
-            <a href="MemberCenter.html" className="text-decoration-none">
+            <NavLink to="/member_center" className="text-decoration-none">
               <button className="btn rounded-2 player-icon-btn" type="button">
                 <User />
               </button>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

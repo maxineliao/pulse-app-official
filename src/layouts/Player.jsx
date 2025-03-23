@@ -20,6 +20,7 @@ function Player() {
     const isAuth = useSelector((state) => state.auth.isAuth);
     const spotifyAccessToken = useSelector((state) => state.spotifyAuth.spotifyAccessToken);
     const spotifyRefreshToken = useSelector((state) => state.spotifyAuth.spotifyRefreshToken);
+
     useEffect(() => {
         if (isAuth) {
             if(spotifyAccessToken && spotifyRefreshToken) {
@@ -28,6 +29,13 @@ function Player() {
                 dispatch(logoutSpotify());
             }
         }
+		if (!document.getElementById('spotify-sdk')) {
+			const script = document.createElement("script");
+			script.id = "spotify-sdk"; // 確保只插入一次
+			script.src = "https://sdk.scdn.co/spotify-player.js";
+			script.async = true;
+			document.body.appendChild(script);
+		} 
     },[])
 	//愛心變紅色
 	document.addEventListener("DOMContentLoaded", function () {

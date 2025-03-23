@@ -3,27 +3,27 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
+import PlayerCardArtist from "../../components/Player/PlayerCardArtist";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
-export default function UsersSavedAlbums() {
+export default function UsersFollowedArtists() {
     const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
-    const [albumsData, setAlbumsData] = useState({items:[]});
-    const getUsersAlbums = async() => {
+    const [artistsData, setArtistsData] = useState({items:[]});
+    const getUsersArtists = async() => {
         try {
-            const url = `${VITE_SPOTIFY_API_PATH}me/albums?limit=12&offset=0`
+            const url = `${VITE_SPOTIFY_API_PATH}me/following?type=artist&limit=10`
             const response = await axios.get(url,{
                 headers: {
                     'Authorization': `Bearer ${spotifyAccessToken}`,
                 }
             })
-            setAlbumsData(response.data);
+            setArtistsData(response.data);
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(() => {
         if(spotifyAccessToken) {
-            getUsersAlbums();
+            getUsersArtists();
         }
     },[spotifyAccessToken])
     
@@ -34,22 +34,21 @@ export default function UsersSavedAlbums() {
 					<div className="row mb-5">
 						<div className="col-12">
 							<div className="d-flex justify-content-between align-items-center mb-5">
-								<h4 className="h4 mb-0">收藏專輯</h4>
+								<h4 className="h4 mb-0">收藏藝人</h4>
 							</div>
 							<div className="row">
-                                {albumsData?.items?.length > 0 ? albumsData.items.map((item) => {
+                                {artistsData?.artists?.items?.length > 0 ? artistsData.artists.items.map((item) => {
                                     return (
-                                        <div className="col-6 col-lg-3" key={item.album.id}>
-                                            <PlayerCardAlbum
-                                                cardImage={item.album.images[1].url}
-                                                cardTitle={item.album.name}
-                                                cardContent={item.album.release_date}
+                                        <div className="col-6 col-lg-3" key={item.id}>
+                                            <PlayerCardArtist
+                                                cardImage={item.images[1].url}
+                                                cardTitle={item.name}
 									        />
 								        </div>
                                     )
                                 })
                                 : 
-                                "尚未收藏專輯"}
+                                "尚未收藏藝人"}
 							</div>
 						</div>
 					</div>
