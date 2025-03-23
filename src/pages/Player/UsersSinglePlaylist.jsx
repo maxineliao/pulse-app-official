@@ -1,18 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import PlayerCardSong from "../../components/Player/PlayerCardSong";
 import { useParams } from "react-router";
+import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 export default function UsersSinglePlaylist() {
     const params = useParams();
+    const dispatch = useDispatch();
     const {id} = params;
     const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
     const [playlistData, setPlaylistData] = useState([]);
     const [playlistInfo, setPlaylistInfo] = useState();
+    const {play, player} = useSpotifyPlayer();
+
     const getUsersSinglePlaylist = async() => {
         try {
             const url = `${VITE_SPOTIFY_API_PATH}playlists/${id}/tracks`
@@ -21,7 +25,8 @@ export default function UsersSinglePlaylist() {
                     'Authorization': `Bearer ${spotifyAccessToken}`,
                 }
             })
-            setPlaylistData(response.data.items);
+            const items = response.data.items;
+            setPlaylistData(items);
         } catch (error) {
             console.log(error);
         }
@@ -43,6 +48,7 @@ export default function UsersSinglePlaylist() {
         if(spotifyAccessToken) {
             getUsersSinglePlaylist();
             getPlaylistInfo();
+            console.log(playlistInfo);
         }
     },[id])
     
@@ -58,11 +64,14 @@ export default function UsersSinglePlaylist() {
 							<div className="row">
                                 {playlistData.length > 0 && playlistData.map((item) => {
                                     return (
-                                        <div className="col-12" key={item.id}>
+                                        <div className="col-12" key={item.track.id}>
                                             <PlayerCardSong
                                                 cardImage={item.track.album.images[0].url}
                                                 cardTitle={item.track.name}
-                                                cardContent={item.track.artists.map((artist) => artist.name).join(", ")}
+                                                cardContent={item.track.artists.map((artist) => artist.name).join(", ")} 
+                                                onClick={()=>{
+                                                    play(playlistInfo.uri, item.track.uri);
+                                                }}
 									        />
 								        </div>
                                     )

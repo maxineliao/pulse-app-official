@@ -1,16 +1,16 @@
-import PlayerImages from "../../Images";
 export default function PlayerCardSong(
     {
         cardTitle,
         cardContent,
-		cardImage
+		cardImage,
+		onClick
     }
 ) {
 	return (
-		<a className="card-song p-1 d-flex align-items-center rounded-4 d-block text-decoration-none mb-1">
+		<a className="card-song p-1 d-flex align-items-center rounded-4 d-block text-decoration-none mb-1" onClick={onClick}>
 			<img
 				src={cardImage}
-				alt=""
+				alt={cardTitle}
 				className="img ratio ratio-1x1 img-fluid me-3 rounded-4"
 			/>
 			<div className="d-flex flex-column align-items-start">

@@ -41,7 +41,7 @@ export default function PlayerSideMenu() {
 	return (
 		<>
 			<ul className="side-menu list-group mb-3 border-transparent rounded-4 player-bg">
-				<li className="list-group-item border-0 pb-0">
+				<li className="list-group-item border-0 pb-0 my-1">
 					<NavLink
 						to="/player/index"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -50,7 +50,7 @@ export default function PlayerSideMenu() {
 						<h6 className="mb-0">發現</h6>
 					</NavLink>
 				</li>
-				<li className="list-group-item border-0 pt-0">
+				<li className="list-group-item border-0 pt-0 my-1">
 					<a
 						href="#"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -80,7 +80,7 @@ export default function PlayerSideMenu() {
 						<Plus className="icon rotate90" />
 					</button>
 				</li>
-				<li className="list-group-item border-0 py-0">
+				{/* <li className="list-group-item border-0 py-0 my-1">
 					<a
 						href="#"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -88,8 +88,8 @@ export default function PlayerSideMenu() {
 						<Library className="icon me-3" />
 						<h6 className="mb-0">總覽</h6>
 					</a>
-				</li>
-				<li className="list-group-item border-0 py-0">
+				</li> */}
+				<li className="list-group-item border-0 py-0 my-1">
 					<NavLink
 						to="/player/saved_albums"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -98,7 +98,7 @@ export default function PlayerSideMenu() {
 						<h6 className="mb-0">收藏專輯</h6>
 					</NavLink>
 				</li>
-				<li className="list-group-item border-0 py-0">
+				<li className="list-group-item border-0 py-0 my-1">
 					<NavLink
 						to="/player/followed_artists"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -107,7 +107,7 @@ export default function PlayerSideMenu() {
 						<h6 className="mb-0">收藏藝人</h6>
 					</NavLink>
 				</li>
-				<li className="list-group-item border-0 py-0 player-list-border">
+				<li className="list-group-item border-0 py-0 player-list-border my-1">
 					<a
 						href="#"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3 mb-1"
