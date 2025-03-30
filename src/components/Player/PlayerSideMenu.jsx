@@ -40,7 +40,7 @@ export default function PlayerSideMenu() {
 
 	return (
 		<>
-			<ul className="side-menu list-group mb-3 border-transparent rounded-4 player-bg">
+			{/* <ul className="side-menu list-group mb-3 border-transparent rounded-4 player-bg">
 				<li className="list-group-item border-0 pb-0 my-1">
 					<NavLink
 						to="/player/index"
@@ -59,7 +59,7 @@ export default function PlayerSideMenu() {
 						<h6 className="mb-0">搜尋</h6>
 					</a>
 				</li>
-				{/* <li className="list-group-item border-0 pt-0">
+				<li className="list-group-item border-0 pt-0">
 					<NavLink
 						to="/player/recently_played"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3"
@@ -67,18 +67,18 @@ export default function PlayerSideMenu() {
 						<History className="icon me-3" />
 						<h6 className="mb-0">最近播放</h6>
 					</NavLink>
-				</li> */}
-			</ul>
+				</li>
+			</ul> */}
 			<ul className="side-menu list-group rounded-4 border-transparent mb-9 mb-lg-5 player-bg">
 				<li className="list-group-item border-0 d-flex align-items-center player-list-border p-4">
 					<Music className="me-5" />
 					<h5 className="mb-0">我的音樂庫</h5>
-					<button
+					{/* <button
 						type="button"
 						className="btn ms-auto player-icon-btn"
 					>
 						<Plus className="icon rotate90" />
-					</button>
+					</button> */}
 				</li>
 				{/* <li className="list-group-item border-0 py-0 my-1">
 					<a
@@ -108,13 +108,13 @@ export default function PlayerSideMenu() {
 					</NavLink>
 				</li>
 				<li className="list-group-item border-0 py-0 player-list-border my-1">
-					<a
-						href="#"
+					<NavLink
+						to="my_playlists"
 						className="d-flex text-decoration-none align-items-center py-3 px-2 rounded-3 mb-1"
 					>
 						<Heart className="icon me-3" />
 						<h6 className="mb-0">我的播放清單</h6>
-					</a>
+					</NavLink>
 				</li>
 				{/* <li className="list-group-item border-0 px-3 pt-1">
 					<a href="#" className="d-flex text-decoration-none p-2 rounded-3">
@@ -145,7 +145,7 @@ export default function PlayerSideMenu() {
 									key={item.id}
 								>
 									<NavLink
-										to={`/player/my_playlist/${item.id}`}
+										to={`/player/playlist/${item.id}`}
 										className="d-flex text-decoration-none p-2 rounded-3"
 									>
 										<img
@@ -167,7 +167,16 @@ export default function PlayerSideMenu() {
 								</li>
 							);
 					  })
-					: `尚無播放清單`}
+					: <li
+					className="list-group-item border-0 px-3"
+				>
+						<div className="ms-3">
+							<h6 className="mt-1">
+							尚無播放清單
+							</h6>
+						</div>
+					
+				</li>}
 			</ul>
 		</>
 	);

@@ -16,13 +16,14 @@ import "../assets/scss/all.scss";
 import UsersSavedAlbums from "../pages/Player/UsersSavedAlbums";
 import UsersFollowedArtists from "../pages/Player/UsersFollowedArtists";
 import UsersRecentlyPlayed from "../pages/Player/UsersRecentlyPlayed";
-import UsersSinglePlaylist from "../pages/Player/UsersSinglePlaylist";
-import SearchSong from "../pages/Player/SearchSong";
+import SinglePlaylist from "../pages/Player/SinglePlaylist";
+import SearchSong from "../pages/Player/SearchTrack";
 import SearchArtist from "../pages/Player/SearchArtist";
 import SearchAlbum from "../pages/Player/SearchAlbum";
 import SearchPlaylist from "../pages/Player/SearchPlaylist";
-import AlbumSongDetail from "../pages/Player/AlbumSongDetail";
+import AlbumTrackDetail from "../pages/Player/AlbumTrackDetail";
 import ArtistDetail from "../pages/Player/ArtistDetail";
+import UsersPlaylists from "../pages/Player/UsersPlaylists";
 
 const router = createHashRouter([
   {
@@ -44,7 +45,7 @@ const router = createHashRouter([
     element: <Player />,
     children: [
       {
-        path: "index",
+        path: "",
         element: <PlayerIndex />
       },
       {
@@ -56,7 +57,7 @@ const router = createHashRouter([
         element: <UsersSavedAlbums />,
       },,
       {
-        path: "search_songs",
+        path: "search_tracks",
         element: <SearchSong />,
       },
       {
@@ -72,8 +73,8 @@ const router = createHashRouter([
         element: <SearchPlaylist />,
       },
       {
-        path: "albumSong_detail",
-        element: <AlbumSongDetail />,
+        path: "albumTrack_detail",
+        element: <AlbumTrackDetail />,
       },
       {
         path: "artist_detail",
@@ -88,9 +89,13 @@ const router = createHashRouter([
         element: <UsersRecentlyPlayed />
       },
       {
-        path: "my_playlist/:id",
-        element: <UsersSinglePlaylist />
+        path: "playlist/:id",
+        element: <SinglePlaylist />
       },
+      {
+        path: "my_playlists",
+        element: <UsersPlaylists />
+      }
    ],
   },
   {

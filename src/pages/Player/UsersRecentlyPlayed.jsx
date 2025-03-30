@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import PlayerCardSong from "../../components/Player/PlayerCardSong";
+import PlayerCardSong from "../../components/Player/PlayerCardTrack";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 export default function UsersRecentlyPlayed() {
     const spotifyAccessToken = useSelector(selectSpotifyAccessToken);

@@ -62,7 +62,7 @@ export default function WebHeader() {
         >
           <ul className="navbar-nav mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink className="nav-link me-2" to="/player/index">
+              <NavLink className="nav-link me-2" to="/player">
                 PULSE Web Player
               </NavLink>
             </li>

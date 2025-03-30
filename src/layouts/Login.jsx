@@ -34,6 +34,7 @@ function Login() {
         VITE_SECRET_KEY
       ).toString(); // 加密
       localStorage.setItem("user", encryptedUser); // 儲存
+			localStorage.setItem("memberName", res.data.user.username);
       dispatch(login());
       customSwal("success", "登入成功");
       setTimeout(() => {

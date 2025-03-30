@@ -3,19 +3,19 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import PlayerCardSong from "../../components/Player/PlayerCardSong";
+import PlayerCardTrack from "../../components/Player/PlayerCardTrack";
 import { useParams } from "react-router";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
-export default function UsersSinglePlaylist() {
+export default function SinglePlaylist() {
     const params = useParams();
     const dispatch = useDispatch();
     const {id} = params;
     const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
     const [playlistData, setPlaylistData] = useState([]);
     const [playlistInfo, setPlaylistInfo] = useState();
-    const {play, player} = useSpotifyPlayer();
+    const {play} = useSpotifyPlayer();
 
     const getUsersSinglePlaylist = async() => {
         try {
@@ -48,9 +48,9 @@ export default function UsersSinglePlaylist() {
         if(spotifyAccessToken) {
             getUsersSinglePlaylist();
             getPlaylistInfo();
-            console.log(playlistInfo);
+            // console.log(playlistInfo);
         }
-    },[id])
+    },[id]);
     
     return (
         <>
@@ -65,10 +65,11 @@ export default function UsersSinglePlaylist() {
                                 {playlistData.length > 0 && playlistData.map((item) => {
                                     return (
                                         <div className="col-12" key={item.track.id}>
-                                            <PlayerCardSong
+                                            <PlayerCardTrack
                                                 cardImage={item.track.album.images[0].url}
                                                 cardTitle={item.track.name}
                                                 cardContent={item.track.artists.map((artist) => artist.name).join(", ")} 
+                                                cardTime={item.track.duration_ms}
                                                 onClick={()=>{
                                                     play(playlistInfo.uri, item.track.uri);
                                                 }}

@@ -37,18 +37,6 @@ function Player() {
 			document.body.appendChild(script);
 		} 
     },[])
-	//愛心變紅色
-	document.addEventListener("DOMContentLoaded", function () {
-		const heartButtons = document.querySelectorAll(
-			".btn-player-listen-heart"
-		);
-		heartButtons.forEach(function (button) {
-			button.addEventListener("click", function () {
-				const svgElement = button.querySelector("svg");
-				svgElement.classList.toggle("fill-red");
-			});
-		});
-	});
 
 	return (
 		<>
