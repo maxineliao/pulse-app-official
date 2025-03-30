@@ -115,6 +115,7 @@ function SearchPlaylist() {
                         cardImage={item.images[0]?.url}
                         cardTitle={item.name}
                         cardText={item.owner?.display_name}
+                        playlistId={item.id}
                       />
                     </div>
                   ))}

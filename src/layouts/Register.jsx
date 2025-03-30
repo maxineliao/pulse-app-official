@@ -62,6 +62,7 @@ function Register() {
 				plan: "free",
 			});
 			localStorage.setItem("pulseToken", res.data.accessToken); // 儲存
+			localStorage.setItem("memberName", res.data.user.username);
 			dispatch(login());
 			customSwal("success", "註冊成功！");
 			setTimeout(() => {

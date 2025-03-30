@@ -4,6 +4,7 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         isAuth: !!localStorage.getItem('pulseToken'),
+        memberName: localStorage.getItem('memberName') || 'Pulse Member',
     },
     reducers: {
         login: (state) => {
@@ -12,6 +13,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.isAuth = false;
             localStorage.removeItem('pulseToken');
+            localStorage.removeItem('memberName');
         }
     }
 })

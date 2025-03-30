@@ -2,17 +2,19 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
-import PlayerCardSong from "../../components/Player/PlayerCardSong";
+import PlayerCardSong from "../../components/Player/PlayerCardTrack";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { NavLink } from "react-router";
+import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
-function SearchSong() {
+function SearchTrack() {
   const location = useLocation();
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [songs, setSongs] = useState([]);
   const [query, setQuery] = useState("");
+  const {play} = useSpotifyPlayer();
 
   const getSongs = async (query) => {
     try {
@@ -115,6 +117,9 @@ function SearchSong() {
                       cardContent={item.artists[0]?.name}
                       cardImage={item.album.images[0]?.url}
                       cardTime={item.duration_ms}
+                      onClick={() => {
+                        play(null, item.uri)
+                      }}
                     />
                   </div>
                 ))}
@@ -126,4 +131,4 @@ function SearchSong() {
   );
 }
 
-export default SearchSong;
+export default SearchTrack;

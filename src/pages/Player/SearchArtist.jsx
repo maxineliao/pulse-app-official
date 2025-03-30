@@ -117,6 +117,7 @@ function SearchArtist() {
                       <PlayerCardArtist
                         cardImage={item.images[0]?.url}
                         cardTitle={item.name}
+                        artistId={item.id}
                       />
                     </NavLink>
                   </div>

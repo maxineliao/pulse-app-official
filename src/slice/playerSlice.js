@@ -4,7 +4,7 @@ const playerSlice = createSlice({
 	initialState: {
 		isPlaying: false,
 		currentTrack: null,
-		volume: 50,
+		volume: localStorage.getItem("pulse_player_volume") ? Number(localStorage.getItem("pulse_player_volume")) : 50,
 		progress: null,
 		repeatState: "off",
 		deviceId: null,

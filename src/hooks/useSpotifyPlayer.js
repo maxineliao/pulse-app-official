@@ -1,4 +1,4 @@
-import { playTrack, pauseTrack, getDevices, playbackShuffle } from "../utils/spotifyApi";
+import { playTrack, pauseTrack, getDevices, playbackShuffle, repeatMode, usersPlaylists } from "../utils/spotifyApi";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	setIsPlaying,
@@ -24,9 +24,16 @@ export const useSpotifyPlayer = () => {
 	const playing = useSelector((state) => state.player.isPlaying);
     const shuffleStateRef = useRef(null);
     shuffleStateRef.current = useSelector((state) => state.player.shuffle);
-    // useEffect(() => {
-    //     console.log(shuffleState);
-    // },[])
+    const currentVolumeRef = useRef(null);
+    currentVolumeRef.current = useSelector((state) => state.player.volume);
+    const repeatStateRef = useRef(null);
+    repeatStateRef.current = useSelector((state) => state.player.repeatState);
+    const isPlayerInitialized = useRef(false);
+
+    useEffect(()=> {
+        // console.log(repeatStateRef.current);
+    })
+
 	useEffect(() => {
 		if (!accessToken) return;
 
@@ -42,7 +49,7 @@ export const useSpotifyPlayer = () => {
 				getOAuthToken: (cb) => {
 					cb(accessToken);
 				},
-				volume: 0.5,
+				volume: currentVolumeRef.current / 100,
 			});
 
 			spotifyPlayer.addListener("player_state_changed", (state) => {
@@ -51,7 +58,7 @@ export const useSpotifyPlayer = () => {
 				dispatch(setCurrentTrack(state.track_window.current_track.uri));
 				dispatch(setIsPlaying(!state.paused));
 				dispatch(setProgress(state.position));
-				dispatch(setRepeatState(state.repeat_mode));
+				dispatch(setRepeatState(Number(state.repeat_mode) === 1 ? "context" : Number(state.repeat_mode) === 2 ? "track" : "off"));
 				dispatch(setDuration(state.duration));
 				dispatch(setImage(state.track_window.current_track.album.images[0].url));
 				dispatch(setTrackName(state.track_window.current_track.name));
@@ -82,16 +89,43 @@ export const useSpotifyPlayer = () => {
 
 			spotifyPlayer.connect();
 			setPlayer(spotifyPlayer);
+            isPlayerInitialized.current = true;
 		};
 
+        // SDK 已載入情況下立即初始化
 		if (window.Spotify) {
 			initializePlayer();
 		} else {
 			window.onSpotifyWebPlaybackSDKReady = initializePlayer;
 		}
 
-		return () => player && player.disconnect();
+        // 如果播放器已存在但斷線，再觸發 connect
+        if (player && !player._options?.id) {
+            console.log("播放器已存在但斷線，重新連線");
+            player.connect();
+        }
+
+		return () => {
+            if(player) {
+                player.disconnect();
+                isPlayerInitialized.current = false;
+                setPlayer(null);
+            }
+        }
 	}, [accessToken, dispatch]);
+
+    useEffect(()=> {
+        if (player && typeof player.pause == "function") {
+            setVolume(currentVolumeRef.current / 100)
+		}
+    },[currentVolumeRef])
+
+    const checkPlayerReady = () => {
+        if (!player || typeof player.pause !== "function") {
+			console.log("Player is not ready yet");
+			return;
+		}
+    }
 
 	const getUserDevices = () => {
 		getDevices(accessToken);
@@ -112,10 +146,7 @@ export const useSpotifyPlayer = () => {
 	};
 
 	const togglePlay = () => {
-		if (!player || typeof player.pause !== "function") {
-			console.log("Player is not ready yet");
-			return;
-		}
+		checkPlayerReady();
 
 		if (!playing) {
 			player.resume().then(() => {
@@ -129,10 +160,7 @@ export const useSpotifyPlayer = () => {
 	};
 
 	const skipToNext = () => {
-		if (!player || typeof player.pause !== "function") {
-			console.log("Player is not ready yet");
-			return;
-		}
+		checkPlayerReady();
 
 		player.nextTrack().then(() => {
 			console.log("跳至下一首");
@@ -142,10 +170,7 @@ export const useSpotifyPlayer = () => {
 	};
 
 	const skipToPrev = () => {
-		if (!player || typeof player.pause !== "function") {
-			console.log("Player is not ready yet");
-			return;
-		}
+		checkPlayerReady();
 
 		player.previousTrack().then(() => {
 			console.log("跳至上一首");
@@ -155,14 +180,49 @@ export const useSpotifyPlayer = () => {
 	};
 
 	const toggleShuffle = async () => {
-		if (!player || typeof player.pause !== "function") {
-			console.log("Player is not ready yet");
-			return;
-		}
+		checkPlayerReady();
 
 		await playbackShuffle(accessToken, !shuffleStateRef.current);
-		console.log(`shuffle state: ${shuffleStateRef.current}`);
+		// console.log(`shuffle state: ${shuffleStateRef.current}`);
 	};
+    //改變音量
+    const volumeControl = (newVolume) => {
+        checkPlayerReady();
 
-	return { play, pause, getUserDevices, togglePlay, player, skipToNext, skipToPrev, toggleShuffle };
+        player.setVolume(newVolume / 100).then(() => {
+            dispatch(setVolume(newVolume));
+            localStorage.setItem("pulse_player_volume" , newVolume)
+			console.log("音量已調整" + newVolume);
+		}).catch((error) => {
+			console.log(error);
+		});
+    }
+    //取得當前音量
+    const getCurrentVolume = () => {
+        checkPlayerReady();
+
+        player.getVolume().then(volume => {
+            let volume_percentage = volume * 100;
+            console.log(`The volume of the player is ${volume_percentage}%`);
+        });
+    }
+
+    //循環播放（關閉or清單循環or單曲循環)
+    const setRepeatMode = async() => {
+        checkPlayerReady();
+        
+        let newMode;
+        if(repeatStateRef.current === "off"){
+            newMode = "track"
+        }else if(repeatStateRef.current === "track") {
+            newMode = "context"
+        } else {
+            newMode = "off"
+        }
+        await repeatMode(accessToken, newMode, deviceId);
+        console.log('Repeat mode:'+ repeatStateRef.current)
+    }
+
+
+	return { play, pause, getUserDevices, togglePlay, player, skipToNext, skipToPrev, toggleShuffle, volumeControl, getCurrentVolume, setRepeatMode };
 };

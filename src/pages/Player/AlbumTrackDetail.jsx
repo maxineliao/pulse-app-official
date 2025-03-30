@@ -2,8 +2,9 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
-import PlayerAlbumSong from "../../components/Player/PlayerAlbumSong";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
+import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
+import PlayerAlbumTrack from "../../components/Player/PlayerAlbumTrack";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
@@ -12,6 +13,7 @@ function AlbumSongDetail() {
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [albumSong, setAlbumSong] = useState([]);
   const [id, setID] = useState("");
+  const {play} = useSpotifyPlayer();
 
   const getAlbumSongs = async (id) => {
     try {
@@ -22,7 +24,7 @@ function AlbumSongDetail() {
         },
       });
       setAlbumSong(response.data);
-      // console.log(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -52,10 +54,11 @@ function AlbumSongDetail() {
             <div className="row">
               {albumSong.tracks?.items?.map((item, index) => (
                 <div key={index}>
-                  <PlayerAlbumSong
+                  <PlayerAlbumTrack
                     cardTitle={item.name}
                     cardContent={item.artists[0]?.name}
                     cardTime={item.duration_ms}
+                    onClick={()=>play(albumSong.uri, item.uri)}
                   />
                 </div>
               ))}

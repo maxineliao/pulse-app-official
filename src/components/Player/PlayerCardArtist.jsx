@@ -1,7 +1,7 @@
-import PlayerImages from "../../Images";
-export default function PlayerCardArtist({ cardImage, cardTitle }) {
+import { Link } from "react-router";
+export default function PlayerCardArtist({ cardImage, cardTitle, artistId }) {
   return (
-    <div className="card card-peoplelist mb-5 w-100 p-5 rounded-4 d-block text-decoration-none">
+    <Link className="card card-peoplelist mb-5 w-100 p-5 rounded-4 d-block text-decoration-none" to={`/player/artist_detail?id=${artistId}&name=${cardTitle}`}>
       <div className="d-flex justify-content-center">
         <img
           src={cardImage}
@@ -10,8 +10,8 @@ export default function PlayerCardArtist({ cardImage, cardTitle }) {
         />
       </div>
       <div className="card-body px-0">
-        <h5 className="card-title text-center">{cardTitle}</h5>
+        <h6 className="card-title text-center mb-0">{cardTitle}</h6>
       </div>
-    </div>
+    </Link>
   );
 }

@@ -34,7 +34,9 @@ input[type="search"] {
 }
 
 .player-scrollbar {
-  height: calc(100vh - 80px);
+  // height: calc(100vh - 80px);
+  padding-bottom: 80px;
+  height: 100dvh;
   overflow-y: auto;
   padding-top: 120px;
   @include media-breakpoint-down(lg) {
@@ -360,5 +362,14 @@ body:has(.offcanvas.show) .player-comp {
       background: $white-bg;
       color: $white;
     }
+  }
+}
+
+.trackInfo {
+  width: 65%;
+}
+@media screen and (min-width: 992px) {
+  .trackInfo {
+    width: 35%;
   }
 }

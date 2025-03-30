@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
-import PlayerCardSong from "../../components/Player/PlayerCardSong";
+import PlayerCardSong from "../../components/Player/PlayerCardTrack";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { NavLink } from "react-router";
 import { ChevronRight } from "lucide-react";
+import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
@@ -20,6 +21,7 @@ function AlbumSongDetail() {
   const [name, setName] = useState("");
   const [showAllAlbums, setShowAllAlbums] = useState(false);
   const [showAllSong, setShowAllSong] = useState(false);
+  const {play} = useSpotifyPlayer();
 
   const getArtistAlbum = async (id) => {
     try {
@@ -115,6 +117,7 @@ function AlbumSongDetail() {
                   cardContent={track.artists[0]?.name}
                   cardImage={track.album.images[0]?.url}
                   cardTime={track.duration_ms}
+                  onClick={() => play(null, track.uri)}
                 />
               ) : (
                 <div className="placeholder"></div> // 空佔位符，保持佈局穩定
@@ -146,16 +149,12 @@ function AlbumSongDetail() {
             return slicedItems.map((album, index) => (
               <div className="col-6 col-lg-3" key={index}>
                 {album ? (
-                  <NavLink
-                    to={`/player/albumSong_detail?id=${album.id}`} // 傳遞 track.id 作為查詢參數
-                    className="text-decoration-none"
-                  >
                     <PlayerCardAlbum
                       cardImage={album.images[0]?.url}
                       cardTitle={album.name}
                       cardContent={album.artists[0]?.name}
+                      albumId={album.id}
                     />
-                  </NavLink>
                 ) : (
                   <div className="placeholder"></div> // 空佔位符，保持佈局穩定
                 )}

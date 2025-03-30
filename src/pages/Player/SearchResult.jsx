@@ -6,18 +6,20 @@ import "swiper/css/pagination";
 import PlayerImages from "../../Images";
 import PlayerCardArtist from "../../components/Player/PlayerCardArtist";
 import PlayerCardGenre from "../../components/Player/PlayerCardGenre";
-import PlayerCardSong from "../../components/Player/PlayerCardSong";
+import PlayerCardTrack from "../../components/Player/PlayerCardTrack";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
 import PlayerCardPlaylist from "../../components/Player/PlayerCardPlaylist";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import axios from "axios";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
+import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 import { NavLink } from "react-router";
 
 function SearchResult() {
   const location = useLocation();
+  const {play} = useSpotifyPlayer();
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [searchData, setSearchsData] = useState({ items: [] });
   const [query, setQuery] = useState("");
@@ -37,7 +39,7 @@ function SearchResult() {
         },
       });
       setSearchsData(response.data);
-      // console.log(response.data);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +86,7 @@ function SearchResult() {
             </li>
             <li className="nav-item">
               <NavLink
-                to={`/player/search_songs?${new URLSearchParams(
+                to={`/player/search_tracks?${new URLSearchParams(
                   location.search
                 ).toString()}`}
                 className="nav-link player-bg"
@@ -132,7 +134,7 @@ function SearchResult() {
           <div className="row mb-5">
             <div className="col-lg-4 col-12">
               <h4 className="h4 mb-5">最佳結果</h4>
-              <a className="p-5 player-bg rounded-4 mb-5 mb-lg-0 d-block text-decoration-none">
+              <Link className="p-5 player-bg rounded-4 mb-5 mb-lg-0 d-block text-decoration-none" to={`/player/artist_detail?id=${searchData.artists?.items[0].id}&name=${searchData.artists?.items[0]?.name}`}>
                 <img
                   className="img-fluid mb-5 rounded-4"
                   src={searchData.artists?.items[0]?.images[0]?.url}
@@ -143,7 +145,7 @@ function SearchResult() {
                   {searchData.artists?.items[0]?.name}
                 </h3>
                 <p className="text-secondary">藝人</p>
-              </a>
+              </Link>
             </div>
             <div className="col-lg-8 col-12">
               <div className="d-flex justify-content-between align-items-center mb-5">
@@ -170,11 +172,14 @@ function SearchResult() {
                 return slicedItems.map((track, index) => (
                   <div key={index}>
                     {track ? (
-                      <PlayerCardSong
+                      <PlayerCardTrack
                         cardTitle={track.name}
                         cardContent={track.artists[0]?.name}
                         cardImage={track.album.images[0]?.url}
                         cardTime={track.duration_ms}
+                        onClick={() => {
+                          play(null, track.uri)
+                        }}
                       />
                     ) : (
                       <div className="placeholder"></div> // 空佔位符，保持佈局穩定
@@ -211,16 +216,12 @@ function SearchResult() {
                   return slicedItems.map((album, index) => (
                     <div className="col-6 col-lg-3" key={index}>
                       {album ? (
-                        <NavLink
-                          to={`/player/albumSong_detail?id=${album.id}`} // 傳遞 track.id 作為查詢參數
-                          className="text-decoration-none"
-                        >
                           <PlayerCardAlbum
                             cardImage={album.images[0]?.url}
                             cardTitle={album.name}
                             cardContent={album.artists[0]?.name}
+                            albumId={album.id}
                           />
-                        </NavLink>
                       ) : (
                         <div className="placeholder"></div> // 空佔位符，保持佈局穩定
                       )}
@@ -257,15 +258,11 @@ function SearchResult() {
               return slicedItems.map((artist, index) => (
                 <div className="col-6 col-lg-3" key={index}>
                   {artist ? (
-                    <NavLink
-                      to={`/player/artist_detail?id=${artist.id}&name=${artist.name}`} // 傳遞 track.id 作為查詢參數
-                      className="text-decoration-none"
-                    >
                       <PlayerCardArtist
                         cardImage={artist.images[0]?.url}
                         cardTitle={artist.name}
+                        artistId={artist.id}
                       />
-                    </NavLink>
                   ) : (
                     <div className="placeholder"></div> // 空佔位符，避免 UI 崩壞
                   )}
@@ -306,6 +303,7 @@ function SearchResult() {
                           cardImage={playlist.images[0]?.url}
                           cardTitle={playlist.name}
                           cardText={playlist.owner.display_name}
+                          playlistId={playlist.id}
                         />
                       ) : (
                         <div className="placeholder"></div>

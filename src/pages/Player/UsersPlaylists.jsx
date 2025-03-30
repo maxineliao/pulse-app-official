@@ -3,29 +3,28 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import PlayerCardArtist from "../../components/Player/PlayerCardArtist";
+import { Link } from "react-router";
+import PlayerCardPlaylist from "../../components/Player/PlayerCardPlaylist";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
-export default function UsersFollowedArtists() {
+export default function UsersPlaylists() {
 	const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
-	const [artistsData, setArtistsData] = useState({ items: [] });
-	const getUsersArtists = async () => {
+	const [playlistsData, setPlaylistsData] = useState({ items: [] });
+	const getUsersPlaylists = async () => {
 		try {
-			const url = `${VITE_SPOTIFY_API_PATH}me/following?type=artist&limit=10`;
+			const url = `${VITE_SPOTIFY_API_PATH}me/playlists?limit=50`;
 			const response = await axios.get(url, {
 				headers: {
 					Authorization: `Bearer ${spotifyAccessToken}`,
 				},
 			});
-			setArtistsData(response.data);
-            // console.log(response.data);
+			setPlaylistsData(response.data.items);
+			console.log(response.data.items);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 	useEffect(() => {
-		if (spotifyAccessToken) {
-			getUsersArtists();
-		}
+		getUsersPlaylists();
 	}, [spotifyAccessToken]);
 
 	return (
@@ -35,29 +34,30 @@ export default function UsersFollowedArtists() {
 					<div className="row mb-5">
 						<div className="col-12">
 							<div className="d-flex justify-content-between align-items-center mb-5">
-								<h4 className="h4 mb-0">收藏藝人</h4>
+								<h4 className="h4 mb-0">我的播放清單</h4>
 							</div>
 							<div className="row">
-								{artistsData?.artists?.items?.length > 0 ? (
-									artistsData.artists.items.map((item) => {
+								{playlistsData?.length > 0 ? (
+									playlistsData.map((item) => {
 										return (
 											<div
 												className="col-6 col-lg-3"
 												key={item.id}
 											>
-												<PlayerCardArtist
+												<PlayerCardPlaylist
 													cardImage={
-														item.images[1].url
+														item.images[0].url
 													}
 													cardTitle={item.name}
-                                                    artistId={item.id}
+                                                    cardText={item.owner.display_name}
+                                                    playlistId={item.id}
 												/>
 											</div>
 										);
 									})
 								) : (
 									<div className="col-6 col-lg-3">
-										尚未收藏藝人
+										尚無播放清單
 									</div>
 								)}
 							</div>

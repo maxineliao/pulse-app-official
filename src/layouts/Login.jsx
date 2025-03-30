@@ -27,6 +27,7 @@ function Login() {
   				"password": password
 			})
 			localStorage.setItem("pulseToken", res.data.accessToken);  // 儲存
+			localStorage.setItem("memberName", res.data.user.username);
 			dispatch(login());
 			customSwal("success","登入成功");
 			setTimeout(() => {
