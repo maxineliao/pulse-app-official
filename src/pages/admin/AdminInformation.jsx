@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, X, Pen } from "lucide-react";
 import Swal from "sweetalert2";
 
 export default function AdminInformation() {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     id: "",
     plan: "",
-    area: "",
+    price: "",
   });
 
   const [activeUserId, setActiveUserId] = useState(null);
@@ -38,23 +38,53 @@ export default function AdminInformation() {
     setActiveUserId(null);
   };
 
-  const handleSave = () => {
-    Swal.fire({
-      icon: "success",
-      title: "會員資料儲存成功",
-      toast: true,
-      position: "bottom-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      customClass: {
-        popup: "swal-popup",
-        title: "swal-title",
-      },
-    });
-    handleCloseModal();
-  };
+  const handleSave = async () => {
+    try {
+      const response = await fetch(
+        `https://pulse-web-player.onrender.com/users/${activeUserId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
+      if (!response.ok) {
+        throw new Error("Failed to update user");
+      }
+
+      Swal.fire({
+        icon: "success",
+        title: "會員資料儲存成功",
+        toast: true,
+        position: "bottom-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        customClass: {
+          popup: "swal-popup",
+          title: "swal-title",
+        },
+      });
+
+      // 更新本地的使用者資料
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === activeUserId ? { ...user, ...formData } : user
+        )
+      );
+
+      handleCloseModal();
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "儲存失敗",
+        text: "無法更新使用者資料，請稍後再試。",
+      });
+    }
+  };
   const handleClick = (e, page) => {
     e.preventDefault();
     setPageInfo((prevPageInfo) => ({
@@ -65,85 +95,26 @@ export default function AdminInformation() {
     }));
   };
 
-  const users = [
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Zaina Goldsmith",
-      email: "zaina.goldsmith@mail.com",
-      id: "44444",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Mahima Lopez",
-      email: "mahima.lopez@mail.com",
-      id: "95248",
-      plan: "Free",
-      area: "台中",
-    },
-    {
-      name: "Pharrell Murray",
-      email: "pharrell.murray@mail.com",
-      id: "995556",
-      plan: "Premium",
-      area: "台中",
-    },
-    {
-      name: "Annika Mcbride",
-      email: "annika.mcbride@mail.com",
-      id: "2526262",
-      plan: "Premium",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-    {
-      name: "Emir Wicks",
-      email: "emir.wicks@mail.com",
-      id: "123123",
-      plan: "Student",
-      area: "台中",
-    },
-  ];
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch(
+          "https://pulse-web-player.onrender.com/users"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch users");
+        }
+        const data = await response.json();
+        setUsers(data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   // 計算總頁數
   const totalPages = Math.ceil(users.length / itemsPerPage);
@@ -182,19 +153,19 @@ export default function AdminInformation() {
                 <thead>
                   <tr>
                     <th className="p-3 text-nowrap" scope="col">
+                      ID
+                    </th>
+                    <th className="p-3 text-nowrap" scope="col">
                       使用者名稱
                     </th>
                     <th className="p-3 text-nowrap" scope="col">
                       Email
                     </th>
                     <th className="p-3 text-nowrap" scope="col">
-                      ID
-                    </th>
-                    <th className="p-3 text-nowrap" scope="col">
                       身份
                     </th>
                     <th className="p-3 text-nowrap" scope="col">
-                      地區
+                      價格
                     </th>
                     <th className="p-3 text-nowrap" scope="col">
                       動作
@@ -204,23 +175,23 @@ export default function AdminInformation() {
                 <tbody>
                   {currentPageData.map((user, index) => (
                     <tr key={index}>
+                      <td className="text-secondary p-3 text-nowrap">
+                        {user.id}
+                      </td>
                       <th
                         scope="row"
                         className="text-secondary p-3 text-nowrap"
                       >
-                        {user.name}
+                        {user.username}
                       </th>
                       <td className="text-secondary p-3 text-nowrap">
                         {user.email}
                       </td>
                       <td className="text-secondary p-3 text-nowrap">
-                        {user.id}
-                      </td>
-                      <td className="text-secondary p-3 text-nowrap">
                         {user.plan}
                       </td>
                       <td className="text-secondary p-3 text-nowrap">
-                        {user.area}
+                        {user.price}
                       </td>
                       <td className="p-3">
                         <button
@@ -319,6 +290,19 @@ export default function AdminInformation() {
               </button>
             </div>
             <div className="modal-body admin-modal-scrollbar">
+              <div className="mb-3">
+                <label htmlFor="id" className="form-label">
+                  ID
+                </label>
+                <input
+                  className="form-control"
+                  id="id"
+                  type="text"
+                  value={formData.id}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
               <div className="my-3">
                 <label htmlFor="name" className="form-label">
                   使用者名稱
@@ -327,8 +311,9 @@ export default function AdminInformation() {
                   type="text"
                   className="form-control"
                   id="name"
-                  value={formData.name}
+                  value={formData.username}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div className="mb-3">
@@ -341,48 +326,37 @@ export default function AdminInformation() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="id" className="form-label">
-                  ID
-                </label>
-                <input
-                  className="form-control"
-                  id="id"
-                  type="text"
-                  value={formData.id}
-                  onChange={handleChange}
+                  readOnly
                 />
               </div>
               <div className="mb-3">
                 <label htmlFor="plan" className="form-label">
                   身份
                 </label>
-                <select
+                <input
                   className="form-control"
                   id="plan"
+                  type="text"
                   value={formData.plan}
                   onChange={handleChange}
-                >
-                  <option value="" disabled hidden>
-                    請選擇身份
-                  </option>
-                  <option value="Premium">Premium</option>
-                  <option value="Free">Free</option>
-                  <option value="Student">Student</option>
-                </select>
+                />
               </div>
               <div className="mb-3">
-                <label htmlFor="area" className="form-label">
-                  地區
+                <label htmlFor="price" className="form-label">
+                  價格
                 </label>
                 <input
                   className="form-control"
-                  id="area"
-                  type="text"
-                  value={formData.area}
-                  onChange={handleChange}
+                  id="price"
+                  type="number"
+                  value={formData.price}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (/^\d*$/.test(value)) {
+                      // 只允許數字
+                      handleChange(e);
+                    }
+                  }}
                 />
               </div>
             </div>

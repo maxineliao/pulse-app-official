@@ -2,6 +2,8 @@ import { List, Search, User } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
 import { useState } from "react";
 import PlayerImages from "../../Images";
+import CryptoJS from "crypto-js";
+const { VITE_SECRET_KEY } = import.meta.env;
 
 export default function PlayerHeader() {
   const navigate = useNavigate();
@@ -14,6 +16,15 @@ export default function PlayerHeader() {
       navigate(`/player/result?query=${encodeURIComponent(searchInput)}`); // 跳轉並傳遞查詢參數
     }
   };
+  //解密
+  const userData = localStorage.getItem("user");
+  const decryptedUser = userData
+    ? JSON.parse(
+        CryptoJS.AES.decrypt(userData, VITE_SECRET_KEY).toString(
+          CryptoJS.enc.Utf8
+        )
+      )
+    : null;
   return (
     <header className="container-fluid fixed-top">
       <div className="navbar navbar-player navbar-dark navbar-expand-lg rounded-4 justify-content-between pe-3">
@@ -52,12 +63,12 @@ export default function PlayerHeader() {
           <button className="nav-btn btn btn-outline-primary rounded-3 me-2 pe-lg-2 order-lg-3 d-none d-lg-block">
             <img
               className="rounded-circle object-fit-cover me-1"
-              src={PlayerImages.Benson}
-              alt="Benson"
+              src={PlayerImages.user}
+              alt={decryptedUser.username}
               width="24"
               height="24"
             />
-            Benson
+            {decryptedUser.username}
           </button>
         </NavLink>
 

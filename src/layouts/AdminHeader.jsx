@@ -1,16 +1,25 @@
 import { IdCard, Megaphone, LogOut } from "lucide-react";
 import { NavLink, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../slice/authSlice";
+import { useNavigate } from "react-router";
 
 export default function AdminHeader() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const signOut = () => {
+    dispatch(logout());
+    navigate(`/`);
+  };
   return (
     <>
       <div className="d-flex">
         <div className="col-lg-2 d-none d-lg-block">
           <aside className="navbar-adminheader m-5 d-flex flex-column">
             <div className="w-100 d-flex flex-column flex-grow-1">
-              <a
+              <NavLink
                 className="py-5 d-flex justify-content-center"
-                href="#"
+                to="/"
                 title="Logo"
               >
                 <img
@@ -18,7 +27,7 @@ export default function AdminHeader() {
                   alt="logo"
                   width={120}
                 />
-              </a>
+              </NavLink>
               <ul className="m-0 p-0 flex-grow-1">
                 <li className="list-unstyled">
                   <h4 className="py-3 mb-5 mx-5">後台管理</h4>
@@ -60,10 +69,16 @@ export default function AdminHeader() {
               </ul>
             </div>
             <div className="mt-auto list-item-hover mb-5">
-              <h6 className="py-3 mx-5">
+              <a
+                className="nav-link py-3 mx-5"
+                onClick={signOut}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
                 <LogOut className="me-3" />
                 登出
-              </h6>
+              </a>
             </div>
           </aside>
         </div>
