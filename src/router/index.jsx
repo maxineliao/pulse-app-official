@@ -23,6 +23,7 @@ import UsersPlaylists from "../pages/Player/UsersPlaylists";
 import App from "../layouts/App";
 import ViewCategories from "../pages/Player/ViewCategories";
 import SubscriptionPayment from "../pages/Web/SubscriptionPayment";
+import Welcome from "../pages/Web/Welcome";
 
 const router = createHashRouter([
   {
@@ -107,6 +108,10 @@ const router = createHashRouter([
             path: "payment",
             element: <SubscriptionPayment />,
           },
+          {
+            path: "welcome",
+            element: <Welcome />
+          }
         ],
       },
       {

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-    playerDataLoading: false
+    playerDataLoading: false,
 };
 const loadingSlice = createSlice({
     name: "loading",
