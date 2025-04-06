@@ -100,7 +100,7 @@ function Login() {
 						<div className="d-flex justify-content-between mb-3">
 							<h5 className="mb-0">歡迎回到PULSE</h5>
 							<Link
-								to="/register"
+								to={plan ? `/register?plan=${plan}` : "/register"}
 								className="text-decoration-none"
 							>
 								<h6>沒有帳戶？立即註冊</h6>
