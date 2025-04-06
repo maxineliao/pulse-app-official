@@ -9,9 +9,6 @@ import SubscriptionPlans from "../pages/Web/SubscriptionPlans";
 import MemberCenter from "../pages/Web/MemberCenter";
 import Login from "../layouts/Login";
 import Register from "../layouts/Register";
-import AdminHeader from "../layouts/AdminHeader";
-import AdminInformation from "../pages/admin/AdminInformation";
-import AdvertisementInformation from "../pages/admin/AdvertisementInformation";
 import "../assets/scss/all.scss";
 import UsersSavedAlbums from "../pages/Player/UsersSavedAlbums";
 import UsersFollowedArtists from "../pages/Player/UsersFollowedArtists";
@@ -27,26 +24,12 @@ import UsersPlaylists from "../pages/Player/UsersPlaylists";
 
 const router = createHashRouter([
   {
-    path: "/admin",
-    element: <AdminHeader />,
-    children: [
-      {
-        path: "AdminInformation",
-        element: <AdminInformation />,
-      },
-      {
-        path: "AdvertisementInformation",
-        element: <AdvertisementInformation />,
-      },
-    ],
-  },
-  {
     path: "/player",
     element: <Player />,
     children: [
       {
         path: "",
-        element: <PlayerIndex />
+        element: <PlayerIndex />,
       },
       {
         path: "result",
@@ -55,7 +38,7 @@ const router = createHashRouter([
       {
         path: "saved_albums",
         element: <UsersSavedAlbums />,
-      },,
+      },
       {
         path: "search_tracks",
         element: <SearchSong />,
@@ -80,23 +63,23 @@ const router = createHashRouter([
         path: "artist_detail",
         element: <ArtistDetail />,
       },
-       {
+      {
         path: "followed_artists",
-        element: <UsersFollowedArtists />
+        element: <UsersFollowedArtists />,
       },
       {
         path: "recently_played",
-        element: <UsersRecentlyPlayed />
+        element: <UsersRecentlyPlayed />,
       },
       {
         path: "playlist/:id",
-        element: <SinglePlaylist />
+        element: <SinglePlaylist />,
       },
       {
         path: "my_playlists",
-        element: <UsersPlaylists />
-      }
-   ],
+        element: <UsersPlaylists />,
+      },
+    ],
   },
   {
     path: "",

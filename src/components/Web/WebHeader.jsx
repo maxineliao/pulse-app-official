@@ -97,13 +97,6 @@ export default function WebHeader() {
                 </li>
               </>
             )}
-            {decryptedUser && decryptedUser.role?.includes("admin") && (
-              <li className="nav-item">
-                <NavLink className="nav-link me-2" to="/admin/AdminInformation">
-                  <UserCog2 />
-                </NavLink>
-              </li>
-            )}
           </ul>
         </div>
       </div>
