@@ -1,25 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
+const initialState = {
+    player: null,
+    isPlaying: false,
+    currentTrack: null,
+    currentContext: null,
+    volume: localStorage.getItem("pulse_player_volume") ? Number(localStorage.getItem("pulse_player_volume")) : 50,
+    progress: null,
+    repeatState: "off",
+    deviceId: null,
+    duration: null,
+    image: null,
+    trackName: null,
+    artists: null,
+    artistUri: null,
+    shuffle: false,
+}
 const playerSlice = createSlice({
 	name: "player",
-	initialState: {
-		isPlaying: false,
-		currentTrack: null,
-		volume: localStorage.getItem("pulse_player_volume") ? Number(localStorage.getItem("pulse_player_volume")) : 50,
-		progress: null,
-		repeatState: "off",
-		deviceId: null,
-		duration: null,
-		image: null,
-        trackName: null,
-        artists: null,
-        shuffle: false,
-	},
+	initialState,
 	reducers: {
+        setPlayer: (state, action) => {
+            state.player = action.payload;
+        },
 		setIsPlaying: (state, action) => {
 			state.isPlaying = action.payload;
 		},
 		setCurrentTrack: (state, action) => {
 			state.currentTrack = action.payload;
+		},
+        setCurrentContext: (state, action) => {
+			state.currentContext = action.payload;
 		},
 		setVolume: (state, action) => {
 			state.volume = action.payload;
@@ -43,18 +53,25 @@ const playerSlice = createSlice({
 			state.trackName= action.payload;
 		},
 		setArtists: (state, action) => {
-			state.artists= action.payload;
+			state.artists = action.payload;
+		},
+		setArtistUri: (state, action) => {
+			state.artistUri = action.payload;
 		},
         setShuffle: (state, action) => {
             state.shuffle= action.payload;
 		},
-
+        clearPlayerState: () => {
+			return { ...initialState };
+		},
 	},
 });
 
 export const {
+    setPlayer,
 	setIsPlaying,
 	setCurrentTrack,
+    setCurrentContext,
 	setVolume,
 	setProgress,
 	setRepeatState,
@@ -63,6 +80,8 @@ export const {
 	setImage,
     setTrackName,
     setArtists,
-    setShuffle
+    setArtistUri,
+    setShuffle,
+    clearPlayerState, 
 } = playerSlice.actions;
 export default playerSlice.reducer;

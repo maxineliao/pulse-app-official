@@ -6,6 +6,8 @@ import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import PlayerCardTrack from "../../components/Player/PlayerCardTrack";
 import { useParams } from "react-router";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
+import { setPlayerLoading } from "../../slice/loadingSlice";
+
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 export default function SinglePlaylist() {
@@ -18,8 +20,9 @@ export default function SinglePlaylist() {
     const {play} = useSpotifyPlayer();
 
     const getUsersSinglePlaylist = async() => {
+        dispatch(setPlayerLoading(true));
         try {
-            const url = `${VITE_SPOTIFY_API_PATH}playlists/${id}/tracks`
+            const url = `${VITE_SPOTIFY_API_PATH}playlists/${id}/tracks`;
             const response = await axios.get(url,{
                 headers: {
                     'Authorization': `Bearer ${spotifyAccessToken}`,
@@ -29,6 +32,8 @@ export default function SinglePlaylist() {
             setPlaylistData(items);
         } catch (error) {
             console.log(error);
+        } finally {
+            dispatch(setPlayerLoading(false));
         }
     }
     const getPlaylistInfo = async() => {
@@ -50,7 +55,7 @@ export default function SinglePlaylist() {
             getPlaylistInfo();
             // console.log(playlistInfo);
         }
-    },[id]);
+    },[id,spotifyAccessToken]);
     
     return (
         <>

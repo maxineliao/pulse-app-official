@@ -12,38 +12,69 @@ import {
 	Pause,
 	Repeat1,
 } from "lucide-react";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
-import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import Marquee from "react-fast-marquee";
+import { Link } from "react-router";
+import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 
 export default function PlayerComp() {
-	// const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
-	const { togglePlay, skipToNext, skipToPrev, toggleShuffle, volumeControl, setRepeatMode } = useSpotifyPlayer();
+	const accessToken = useSelector(selectSpotifyAccessToken);
+	const { initializePlayer, player, togglePlay, skipToNext, skipToPrev, toggleShuffle, volumeControl, setRepeatMode } = useSpotifyPlayer();
 	const isPlaying = useSelector((state) => state.player.isPlaying);
 	const isShuffled = useSelector((state) => state.player.shuffle);
 	const currentTrack = useSelector((state) => state.player.trackName);
+	const currentContext = useSelector((state) => state.player.currentContext);
 	const originalVolume = useSelector((state) => state.player.volume);
 	const repeatMode = useSelector((state) => state.player.repeatState);
-	const [volume, setVolume] = useState(originalVolume);
+	const currentArtist = useSelector((state) => state.player.artists); 
+	const currentArtistUri = useSelector((state) => state.player.artistUri); 
+
+	const trackInfoRef = useRef(null);
 	const playerRef = useRef(null);
-	// const trackTitleRef = useRef(null);
-	// const trackArtistRef = useRef(null);
-	// const [scrollTrackTitle, setScrollTrackTitle] = useState(false);
-	// const [scrollArtistTitle, setScrollArtistTitle] = useState(false);
-	// useEffect(()=> {
-	// 	if(currentTrack) {
-	// 		if (trackTitleRef.current.scrollWidth > trackTitleRef.current.clientWidth) {
-	// 			setScrollTrackTitle(true);
-	// 		} else {
-	// 			setScrollTrackTitle(false);
-	// 		}
-	// 		console.log(trackTitleRef.current.scrollWidth);
-	// 		console.log(trackTitleRef.current.clientWidth);
-			
-	// 	}
-	// },[currentTrack])
+	const trackTitleRef = useRef(null);
+	const [scrollTrackTitle, setScrollTrackTitle] = useState(false);
+	const trackArtistRef = useRef(null);
+	const [scrollArtistTitle, setScrollArtistTitle] = useState(false);
+
+	const contextRoute = useMemo(() => {
+		if (currentContext) {
+			const parts = currentContext.split(":");
+			if (parts.length >= 3) {
+				const routeType = parts[1];
+				const routeId = parts[2];
+	
+				if (routeType === "album") {
+					return `/player/albumTrack_detail?id=${routeId}`;
+				} else if (routeType === "playlist") {
+					return `/player/playlist/${routeId}`;
+				}
+			}
+		}
+	
+		if (currentArtistUri && currentArtist) {
+			const id = currentArtistUri.split(":")[2];
+			const artistName = currentArtist.includes(",")
+				? currentArtist.split(",")[0]
+				: currentArtist;
+	
+			return `/player/artist_detail?id=${id}&name=${encodeURIComponent(artistName)}`;
+		}
+	
+		return "#";
+	}, [currentContext, currentArtistUri, currentArtist]);
+
+	useEffect(()=> {
+		if(currentTrack && trackArtistRef.current && trackTitleRef.current) {
+			setScrollArtistTitle(trackArtistRef.current.scrollWidth > (trackInfoRef.current.clientWidth - 90));
+			setScrollTrackTitle(trackTitleRef.current.scrollWidth > (trackInfoRef.current.clientWidth - 90));
+			// console.log(trackArtistRef.current.clientWidth);
+			// console.log((trackInfoRef.current.clientWidth));
+		}
+	},[currentTrack])
+
+	//音量控制
 	const useDebounce = (func, delay) => {
 		const timerRef = useRef(null);
 
@@ -57,18 +88,14 @@ export default function PlayerComp() {
 		},[func, delay])
 	}
 	const handleVolumeChange = (e) => {
-		setVolume(e.target.value);
 		debouncedVolumeControl(e.target.value);
 	}
 	const debouncedVolumeControl = useDebounce((volume) => {
 		volumeControl(volume);
 	},300)
-	useEffect(()=> {
-		// console.log(volume);
-	},[volume])
-	const hidePlayer = () => {
-		playerRef.current
-	}
+	// useEffect(() => {
+	// 	initializePlayer();
+	// }, []);
 	return (
 		<div className="player-comp fixed-bottom" ref={playerRef} style={(currentTrack) ? {
 			transition: "transform ease 300ms",
@@ -78,7 +105,7 @@ export default function PlayerComp() {
 			transform: "translateY(100%)"
 		}}>
 			<div className="d-flex justify-content-between py-2 px-3 px-lg-6">
-				<div className="trackInfo d-flex align-items-center">
+				<div ref={trackInfoRef} className="trackInfo d-flex align-items-center overflow-x-hidden">
 					
 						<img
 							src={useSelector((state) => state.player.image)}
@@ -88,12 +115,12 @@ export default function PlayerComp() {
 						/>
 					
 					<div className="mx-5">
-						<Marquee speed={30}>
-							<h5>{useSelector((state) => state.player.trackName)}</h5>
+						<Marquee speed={30} play={scrollTrackTitle} key={scrollTrackTitle ? "scrollingTitle" : "staticTitle"}>
+							<h5 ref={trackTitleRef}>{useSelector((state) => state.player.trackName)}</h5>
 						</Marquee>
-						{/* <a href="#" className="text-decoration-none"> */}
-						<h6 className="text-secondary">{useSelector((state) => state.player.artists)}</h6>
-						{/* </a> */}
+						<Marquee speed={30} play={scrollArtistTitle} key={scrollArtistTitle ? "scrolling" : "static"}>
+							<h6 ref={trackArtistRef} className="text-secondary text-nowrap">{useSelector((state) => state.player.artists)}</h6>
+						</Marquee>
 					</div>
 					{/* <button
 						type="button"
@@ -102,7 +129,7 @@ export default function PlayerComp() {
 						<SquarePlus />
 					</button> */}
 				</div>
-				<div className="d-flex align-items-center">
+				<div className="player-control d-flex align-items-center">
 					<button
 						type="button"
 						className={isShuffled ? "btn player-icon-btn d-lg-block d-none text-primary-yellow" : "btn player-icon-btn d-lg-block d-none"}
@@ -141,9 +168,10 @@ export default function PlayerComp() {
 					{/* <button type="button" className="btn player-icon-btn">
 						<MicVocal />
 					</button> */}
-					<button type="button" className="btn player-icon-btn">
+
+					<Link type="button" className="btn player-icon-btn" to={contextRoute}>
 						<ListMusic />
-					</button>
+					</Link>
 					<Volume2 className="me-1"/>
 					<div className="accent-color">
 						<input type="range" id="range" min="0" max="100" defaultValue={originalVolume} onChange={handleVolumeChange} />

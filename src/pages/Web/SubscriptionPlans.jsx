@@ -1,4 +1,3 @@
-import { set } from "immutable";
 import {
 	ArrowDown,
 	ArrowRight,
@@ -10,12 +9,15 @@ import {
 	Music,
 	Plus,
 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router";
 
 import Images from "../../Images";
 
 function SubscriptionPage() {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	const faq = [
 		{
 			id: "Q1",
@@ -294,7 +296,7 @@ function SubscriptionPage() {
 											src={Images.Subscription_sm_icon}
 											alt=""
 										/>
-										<h6 className="mb-0">PARTY FOR ONE</h6>
+										<h6 className="mb-0">PREMIUM FOR ONE</h6>
 									</div>
 									<h1 className="fw-bold blur-font">
 										1人方案
@@ -315,7 +317,7 @@ function SubscriptionPage() {
 											alt=""
 										/>
 										<h6 className="mb-0">
-											PULSE FOR FRIENDS & FAMILY
+											PREMIUM FOR FRIENDS & FAMILY
 										</h6>
 									</div>
 									<h1 className="fw-bold blur-font">
@@ -337,7 +339,7 @@ function SubscriptionPage() {
 											alt=""
 										/>
 										<h6 className="mb-0">
-											PARTY FOR EVERYONE
+											PREMIUM FOR EVERYONE
 										</h6>
 									</div>
 									<h1 className="fw-bold blur-font">

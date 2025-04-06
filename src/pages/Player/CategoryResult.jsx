@@ -3,35 +3,35 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import { Link } from "react-router";
 import PlayerCardPlaylist from "../../components/Player/PlayerCardPlaylist";
+import { useParams } from "react-router";
+const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 import { setPlayerLoading } from "../../slice/loadingSlice";
 
-const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 export default function UsersPlaylists() {
-    const dispatch = useDispatch();
-	const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
-	const [playlistsData, setPlaylistsData] = useState({ items: [] });
-	const getUsersPlaylists = async () => {
-        dispatch(setPlayerLoading(true));
+	const params = useParams().id;
+	const dispatch = useDispatch();
+	const accessToken = useSelector(selectSpotifyAccessToken);
+	const [categoryData, setCategoryData] = useState([]);
+	const getCategoryData = async (id) => {
 		try {
-			const url = `${VITE_SPOTIFY_API_PATH}me/playlists?limit=50`;
+			let url = `${VITE_SPOTIFY_API_PATH}browse/categories/${id}/playlists?country=TW`;
 			const response = await axios.get(url, {
 				headers: {
-					Authorization: `Bearer ${spotifyAccessToken}`,
+					Authorization: `Bearer ${accessToken}`,
 				},
 			});
-			setPlaylistsData(response.data.items);
-			// console.log(response.data.items);
+			setCategoryData(response.data);
+			console.log(response);
 		} catch (error) {
-			console.log(error);
-		} finally {
-            dispatch(setPlayerLoading(false));
-        }
+			console.log(`❌ 無法取得分類 ${id} 的資料`);
+			console.log(error?.response?.status, error?.response?.data);
+		}
 	};
 	useEffect(() => {
-		getUsersPlaylists();
-	}, [spotifyAccessToken]);
+		getCategoryData(params);
+		// console.log(params);
+	}, [accessToken]);
 
 	return (
 		<>
@@ -42,7 +42,7 @@ export default function UsersPlaylists() {
 							<div className="d-flex justify-content-between align-items-center mb-5">
 								<h4 className="h4 mb-0">我的播放清單</h4>
 							</div>
-							<div className="row">
+							{/* <div className="row">
 								{playlistsData?.length > 0 ? (
 									playlistsData.map((item) => {
 										return (
@@ -55,8 +55,10 @@ export default function UsersPlaylists() {
 														item.images[0].url
 													}
 													cardTitle={item.name}
-                                                    cardText={item.owner.display_name}
-                                                    playlistId={item.id}
+													cardText={
+														item.owner.display_name
+													}
+													playlistId={item.id}
 												/>
 											</div>
 										);
@@ -66,7 +68,7 @@ export default function UsersPlaylists() {
 										尚無播放清單
 									</div>
 								)}
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>

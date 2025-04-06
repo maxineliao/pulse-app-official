@@ -366,10 +366,16 @@ body:has(.offcanvas.show) .player-comp {
 }
 
 .trackInfo {
-  width: 65%;
+  width: 100%;
+}
+.player-control {
+  width: auto;
 }
 @media screen and (min-width: 992px) {
   .trackInfo {
+    width: 30%;
+  }
+  .player-control {
     width: 35%;
   }
 }

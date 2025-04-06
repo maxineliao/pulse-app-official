@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
 import PlayerCardSong from "../../components/Player/PlayerCardTrack";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { NavLink } from "react-router";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
+import { setPlayerLoading } from "../../slice/loadingSlice";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 function SearchTrack() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [songs, setSongs] = useState([]);
   const [query, setQuery] = useState("");
   const {play} = useSpotifyPlayer();
 
   const getSongs = async (query) => {
+    dispatch(setPlayerLoading(true));
     try {
       const url = `${VITE_SPOTIFY_API_PATH}search?q=${encodeURIComponent(
         query
@@ -30,6 +33,8 @@ function SearchTrack() {
       // console.log(response.data.tracks.items);
     } catch (error) {
       console.error(error);
+    } finally {
+      dispatch(setPlayerLoading(false));
     }
   };
 
@@ -57,7 +62,7 @@ function SearchTrack() {
           </li>
           <li className="nav-item">
             <NavLink
-              to={`/player/search_songs?${new URLSearchParams(
+              to={`/player/search_track?${new URLSearchParams(
                 location.search
               ).toString()}`} // 動態生成 URL，帶上查詢參數
               className="nav-link active"

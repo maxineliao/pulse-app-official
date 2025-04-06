@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
@@ -8,11 +8,13 @@ import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { NavLink } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
+import { setPlayerLoading } from "../../slice/loadingSlice";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 function AlbumSongDetail() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [artistAlbum, setArtistAlbum] = useState([]);
   const [artistAlbumTop, setArtistAlbumTop] = useState([]);
@@ -24,6 +26,7 @@ function AlbumSongDetail() {
   const {play} = useSpotifyPlayer();
 
   const getArtistAlbum = async (id) => {
+    dispatch(setPlayerLoading(true));
     try {
       // artist top-tracks
       const url = `${VITE_SPOTIFY_API_PATH}artists/${encodeURIComponent(
@@ -62,6 +65,8 @@ function AlbumSongDetail() {
       // console.log("response3", response3.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      dispatch(setPlayerLoading(false));
     }
   };
 

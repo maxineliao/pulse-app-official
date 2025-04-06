@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { NavLink } from "react-router";
+import { setPlayerLoading } from "../../slice/loadingSlice";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 function SearchAlbum() {
 	const location = useLocation();
+	const dispatch = useDispatch();
 	const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
 	const [album, setAlbum] = useState([]);
 	const [query, setQuery] = useState("");
 
 	const getSongs = async (query) => {
+		dispatch(setPlayerLoading(true));
 		try {
 			const url = `${VITE_SPOTIFY_API_PATH}search?q=${encodeURIComponent(
 				query
@@ -28,6 +31,8 @@ function SearchAlbum() {
 			// console.log(response.data.albums.items);
 		} catch (error) {
 			console.error(error);
+		} finally {
+			dispatch(setPlayerLoading(false));
 		}
 	};
 
@@ -55,7 +60,7 @@ function SearchAlbum() {
 					</li>
 					<li className="nav-item">
 						<NavLink
-							to={`/player/search_songs?${new URLSearchParams(
+							to={`/player/search_tracks?${new URLSearchParams(
 								location.search
 							).toString()}`} // 動態生成 URL，帶上查詢參數
 							className="nav-link player-bg"

@@ -8,9 +8,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
-
 import Images from "../../Images";
-
 import { gsap } from "gsap";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 gsap.registerPlugin(MotionPathPlugin);
@@ -48,7 +46,7 @@ function WebIndex() {
         return width > 1600 ? 2 : 3;
     }
 	const marqueeInit = () => {
-
+		if (!marqueeRef.current) return;
 
         let marquee = gsap.timeline();
         let marqueeCards = marqueeRef.current.querySelectorAll(".card");
@@ -103,11 +101,22 @@ function WebIndex() {
 		if (params.has("code")) {
 			navigate('/member_center')
 		}
-		marqueeInit();
+		if(marqueeRef.current) {
+			marqueeInit();
+		}
+		const handleResize = debounce(()=> {
+			if (marqueeRef.current) {
+				marqueeInit();
+			}
+		});
+		window.addEventListener("resize", handleResize);
+
+		return () => {
+			window.removeEventListener("resize", handleResize);
+		};
 	}, []);
-	
-	window.addEventListener("resize", debounce(marqueeInit));
 	// GSAP END
+
 	return (
 		<main className="index">
 			<section
@@ -140,15 +149,15 @@ function WebIndex() {
 						/>
 					</picture>
 					<div className="btn-container d-flex justify-content-center flex-wrap flex-lg-nowrap">
-						<a
+						<Link
 							className="btn-customize-padding btn btn-lg rounded-pill text-white d-flex align-items-center order-lg-2"
-							href="SubscriptionPlans.html"
+							to="/subscription_plans"
 						>
 							查看方案
 							<span className="btn-arrow btn-arrow-bg-light rounded-pill px-3 px-lg-5 py-1 py-lg-2 ms-5 d-lg-flex align-items-center justify-content-center d-none">
 								<ArrowUpRight className="btn-icon"></ArrowUpRight>
 							</span>
-						</a>
+						</Link>
 						<Link
 							className="btn-customize-padding bg-white-opacity btn btn-lg btn-outline-third rounded-pill text-white d-flex align-items-center me-lg-5 order-lg-1"
 							to="/player"
@@ -181,7 +190,7 @@ function WebIndex() {
 						className="swiper"
 						spaceBetween={30}
 						// direction="horizontal"
-						speed={1500}
+						speed={800}
 						loop={true}
 					>
 						<SwiperButtonPrev>
@@ -306,10 +315,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								鄉村
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -322,10 +331,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								日語
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -338,10 +347,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								古典
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -352,10 +361,10 @@ function WebIndex() {
 						/>
 						<div className="card-body py-5">
 							<h4 className="card-title text-center mb-0">POP</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -368,10 +377,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								ELECTRONIC
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -384,10 +393,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								華語流行
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 					<div className="card card-dark bg-white-opacity">
@@ -400,10 +409,10 @@ function WebIndex() {
 							<h4 className="card-title text-center mb-0">
 								獨立樂團
 							</h4>
-							<a
-								href="player.html"
+							<Link
+								to="/player"
 								className="card-link stretched-link"
-							></a>
+							></Link>
 						</div>
 					</div>
 				</div>
@@ -441,10 +450,10 @@ function WebIndex() {
 										alt=""
 									/>
 								</div>
-								<a
-									href="player.html"
+								<Link
+									to="/player?trackUri=spotify:track:65s9dLrylbHp60IYIcUZEz"
 									className="card-link stretched-link"
-								></a>
+								></Link>
 								<div className="card-body d-flex justify-content-between align-items-center">
 									<div>
 										<h3 className="card-title mb-3">
@@ -473,10 +482,10 @@ function WebIndex() {
 										alt=""
 									/>
 								</div>
-								<a
-									href="player.html"
+								<Link
+									to="/player?trackUri=spotify:track:02CygBCQOIyEuhNZqHHcNx"
 									className="card-link stretched-link"
-								></a>
+								></Link>
 								<div className="card-body d-flex justify-content-between align-items-center">
 									<div>
 										<h3 className="card-title mb-3">
@@ -505,10 +514,10 @@ function WebIndex() {
 										alt=""
 									/>
 								</div>
-								<a
-									href="player.html"
+								<Link
+									to="/player?trackUri=spotify:track:0Ftrkz2waaHcjKb4qYvLmz"
 									className="card-link stretched-link"
-								></a>
+								></Link>
 								<div className="card-body d-flex justify-content-between align-items-center">
 									<div>
 										<h3 className="card-title mb-3">
@@ -537,10 +546,10 @@ function WebIndex() {
 										alt=""
 									/>
 								</div>
-								<a
-									href="player.html"
+								<Link
+									to="/player?trackUri=spotify:track:0oWN1xuaWUrx8QGiYqxAs9"
 									className="card-link stretched-link"
-								></a>
+								></Link>
 								<div className="card-body d-flex justify-content-between align-items-center">
 									<div>
 										<h3 className="card-title mb-3">
@@ -580,13 +589,13 @@ function WebIndex() {
 								<div className="card-body p-0 d-flex flex-column">
 									<h5>免費試用</h5>
 									<h2 className="card-title mb-0">FREE</h2>
-									<a
-										href="#"
+									<Link
+										to="/payment?plan=0"
 										className="card-btn btn btn-primary w-100 fs-5 d-flex align-items-center justify-content-center position-relative"
 									>
 										選擇方案
 										<ArrowRight className="card-btn-icon text-dark ms-3"></ArrowRight>
-									</a>
+									</Link>
 									<ul className="card-text mt-3 mt-md-5">
 										<li>可使用網頁播放器</li>
 										<li>標準音質</li>
@@ -598,17 +607,17 @@ function WebIndex() {
 						<div className="col-md-6 col-lg-4">
 							<div className="card card-detailed card-dark h-100">
 								<div className="card-body p-0 d-flex flex-column">
-									<h5>SOLO</h5>
+									<h5>PARTY FOR ONE</h5>
 									<h2 className="card-title mb-0">
 										NT$149／月
 									</h2>
-									<a
-										href="#"
+									<Link
+										to="/payment?plan=4"
 										className="card-btn btn btn-primary w-100 fs-5 d-flex align-items-center justify-content-center position-relative"
 									>
 										選擇方案
 										<ArrowRight className="card-btn-icon text-dark ms-3"></ArrowRight>
-									</a>
+									</Link>
 									<ul className="card-text mt-3 mt-md-5 mb-7">
 										<li>單人方案（限1人使用）</li>
 										<li>可使用APP及網頁播放器</li>
@@ -621,19 +630,19 @@ function WebIndex() {
 						<div className="col-md-6 col-lg-4">
 							<div className="card card-detailed card-dark h-100">
 								<div className="card-body p-0 d-flex flex-column">
-									<h5>Family</h5>
+									<h5>PREMIUM FOR EVERYONE</h5>
 									<h2 className="card-title mb-0">
-										NT$399／月
+										NT$888／月
 									</h2>
-									<a
-										href="#"
+									<Link
+										to="/payment?plan=6"
 										className="card-btn btn btn-primary w-100 fs-5 d-flex align-items-center justify-content-center position-relative"
 									>
 										選擇方案
 										<ArrowRight className="card-btn-icon text-dark ms-3"></ArrowRight>
-									</a>
+									</Link>
 									<ul className="card-text mt-3 mt-md-5 mb-7">
-										<li>家庭方案（可供上限6人使用）</li>
+										<li>揪團方案（可供上限10人使用）</li>
 										<li>可使用APP及網頁播放器</li>
 										<li>無損音質</li>
 										<li>可使用開台一起聽－直播電台功能</li>

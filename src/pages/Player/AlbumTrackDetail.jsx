@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 import PlayerAlbumTrack from "../../components/Player/PlayerAlbumTrack";
+import { setPlayerLoading } from "../../slice/loadingSlice";
 
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 
 function AlbumSongDetail() {
   const location = useLocation();
+  const dispatch = useDispatch();
   const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
   const [albumSong, setAlbumSong] = useState([]);
   const [id, setID] = useState("");
   const {play} = useSpotifyPlayer();
 
   const getAlbumSongs = async (id) => {
+    dispatch(setPlayerLoading(true));
     try {
       const url = `${VITE_SPOTIFY_API_PATH}albums/${encodeURIComponent(id)}`;
       const response = await axios.get(url, {
@@ -24,9 +27,11 @@ function AlbumSongDetail() {
         },
       });
       setAlbumSong(response.data);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      dispatch(setPlayerLoading(false));
     }
   };
 

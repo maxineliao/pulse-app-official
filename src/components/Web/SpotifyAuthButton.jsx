@@ -16,7 +16,7 @@ export default function SpotifyAuthButton() {
 		// Construct the authorization URL
 		const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${VITE_Spotify_ClientID}&response_type=code&redirect_uri=${encodeURIComponent(
 			VITE_Spotify_redirect_uri
-		)}&code_challenge_method=S256&code_challenge=${codeChallenge}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-follow-read%20user-read-recently-played%20playlist-read-private`;
+		)}&code_challenge_method=S256&code_challenge=${codeChallenge}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state%20user-follow-read%20user-read-recently-played%20playlist-read-private%20user-top-read`;
 
 		// Redirect the user to Spotify's authorization page
 		window.location.href = AUTH_URL;

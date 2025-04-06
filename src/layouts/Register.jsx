@@ -65,7 +65,6 @@ function Register() {
         price: 0,
       });
       localStorage.setItem("pulseToken", res.data.accessToken); // 儲存
-			localStorage.setItem("memberName", res.data.user.username);
       const encryptedUser = CryptoJS.AES.encrypt(
         JSON.stringify(res.data.user),
         VITE_SECRET_KEY
