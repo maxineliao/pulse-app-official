@@ -124,7 +124,7 @@ export default function PlayerIndex() {
 					spaceBetween={30}
 					slidesPerView={1}
 					speed={1500}
-					loop={true}
+					loop={false}
 					centeredSlides={true}
 					autoplay={{
 						delay: 5000,
