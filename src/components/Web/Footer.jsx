@@ -1,5 +1,5 @@
 import { MoveUp } from "lucide-react";
-import footerLogo from '../assets/images/Logo_b.png';
+import Images from "../../Images";
 function Footer() {
     const scrollToTop = () => {
         window.scroll({
@@ -13,7 +13,7 @@ function Footer() {
 		<footer className="footer bg-white z-3 position-relative">
 			<div className="container d-flex justify-content-between align-items-end flex-wrap">
 				<img
-					src={footerLogo}
+					src={Images.Logo_b}
 					alt="PULSE logo"
 					className="img img-fluid"
 				/>

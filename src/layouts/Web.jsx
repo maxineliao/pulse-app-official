@@ -4,6 +4,7 @@ import WebHeader from "../components/Web/WebHeader";
 import { useSelector, useDispatch } from 'react-redux';
 import { useSpotifyAuth } from '../hooks/useSpotifyAuth';
 import { selectSpotifyAccessToken, selectSpotifyRefreshToken, logoutSpotify } from "../slice/spotifyAuthSlice";
+import Footer from "../components/Web/Footer";
 
 function Web() {
     const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Web() {
         <>
             <WebHeader />
             <Outlet />
+            <Footer />
         </>
     )
 }
