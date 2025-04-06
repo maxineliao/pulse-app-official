@@ -54,7 +54,6 @@ const router = createHashRouter([
 						path: "saved_albums",
 						element: <UsersSavedAlbums />,
 					},
-					,
 					{
 						path: "search_tracks",
 						element: <SearchSong />,

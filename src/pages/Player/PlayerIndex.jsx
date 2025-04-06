@@ -34,11 +34,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 import { useLocation, useNavigate } from "react-router";
-import { useEffect, useState } from "react";
 import { usePlayerContext } from "../../contexts/PlayerContext";
 import { setPlayerLoading } from "../../slice/loadingSlice";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
-import axios from "axios";
 
 const VITE_BASE_URL = import.meta.env.VITE_BASE_URL;
 const VITE_API_PATH = import.meta.env.VITE_API_PATH;
@@ -47,7 +45,7 @@ export default function PlayerIndex() {
 	const location = useLocation();
 	const params = new URLSearchParams(location.search);
 	const trackUri = params.get("trackUri");
-	
+
 	const navigate = useNavigate();
 	const { player } = usePlayerContext();
 
@@ -92,28 +90,30 @@ export default function PlayerIndex() {
 	};
 	useEffect(() => {
 		getTopItems();
-		if(trackUri && player && deviceId ) {
+		if (trackUri && player && deviceId) {
 			play(null, trackUri);
 			// navigate("/player",{replace: true})
 		}
-	}, [trackUri, player,deviceId]);
+	}, [trackUri, player, deviceId]);
 	const [articles, setArticles] = useState([]);
 	useEffect(() => {
-	  const getArticles = async () => {
-		try {
-		  const res = await axios.get(
-			`${VITE_BASE_URL}/v2/api/${VITE_API_PATH}/articles`
-		  );
-		  // 過濾資料
-		  const filteredArticles = res.data.articles.filter(
-			(article) => article.author === "spotify" && article.isPublic === true
-		  );
-		  setArticles(filteredArticles);
-		} catch (error) {
-		  console.log("取得廣告失敗：" + error.response.data);
-		}
-	  };
-	  getArticles();
+		const getArticles = async () => {
+			try {
+				const res = await axios.get(
+					`${VITE_BASE_URL}/v2/api/${VITE_API_PATH}/articles`
+				);
+				// 過濾資料
+				const filteredArticles = res.data.articles.filter(
+					(article) =>
+						article.author === "spotify" &&
+						article.isPublic === true
+				);
+				setArticles(filteredArticles);
+			} catch (error) {
+				console.log("取得廣告失敗：" + error.response.data);
+			}
+		};
+		getArticles();
 	}, []);
 	return (
 		<div className="col-lg-9 col-12 player-scrollbar">
@@ -136,23 +136,29 @@ export default function PlayerIndex() {
 					}}
 				>
 					{articles.map((article, index) => (
-            <SwiperSlide key={index}>
-              <div
-                className="carousel-img-1 p-sm-6 p-5 d-flex flex-column"
-                style={{
-                  backgroundImage: `url(${article.imageUrl})`,
-                }}
-              >
-                <h6>{article.title.split("/")[1]}</h6>
-                <h1 className="mt-sm-5 mt-3">{article.title.split("/")[0]}</h1>
-                <h5
-                  className="mt-3"
-                  dangerouslySetInnerHTML={{
-                    __html: article.description.replace(/\n/g, "<br />"),
-                  }}
-                ></h5>
-              </div>
-            </SwiperSlide>))}
+						<SwiperSlide key={index}>
+							<div
+								className="carousel-img-1 p-sm-6 p-5 d-flex flex-column"
+								style={{
+									backgroundImage: `url(${article.imageUrl})`,
+								}}
+							>
+								<h6>{article.title.split("/")[1]}</h6>
+								<h1 className="mt-sm-5 mt-3">
+									{article.title.split("/")[0]}
+								</h1>
+								<h5
+									className="mt-3"
+									dangerouslySetInnerHTML={{
+										__html: article.description.replace(
+											/\n/g,
+											"<br />"
+										),
+									}}
+								></h5>
+							</div>
+						</SwiperSlide>
+					))}
 
 					<SwiperButtonNext swiperIndex={1} swiper={swiper1}>
 						<ChevronRight />
@@ -211,8 +217,7 @@ export default function PlayerIndex() {
 							)}
 						</div>
 					</div>
-					{usersTopTracks &&
-						usersTopTracks.length > 0 ?
+					{usersTopTracks && usersTopTracks.length > 0 ? (
 						usersTopTracks.map((item) => {
 							return (
 								<SwiperSlide key={item.id}>
@@ -224,9 +229,10 @@ export default function PlayerIndex() {
 									/>
 								</SwiperSlide>
 							);
-						}) :
+						})
+					) : (
 						<div>尚無推薦專輯</div>
-						}
+					)}
 				</Swiper>
 			</div>
 			<div className="mySwiper-player-2 mt-5 px-5 mb-5 pb-5">
@@ -256,8 +262,7 @@ export default function PlayerIndex() {
 						},
 					}}
 				>
-					{usersTopArtists &&
-						usersTopArtists.length > 0 ?
+					{usersTopArtists && usersTopArtists.length > 0 ? (
 						usersTopArtists.map((item) => {
 							return (
 								<SwiperSlide key={item.id}>
@@ -268,9 +273,10 @@ export default function PlayerIndex() {
 									/>
 								</SwiperSlide>
 							);
-						}) : 
+						})
+					) : (
 						<div>尚無追蹤藝人</div>
-						}
+					)}
 
 					<div className="position-absolute top-0 start-0 z-1 d-flex align-items-center justify-content-between w-100 py-5">
 						<div>
