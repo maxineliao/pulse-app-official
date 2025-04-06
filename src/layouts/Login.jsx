@@ -1,6 +1,6 @@
 import Images from "../Images";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useLocation } from "react-router";
 import { ChevronLeft } from "lucide-react";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
@@ -12,6 +12,10 @@ import { Loading } from "../components/loading";
 const { VITE_SECRET_KEY } = import.meta.env;
 
 function Login() {
+	const location = useLocation();
+	const params = new URLSearchParams(location.search);
+	const plan = params.get("plan");
+
 	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -40,9 +44,15 @@ function Login() {
 			localStorage.setItem("user", encryptedUser); // 儲存
 			dispatch(login());
 			customSwal("success", "登入成功");
-			setTimeout(() => {
-				navigate(`/`);
-			}, 2000);
+			if (plan) {
+				setTimeout(() => {
+					navigate(`/payment?plan=${plan}`);
+				}, 2000);
+			}else {
+				setTimeout(() => {
+					navigate(`/`);
+				}, 2000);
+			}
 		} catch (error) {
 			if (error.response.data === "Email already exists") {
 				customSwal("error", "帳號已存在");

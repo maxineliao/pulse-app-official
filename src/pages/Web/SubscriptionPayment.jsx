@@ -68,7 +68,7 @@ function SubscriptionPayment() {
 	useEffect(() => {
 		if (!plan) return navigate("/");
 		if (!isAuth) {
-			navigate(`login?plan=${plan}`);
+			navigate(`/login?plan=${plan}`);
 		} else {
 			const storedUserData = localStorage.getItem("user");
 			if (storedUserData) {
