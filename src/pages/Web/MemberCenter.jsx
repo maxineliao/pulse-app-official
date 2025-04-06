@@ -1,13 +1,4 @@
-import {
-	CalendarDays,
-	ChevronRight,
-	CircleDollarSign,
-	List,
-	LockKeyhole,
-	LogOut,
-	Pencil,
-	Wallet,
-} from "lucide-react";
+import { CalendarDays, ChevronRight, LogOut } from "lucide-react";
 import Images from "../../Images";
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
@@ -21,107 +12,103 @@ import CryptoJS from "crypto-js";
 const { VITE_SECRET_KEY } = import.meta.env;
 
 function MemberCenter() {
-	const isAuth = useSelector((state) => state.auth.isAuth);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const signOut = () => {
-		dispatch(logout());
-		dispatch(logoutSpotify());
-		navigate(`/`);
-	};
-	const { exchangeCodeForToken } = useSpotifyAuth();
-	useEffect(() => {
-		if (!isAuth) {
-			navigate(`/login`);
-		}
-	}, [isAuth]);
-	useEffect(() => {
-		exchangeCodeForToken();
-	}, []);
-	
-	//解密
-	const userData = localStorage.getItem("user");
-	const decryptedUser = userData
-		? JSON.parse(
-				CryptoJS.AES.decrypt(userData, VITE_SECRET_KEY).toString(
-					CryptoJS.enc.Utf8
-				)
-		  )
-		: null;
-	return (
-		<div className="container membercenter-content-p">
-			<section className="member-header mb-5 row align-items-stretch">
-				<div className="col-lg-8 mb-lg-0 mb-3">
-					<div className="plan rounded-4 membercenter-tab-style py-5 px-lg-5 px-3 h-100">
-						<h3 className="membercenter-title-color mb-lg-5 mb-3">
-							你的方案
-						</h3>
-						<h1 className="blur-font mb-3">
-							{decryptedUser && decryptedUser.plan}
-						</h1>
-						<h5 className="pb-lg-5 pb-3 mb-0 border-bottom membercenter-border-color">
-							{decryptedUser && decryptedUser.plan.split("-")[1]}
-							方案
-						</h5>
-						<div className="py-2">
-							<CalendarDays width={16}></CalendarDays>
-							<span className="ms-3">
-								下次收費日期：2024年10月20日
-							</span>
-						</div>
-						<div className="py-2">
-							<i data-lucide="wallet" width={16}></i>
-							<span className="ms-3">
-								每月 NT＄{decryptedUser && decryptedUser.price}{" "}
-								/ 信用卡 (**** 5117)
-							</span>
-						</div>
-						<div className="d-flex plan-edit mt-lg-5 mt-3">
-							<Link
-								className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none"
-								to="/subscription_plans"
-							>
-								<span>管理訂閱方案</span>
-								<ChevronRight width={16}></ChevronRight>
-							</Link>
-							{/* <a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const signOut = () => {
+    dispatch(logout());
+    dispatch(logoutSpotify());
+    navigate(`/`);
+  };
+  const { exchangeCodeForToken } = useSpotifyAuth();
+  useEffect(() => {
+    if (!isAuth) {
+      navigate(`/login`);
+    }
+  }, [isAuth]);
+  useEffect(() => {
+    exchangeCodeForToken();
+  }, []);
+
+  //解密
+  const userData = localStorage.getItem("user");
+  const decryptedUser = userData
+    ? JSON.parse(
+        CryptoJS.AES.decrypt(userData, VITE_SECRET_KEY).toString(
+          CryptoJS.enc.Utf8
+        )
+      )
+    : null;
+  return (
+    <div className="container membercenter-content-p">
+      <section className="member-header mb-5 row align-items-stretch">
+        <div className="col-lg-8 mb-lg-0 mb-3">
+          <div className="plan rounded-4 membercenter-tab-style py-5 px-lg-5 px-3 h-100">
+            <h3 className="membercenter-title-color mb-lg-5 mb-3">你的方案</h3>
+            <h1 className="blur-font mb-3">
+              {decryptedUser && decryptedUser.plan}
+            </h1>
+            <h5 className="pb-lg-5 pb-3 mb-0 border-bottom membercenter-border-color">
+              {decryptedUser && decryptedUser.plan.split("-")[1]}
+              方案
+            </h5>
+            <div className="py-2">
+              <CalendarDays width={16}></CalendarDays>
+              <span className="ms-3">下次收費日期：2024年10月20日</span>
+            </div>
+            <div className="py-2">
+              <i data-lucide="wallet" width={16}></i>
+              <span className="ms-3">
+                每月 NT＄{decryptedUser && decryptedUser.price} / 信用卡 (****
+                5117)
+              </span>
+            </div>
+            <div className="d-flex plan-edit mt-lg-5 mt-3">
+              <Link
+                className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none"
+                to="/subscription_plans"
+              >
+                <span>管理訂閱方案</span>
+                <ChevronRight width={16}></ChevronRight>
+              </Link>
+              {/* <a className="me-lg-3 me-0 py-2 px-lg-4 px-3 rounded-5 membercenter-button-style text-decoration-none">
                 <span>更新付款資訊</span>
                 <ChevronRight width={16}></ChevronRight>
               </a> */}
-							<SpotifyAuthButton />
-						</div>
-					</div>
-				</div>
-				<div className="col-lg-4 mb-lg-0 mb-3">
-					<div className="avatar rounded-4 membercenter-tab-style py-lg-5 py-3 px-lg-0 px-3 d-flex flex-column align-items-center">
-						<div className="d-flex flex-lg-column align-items-center">
-							<img
-								className="memberImg mb-5 pc-item rounded-circle"
-								src={Images.memberDefaultImg}
-								alt="headshot"
-							/>
-							<img
-								className="memberImg mobile-item rounded-circle me-2"
-								src={Images.memberDefaultImg}
-								alt="headshot"
-							/>
-							<h3 className="mb-lg-5 mb-0">
-								{decryptedUser && decryptedUser.username}
-							</h3>
-						</div>
-						<a
-							className="py-2 px-3 rounded-5 membercenter-button-style text-decoration-none"
-							onClick={() => {
-								signOut();
-							}}
-						>
-							<span className="me-2">登出</span>
-							<LogOut width={16}></LogOut>
-						</a>
-					</div>
-				</div>
-			</section>
-			{/* <section className="account-info mb-5">
+              <SpotifyAuthButton />
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-4 mb-lg-0 mb-3">
+          <div className="avatar rounded-4 membercenter-tab-style py-lg-5 py-3 px-lg-0 px-3 d-flex flex-column align-items-center">
+            <div className="d-flex flex-lg-column align-items-center">
+              <img
+                className="memberImg mb-5 pc-item rounded-circle"
+                src={Images.memberDefaultImg}
+                alt="headshot"
+              />
+              <img
+                className="memberImg mobile-item rounded-circle me-2"
+                src={Images.memberDefaultImg}
+                alt="headshot"
+              />
+              <h3 className="mb-lg-5 mb-0">
+                {decryptedUser && decryptedUser.username}
+              </h3>
+            </div>
+            <a
+              className="py-2 px-3 rounded-5 membercenter-button-style text-decoration-none"
+              onClick={() => {
+                signOut();
+              }}
+            >
+              <span className="me-2">登出</span>
+              <LogOut width={16}></LogOut>
+            </a>
+          </div>
+        </div>
+      </section>
+      {/* <section className="account-info mb-5">
         <div className="account rounded-4 membercenter-tab-style p-lg-5 ps-3 pe-5 py-3">
           <h3 className="membercenter-title-color">帳戶</h3>
           <div className="d-flex membercenter-edit-tab py-5 border-bottom membercenter-border-color justify-content-between">
@@ -185,7 +172,7 @@ function MemberCenter() {
           </div>
         </div>
       </section> */}
-		</div>
-	);
+    </div>
+  );
 }
 export default MemberCenter;

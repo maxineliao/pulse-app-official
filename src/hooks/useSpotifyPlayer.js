@@ -8,17 +8,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import {
 	setIsPlaying,
-	setCurrentTrack,
-	setProgress,
 	setVolume,
-	setRepeatState,
-	setDuration,
-	setImage,
-	setTrackName,
-	setArtists,
-	setShuffle,
-	setCurrentContext,
-	setArtistUri,
 } from "../slice/playerSlice";
 import { useRef } from "react";
 import { selectSpotifyAccessToken } from "../slice/spotifyAuthSlice";

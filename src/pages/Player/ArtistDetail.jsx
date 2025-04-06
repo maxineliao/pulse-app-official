@@ -5,7 +5,6 @@ import axios from "axios";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
 import PlayerCardSong from "../../components/Player/PlayerCardTrack";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
-import { NavLink } from "react-router";
 import { ChevronRight } from "lucide-react";
 import { useSpotifyPlayer } from "../../hooks/useSpotifyPlayer";
 import { setPlayerLoading } from "../../slice/loadingSlice";
@@ -23,7 +22,7 @@ function AlbumSongDetail() {
   const [name, setName] = useState("");
   const [showAllAlbums, setShowAllAlbums] = useState(false);
   const [showAllSong, setShowAllSong] = useState(false);
-  const {play} = useSpotifyPlayer();
+  const { play } = useSpotifyPlayer();
 
   const getArtistAlbum = async (id) => {
     dispatch(setPlayerLoading(true));
@@ -154,12 +153,12 @@ function AlbumSongDetail() {
             return slicedItems.map((album, index) => (
               <div className="col-6 col-lg-3" key={index}>
                 {album ? (
-                    <PlayerCardAlbum
-                      cardImage={album.images[0]?.url}
-                      cardTitle={album.name}
-                      cardContent={album.artists[0]?.name}
-                      albumId={album.id}
-                    />
+                  <PlayerCardAlbum
+                    cardImage={album.images[0]?.url}
+                    cardTitle={album.name}
+                    cardContent={album.artists[0]?.name}
+                    albumId={album.id}
+                  />
                 ) : (
                   <div className="placeholder"></div> // 空佔位符，保持佈局穩定
                 )}
