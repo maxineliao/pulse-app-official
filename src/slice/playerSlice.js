@@ -61,8 +61,13 @@ const playerSlice = createSlice({
         setShuffle: (state, action) => {
             state.shuffle= action.payload;
 		},
-        clearPlayerState: () => {
-			return { ...initialState };
+        setCurrentTrackInfoToNull: (state) => {
+			state.currentTrack = null;
+			state.trackName = null;
+			state.artists = null;
+			state.image = null;
+			state.currentContext = null;
+			state.artistUri = null;
 		},
 	},
 });
@@ -82,6 +87,6 @@ export const {
     setArtists,
     setArtistUri,
     setShuffle,
-    clearPlayerState, 
+	setCurrentTrackInfoToNull
 } = playerSlice.actions;
 export default playerSlice.reducer;

@@ -1,35 +1,36 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
-import { useSpotifyPlayer } from "../hooks/useSpotifyPlayer";
 import { useDispatch } from "react-redux";
 import { useSpotifyInitializer } from "../hooks/useSpotifyInitializer";
-import { clearPlayerState } from "../slice/playerSlice";
+import { setCurrentTrackInfoToNull } from "../slice/playerSlice";
+import { usePlayerContext } from "../contexts/PlayerContext";
+
 export const GlobalPlayerManager = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
-	const { player, pause } = useSpotifyPlayer();
+	const { player, setPlayer } = usePlayerContext();
 
 	useSpotifyInitializer();
 
 	useEffect(() => {
-		if (!location.pathname || location.pathname.startsWith("/player"))
-			return;
+		if (!window.Spotify) return;
+		if (!location.pathname || location.pathname.startsWith("/player")) return;
 
-		let retryCount = 0;
-		const tryPause = async () => {
-			if (player && typeof player.pause === "function") {
-				// console.log("🎧 離開播放器頁面，嘗試暫停播放");
-				await pause();
-				dispatch(clearPlayerState());
-			} else if (retryCount < 10) {
-				retryCount++;
-				setTimeout(tryPause, 200);
-			} else {
-				// console.log("無法暫停播放器，player 未初始化");
-			}
-		};
+		// 離開 /player 頁面，清除播放器
+		if (player && typeof player.disconnect === "function") {
 
-		tryPause();
+			// 1. 移除 player_state_changed 監聽器（防止 Redux 被覆蓋）
+			player.removeListener("player_state_changed");
+
+			// 2. 延後斷線與清除 Redux，避免競爭條件
+			setTimeout(() => {
+				player.disconnect();
+				setPlayer(null);
+				dispatch(setCurrentTrackInfoToNull());
+				// console.log("播放器已斷線，資訊已清除");
+			}, 0);
+		}
 	}, [location.pathname]);
+
 	return null;
 };
