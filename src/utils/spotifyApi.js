@@ -24,7 +24,7 @@ export const getDevices = async (accessToken) => {
 			Authorization: `Bearer ${accessToken}`,
 		},
 	});
-	console.log(response);
+	// console.log(response);
 };
 //播放曲目
 export const playTrack = async (accessToken, context, offsetUri, deviceId) => {
@@ -48,7 +48,7 @@ export const playTrack = async (accessToken, context, offsetUri, deviceId) => {
 				},
 			}
 		);
-        console.log(response);
+        // console.log(response);
 	} catch (error) {
 		console.log(error);
 	}
@@ -58,13 +58,14 @@ export const playTrack = async (accessToken, context, offsetUri, deviceId) => {
 export const pauseTrack = async (accessToken) => {
 	try {
 		let url = `${VITE_SPOTIFY_API_PATH}me/player/pause`;
-		const response = await axios.put(url, {
+		const response = await axios.put(url, null,{
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		});
+        // console.log(response);
 	} catch (error) {
-		console.log(error?.response?.message);
+		console.log(error?.response);
 	}
 };
 
@@ -77,7 +78,7 @@ export const playbackShuffle = async (accessToken, state) => {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		});
-		console.log(response);
+		// console.log(response);
 	} catch (error) {
 		console.log(error);
 	}
@@ -92,7 +93,7 @@ export const repeatMode = async (accessToken, mode, deviceId) => {
 				Authorization: `Bearer ${accessToken}`,
 			},
 		});
-		console.log(response);
+		// console.log(response);
 	} catch (error) {
 		console.log(error);
 	}

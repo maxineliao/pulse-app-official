@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import PlayerCardAlbum from "../../components/Player/PlayerCardAlbum";
+import { setPlayerLoading } from "../../slice/loadingSlice";
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
+
 export default function UsersSavedAlbums() {
 	const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
 	const [albumsData, setAlbumsData] = useState({ items: [] });
+    const dispatch = useDispatch();
 	const getUsersAlbums = async () => {
+        dispatch(setPlayerLoading(true));
 		try {
 			const url = `${VITE_SPOTIFY_API_PATH}me/albums?limit=50&offset=0`;
 			const response = await axios.get(url, {
@@ -20,7 +24,9 @@ export default function UsersSavedAlbums() {
             // console.log(response.data);
 		} catch (error) {
 			console.log(error);
-		}
+		} finally {
+            dispatch(setPlayerLoading(false)); 
+        }
 	};
 	useEffect(() => {
 		if (spotifyAccessToken) {

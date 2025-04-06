@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectSpotifyAccessToken } from "../../slice/spotifyAuthSlice";
 import PlayerCardArtist from "../../components/Player/PlayerCardArtist";
+import { setPlayerLoading } from "../../slice/loadingSlice";
+
 const { VITE_SPOTIFY_API_PATH } = import.meta.env;
 export default function UsersFollowedArtists() {
+    const dispatch = useDispatch();
 	const spotifyAccessToken = useSelector(selectSpotifyAccessToken);
 	const [artistsData, setArtistsData] = useState({ items: [] });
 	const getUsersArtists = async () => {
+        dispatch(setPlayerLoading(true));
 		try {
 			const url = `${VITE_SPOTIFY_API_PATH}me/following?type=artist&limit=10`;
 			const response = await axios.get(url, {
@@ -20,7 +24,9 @@ export default function UsersFollowedArtists() {
             // console.log(response.data);
 		} catch (error) {
 			console.log(error);
-		}
+		} finally {
+            dispatch(setPlayerLoading(false));
+        }
 	};
 	useEffect(() => {
 		if (spotifyAccessToken) {

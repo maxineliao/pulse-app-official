@@ -23,7 +23,9 @@
 .membercenter-edit-tab {
     cursor: pointer;
 }
-
+.memberImg {
+    width: 100%;
+}
 @media screen and (max-width: 992px) {
     .member-header {
         flex-direction: column-reverse !important;
@@ -38,5 +40,8 @@
     .membercenter-content-p {
         padding-top: 124px;
         padding-bottom: 96px;
+    }
+    .memberImg {
+        width: 64px;
     }
 }
