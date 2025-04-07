@@ -1,11 +1,11 @@
 export const Loading = () => {
 	return (
-		<div className="overlay bg-black top-0 bottom-0 start-0 end-0 d-block position-absolute z-3 opacity-75 d-flex justify-content-center align-items-center text-center flex-column">
+		<div className="overlay bg-black top-0 bottom-0 start-0 end-0 d-block position-absolute z-3 opacity-75 d-flex justify-content-center align-items-center text-center flex-column position-fixed">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				width="64"
-				height="64"
-				viewBox="-10 -10 44 44"
+				width="140"
+				height="140"
+				viewBox="-20 -20 104 104"
 				fill="none"
 			>
 				<defs>
