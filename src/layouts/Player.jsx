@@ -55,7 +55,7 @@ function Player() {
 				</div>
 			</div>
 			<PlayerComp />
-			{!isSpotifyAuth && (
+			{!isSpotifyAuth &&(
 				<div className="overlay bg-black top-0 bottom-0 start-0 end-0 d-block position-absolute z-3 opacity-75 d-flex justify-content-center align-items-center text-center flex-column h-100 position-fixed">
 					<p>
 						請先登入並連結 Spotify Premium 帳號

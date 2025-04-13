@@ -31,14 +31,23 @@ function MemberCenter() {
 	}, []);
 	
 	//解密
-	const userData = localStorage.getItem("user");
-	const decryptedUser = userData
-		? JSON.parse(
-				CryptoJS.AES.decrypt(userData, VITE_SECRET_KEY).toString(
-					CryptoJS.enc.Utf8
-				)
-		  )
-		: null;
+	let decryptedUser = null;
+	if (isAuth) {
+		try {
+			const userData = localStorage.getItem("user");
+			if (userData && VITE_SECRET_KEY) {
+				const bytes = CryptoJS.AES.decrypt(userData, VITE_SECRET_KEY);
+				const decryptedStr = bytes.toString(CryptoJS.enc.Utf8);
+				if (decryptedStr) {
+					decryptedUser = JSON.parse(decryptedStr);
+				} else {
+					// console.warn("解密後為空字串，跳過 JSON.parse");
+				}
+			}
+		} catch (error) {
+			console.warn("無法解密 user 資料，可能是格式錯誤或金鑰錯誤", error);
+		}
+	}
 	return (
 		<div className="container membercenter-content-p">
 			<section className="member-header mb-5 row align-items-stretch">

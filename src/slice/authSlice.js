@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        isAuth: !!localStorage.getItem('pulseToken'),
+        isAuth: !!localStorage.getItem('pulseToken') && !!localStorage.getItem('user'),
         memberName: localStorage.getItem('memberName') || 'Pulse Member',
     },
     reducers: {

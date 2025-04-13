@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 const { VITE_SECRET_KEY } = import.meta.env;
 import CryptoJS from "crypto-js";
 import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 export default function Welcome() {
     const navigate = useNavigate();
 	const [userData, setUserData] = useState({});
+	const isAuth = useSelector((state) => state.auth.isAuth);
 	useEffect(() => {
 		const storedUserData = localStorage.getItem("user");
 		if (storedUserData) {
@@ -19,11 +21,16 @@ export default function Welcome() {
 					console.error("解析 JSON 錯誤", err);
 				}
 			}
+			setTimeout(()=> {
+				navigate("/member_center")
+			},2800)
 		}
-        setTimeout(()=> {
-            navigate("/member_center")
-        },2800)
 	}, []);
+	useEffect(()=> {
+		if(!isAuth) {
+			navigate("/")
+		}
+	},[isAuth])
 	return (
 		<div
 			className="d-flex align-items-center justify-content-center text-center flex-column"
